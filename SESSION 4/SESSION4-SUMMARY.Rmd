@@ -1,0 +1,46 @@
+---
+title: "SESSION 4 SUMMARY"
+author: "Victor Miguel Terrón Macias"
+date: "21/1/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# SESSION 4. ALGUNAS DISTRIBUCIONES, TEOREMA CENTRAL DEL LÍMITE Y CONTRASTE DE HIPOTESIS
+
+# CONCEPTOS DE ESTADÍSTICA INFERENCIAL BÁSICOS
+
+## DISTRIBUCIÓN BINOMIAL
+
+Se define como un experimento con las siguientes características:
+* Consiste en un número fijo, $n$, de pruebas idénticas.
+* Cada prueba resulta en uno de dos resultados: éxito $S$ o fracaso $F$
+* La probabilidad de éxito en una sola prueba es igual a algún valor p y es la misma de una prueba a otra. La probabilidad de fracaso es igual a $q=1-p$
+* Las pruebas son independientes
+* La variable aleatoria (v.a.discreta) de interés es Y, el número de éxitos observado durante las $n$ pruebas. 
+
+Se dice que una variable aleatoria Y tiene una distribución binomial basada en $n$ pruebas con probabilidad $p$ de éxito, si y solo si. $$P_x= \left( \begin{matrix} n\\ x  \end{matrix}\right)p^x q^{m-x}$$
+
+De donde $P$ es probabilidad binomial, de donde $x$ es el numero de veces para obtener un resultado específico en $n$ ensayos, de donde $\left( \begin{matrix} n\\ x  \end{matrix}\right)$, de donde $p$ es la probabilidad de exito en un solo ensayo,$q$ es probabilidad de fallo en un solo ensayo y $n$ es el numero de ensayos.
+
+### EJEMPLO DE APLICACION DE DISTRIBUCION BINOMIAL
+
+La última novela de un autor ha tenido un gran éxito, hasta el punto de que el 80% de los lectores ya la han leído. Hallar la probabilidad de que en un grupo de 4 amigos que son aficionados a la lectura, 2 hayan leído la novela.
+
+1. Hallar la probabilidad de que una persona haya leído el libro es de 0.8, por lo que la probabilidad de que no lo haya leído es de 0.2. De donde tenemos los siguientes datos:
+$n=4,k=2,p=0.8,q=0.2$
+
+2. Hallar la probabilidad de que máximo 2 personas del grupo de 4 amigos hayan leído la novela: tenemos los siguientes datos:
+
+$$P(x\leq2)=P(x=0)+P(x=1)+P(x=2)$$ 
+
+Sustituyendo los datos en la fomrula de distribución binomial tenemos lo siguiente:
+
+$$P_{x\leq2} = \left( \begin{matrix} 4\\ 0  \end{matrix}\right)(0.8)^0 (0.2)^{4-0} +\left( \begin{matrix} 4\\ 1  \end{matrix}\right)(0.8)^1(0.2)^{4-1} +\left( \begin{matrix} 4\\ 2  \end{matrix}\right)(0.8)^2(0.2)^{4-2}=0.1808 $$
+
+
+
+
+
