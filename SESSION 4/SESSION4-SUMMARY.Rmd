@@ -85,5 +85,337 @@ La formula de la varianza es: $$\sigma^2\cdot\dfrac{v}{v-2}$$, la moda es $=\mu$
 
 ![Densidad t de student con 7 GDL](C:/Users/Victor Miguel Terron/Documents/student7.png)
 
+## TEOREMA DEL LÍMITE CENTRAL
+
+Sean $y_1$, $y_2$,$…$, $y_n$ variables aleatorias independientes y distribuidas idénticamente con $E(y_i)= y$ $vy_i=2<\infty$. Definamos:
+$$U_n=\dfrac{\sum_{i=1}^{n} y_i-n\mu}{\sigma\sqrt n}=\dfrac{\bar{y}-\mu}{\dfrac{\sigma}{\sqrt n}} $$
+
+Entonces la función de distribución de $U_n$ converge hacia la función de distribución normal estándar cuando $n\rightarrow\infty$. Esto es:
+
+$$P(U_n)=\int^{u}_{-\infty}\dfrac{1}{\sqrt{2\pi}}\cdot e^{\dfrac{-t^{2}}{2}} dt $$
+
+Para toda $u$. Es decir que $\bar y$, está distribuida normalmente en forma asintótica con media $\mu$ y varianza $$\dfrac{\sigma^2 }{n} $$.
+
+El teorema central del límite se puede aplciar a una muestra aleatoria $y_1$,$y_2$,$...$,$y_n$ para cualquier distribución mientras $E(y_i)=\mu$ y $V(y_i)=\sigma^2$ sean finitas y el tamaño muestral sea grande.
+
+
+# ESTIMADORES PUNTUALES INSESGADOS COMUNES
+
+__DEFINICIÓN__ Un estimador es una regla, a menudo expresada como una fórmula, que indica cómo calcular el valor de una estimación con base en las mediciones contenidas en una muestra.
+![Definicion estimador insesgado comunes](C:/Users/Victor Miguel Terron/Documents/defini.png)
+
+![valores esperados y errores estándar de algunos estimadores puntuales comunes](C:/users/Victor Miguel Terron/Documents/segundo.png)
+
+
+# CONTRASTE DE HIPOTESIS
+
+Los elementos de un contraste de hipotesis son:
+* Hipótesis nula, H0
+* Hipotesis alternativa, Ha
+* Estadístico de prueba
+* Región de rechazo
+
+![Prueba de hipotesis](C:/Users/Victor Miguel Terron/Documents/tercero.png)
+![Tipos de errores](C:/Users/Victor Miguel Terron/Documents/errores.png)
+
+
+# CONTRASTES COMUNES CON MUESTRAS GRANDES
+
+Suponga que deseamos contrastar un conjunto de hipótesis respecto a un parámetro con base a una muestra aleatoria $Y_1, Y_2, …, Y_n$. En esta sección desarrollaremos procedimientos de contrastes de hipótesis que están basados en un estimador que tiene una distribución muestral normal (aproximadamente) con media y error estándar .
+
+Si 0 es un valor específico de, podemos probar H0: $\theta=0$ contra Ha: $\theta>0$. En este caso, las hipótesis nula y alternativa, el estadístico de prueba y la región de rechazo son como sigue:
+![Conjunto de hipotesis](C:/Users/Victor Miguel Terron/Documents/contra.png)
+
+
+![A](C:/Users/Victor Miguel Terron/Documents/lc.png)
+
+
+# CONTRASTES DE HIPOTESIS DE NIVEL PARA MUESTRAS GRANDES
+
+
+![B](C:/Users/Victor Miguel Terron/Documents/Contras.png)
+
+
+¿Cómo decidir cuál hipótesis alternativa usar para una prueba? La respuesta depende de la hipótesis que pretendemos apoyar. Si estamos interesados sólo en detectar un aumento en el porcentaje de piezas defectuosas, por ejemplo, debemos localizar la región de rechazo en la cola superior de la distribución normal estándar. Por otra parte, si deseamos detectar un cambio en p ya sea arriba o debajo de p=0.10, debemos localizar la región de rechazo en ambas colas de la distribución normal estándar y emplear una prueba de dos colas.
+
+
+![C](C:/Users/Victor Miguel Terron/Documents/after.png)
+
+![D](C:/Users/Victor Miguel Terron/Documents/after1.png)
+
+![E](C:/Users/Victor Miguel Terron/Documents/after2.png)
+
+![F](C:/Users/Victor Miguel Terron/Documents/after3.png)
+
+
+
+# WORK
+
+Estudiar algunas distribuciones de probabilidad muy comunes y útiles, obtener estimaciones puntuales con propiedades deseables utilizando algunos estimadores insesgados comunes. Llevar a cabo contrastes de hipótesis que ayuden a tomar decisiones.
+
+En esta sesión estudiaremos temas relacionados con los siguientes puntos:
+
+* Cálculo de probabilidades y cuantiles de las distribuciones binomial, normal y t de Student
+* Generación de muestras aleatorias de las distribuciones estudiadas
+* Estudio del teorema central del límite mediante simulaciones
+* Propiedades de algunos estimadores puntuales insesgados comunes
+* Contraste de hipótesis con muestras grandes y pequeñas
+
+## EJEMPLO 1 SESION 4. DISTRIBUCIONES BINOMIAL, NORMAL Y $T$ DE STUDENT
+
+### OBJETIVO
+
+* Aprender a obtener probabilidades, cuantiles y muestras aleatorias relacionadas con las distribuciones binomial, normal y t de Student
+* Intepretar las probabilidades cuando se condieran las gráficas de las funciones de probabilidad y de densidad
+
+### REQUISITOS
+
+* Tener `R` y Rstudio instalados
+* Haber leído el pre-work
+
+### DESARROLLO
+
+```{r DESARROLLO,comment=NA}
+library(ggplot2) # Utilizaremos estos paquetes para algunas gráficas
+library(reshape2)
+```
+
+# DISTRIBUCION BINOMIAL
+En el caso de la __Distribución binomial__ En `R` para calcular valores de las funciones de probabilidad, distribución o cuantiles de la distribución binomial (discreta), usamos las funciones $dbinom$, $pbinom$ y $qbinom$ respectivamente. Para generar muestras aleatorias de esta distribución utilizamos la función $rbinom$.
+
+Consideremos un experimento binomial con $n = 30$ pruebas idénticas e independientes, en donde la probabilidad de éxito en cada prueba es $p = 0.2$ (parámetros $n = 30$ y $p = 0.2$)
+1. Suponga que realiza un examen de opción múltiple con 30 preguntas, en donde cada pregunta tiene 5 posibles respuestas, pero solo una es correcta siempre. Si elige la respuesta al azar en cada pregunta, y estamos interesados en el número de respuestas correctas obtenidas al final ¿Podemos decir que estamos ante un experimento binomial? 
+
+## FUNCIÓN DE PROBABILIDAD
+Para obtener P(X = 20), es decir, la probabilidad de observar 20 éxitos exactamente, en R ejecutamos:
+```{r FPROB,comment=NA}
+dbinom(x = 20, size = 30, prob = 0.2)
+
+```
+Para obtener P($x\leq20$), es decir, la probabilidad de observar a lo mucho 20 exitos o menos ejecutamos:
+```{r pex,comment=NA,eval=FALSE}
+pbinom(x<=20, size = 30, prob = 0.2)
+
+```
+La diferencia entre $dbinom()$ y $pbino()$ es que $dbinom()$ me dice cuál es la probabilidad de que $Pr(X=x)$ mientras que $pbinom()$ te calcula la probabilidad de que $Pr(X\leq x)$
+
+Para encontrar el valor más pequeño b tal que P(X <= b) >= 0.35, es decir, el cuantil de orden 0.35, usamos:
+
+
+## CUANTILES
+
+```{r CUANTI,comment=NA,results='hold'}
+qbinom(p = 0.35, size = 30, prob = 0.2) # b = 5
+
+pbinom(q = 4, size = 30, prob = 0.2) # P(X <= 4) = 0.2552 < 0.35
+pbinom(q = 5, size = 30, prob = 0.2) # P(X <= 5) = 0.4275 >= 0.35
+pbinom(q = 6, size = 30, prob = 0.2) # P(X <= 6) = 0.6070 >= 0.35
+```
+
+## MUESTRAS ALEATORIAS
+
+Para obtener una muestra aleatoria de tamaño $n = 1000$, de la distribución binomial con parámetros como especificamos, hacemos
+
+```{r MUAL,comment=NA,results='hold'}
+set.seed(4857) # Establecemos una semilla, 
+# para poder reproducir la muestra en el futuro
+muestra <- rbinom(n = 1000, size = 30, prob = 0.2)
+length(muestra); muestra[1:3]
+```
+
+Podemos observar las frecuencias absolutas de los distintos valores obtenidos
+
+```{r frecue,comment=NA,results='hold'}
+as.data.frame(table(muestra))
+
+```
+
+También podemos observar las frecuencias relativas:
+```{r frel,comment=NA,results='hold'}
+(df1 <- as.data.frame(table(muestra)/length(muestra)))
+
+valg <- as.character(df1$muestra) # distintos valores generados por rbinom
+(valg <- as.numeric(valg)) # Convertimos a números
+```
+
+Las frecuencias relativas son muy parecidas a las siguientes probabilidades
+
+```{r ch9,comment=NA,results='hold'}
+(v1 <- round(sapply(valg, dbinom, size = 30, p = 0.2), 3))
+
+```
+
+Combinamos y unimos en un solo dataframe $df1$ y $v1$
+
+```{r uni,comment=NA,results='hold'}
+
+(df2 <- cbind(df1, v1))
+(names(df2) <- c("Exitos", "FR", "Prob"))
+
+(df2 <- melt(df2)) # función del paquete reshape2
+```
+Melt en cierta forma une los dataframes en uno solo pero basandose en ciertas condiciones
+
+Las frecuencias relativas son muy parecidas a las probabilidades:
+
+```{r frpp,comment=NA,results='hold'}
+ggplot(df2, aes(x = Exitos, y = value, fill = variable)) + 
+  geom_bar (stat="identity", position = "dodge")
+# Funciones del paquete ggplot2
+```
+
+# DISTRIBUCIÓN NORMAL
+
+En `R` para calcular valores de las funciones de densidad, distribución o cuantiles de la distribución normal (continua), usamos las funciones $dnorm$, $pnorm$ y $qnorm$ respectivamente. Para generar muestras aleatorias de esta distribución utilizamos la función $rnorm$.
+
+Consideremos una variable aleatoria (v.a.) $X$ que se distribuye como normal con media 175 y desviación estándar 6 (parámetros mu = 175 y sigma = 6).
+
+## FUNCIÓN DE DENSIDAD
+
+La función de densidad sirve para caracterizar el comportamiento probable de una población en tanto especifíca la posibilidad relativa de que una variable aleatoria continuas $X$ tome un valor cercano a $x$.
+
+Densidad significa que la suma de todas las areas del histograma deben ser igual a 1. La funcion de densidad es el contorno. Es una línea continua que representa la distribucion de densidad de TODA LA POBLACIÓN.
+
+## FUNCION DE DISTRIBUCIÓN
+
+La función de distribución asocia a cada valor de la variable alewatoria la probabilidad acumulada hasta ese valor, por ejemplo: Calcular la función de distribución de probabilidad de las puntuaciones obtenidas al lanzar un dado.
+
+|    X   | $P_i$  |
+|--------|--------|
+|  $x<1$ |    0   |
+|--------|--------|
+|$$1\leq x <2$$|$$\dfrac{1}{6}$$|
+|--------|--------|
+|$$2\leq x <3$$|$$\dfrac{2}{6}$$|
+|--------|--------|
+|$$3\leq x <4$$|$$\dfrac{3}{6}$$|
+|--------|--------|
+|$$4\leq x <5$$|$$\dfrac{4}{6}$$|
+|--------|--------|
+|$$5\leq x <6$$|$$\dfrac{5}{6}$$|
+|--------|--------|
+|$$x \leq 6$$|$$1$$|
+
+
+
+Siguiendo con el ejemplo disponible en el work tenemos lo siguiente:
+
+Para obtener $P(x\leq 180)$, es decir, la probabilidad de que X tome un valor menor o igual a 180, ejecutamos:
+
+```{r edwl,comment=NA}
+
+x <- seq(-4, 4, 0.01)*6 + 175 # Algunos posibles 
+# valores que puede tomar la v.a. 
+# X (mínimo: mu-4sigma, máximo: mu+4sigma)
+y <- dnorm(x, mean = 175, sd = 6) # Valores 
+# correspondientes de la función de
+# densidad de probabilidad
+plot(x, y, type = "l", xlab = "", ylab = "")#Te grafica 
+# en forma de campana los valores de x y y 
+title(main = "Densidad de Probabilidad Normal",
+      sub = expression(paste(mu == 175, " y ", sigma == 6)))#Agrega leyendas
+#a gráfico
+abline(v = 175, lwd = 2, lty = 2) # La media es 175 grafica la línea
+
+pnorm(q = 180, mean = 175, sd = 6)
+
+par(mfrow = c(2, 2))#ESTABLECE EL LIENZO EN EL PLOT PARA GRAFICAR 
+#VARIAS EN UN MISMO ESPACIO
+plot(x, y, type = "l",
+     xlab = "",
+     ylab = "")
+#AGREGA LEYENDAS AL GRÁFICO
+title(main = "Densidad de Probabilidad Normal",
+      sub = expression(paste(mu == 175,
+                             " y ",
+                             sigma == 6)))
+polygon(c(min(x), 
+          x[x<=180],
+          180),
+        c(0, y[x<=180], 0),
+        col="blue")#GRAFICA DENTRO DE LA DISTRIBUCIÓN
+#LA PROBABILIDAD DE QUE X TOME VALORES MENORES A 180
+
+
+#para obtener la probabilidad de que x P(x<=165), es decir, la probabilidad de
+#que X tome un valor menor o igual a 165, ejecutamos:
+
+pnorm(q = 165, mean = 175, sd = 6)
+plot(x,y,type="l",
+     xlab = "",
+     ylab = "")
+title(main = "Densidad de probabilidad normail",
+      sub = expression(paste(mu==175,"y",sigma==6)))
+polygon(c(min(x),
+          x[x<=165],165),
+        c(0,
+          y[x<=165],0),
+        col = "black")
+
+#para obtener la probabilidad de que x P(x<=165), es decir, la probabilidad de
+#que X tome un valor menor o igual a 165, ejecutamos:
+
+pnorm(q = 165, mean = 175, sd = 6)
+plot(x,y,type="l",
+     xlab = "",
+     ylab = "")
+title(main = "Densidad de probabilidad normail",
+      sub = expression(paste(mu==175,"y",sigma==6)))
+polygon(c(min(x),
+          x[x<=165],165),
+        c(0,
+          y[x<=165],0),
+        col = "black")
+
+
+```
+
+Para obtener la probabilidad de que $P(165\leq X\leq180)$ ejecutamos el siguiente comando:
+```{r pconj,comment=NA}
+#PARA OBTENER P(165 <= X <= 180), es decir, la probabilidad de que X
+#tome un valor mayor o igual a 165 y menor o igual a 180, debemos correr
+
+pnorm(q = 180, mean = 175, sd = 6) - pnorm(q = 165, mean = 175, sd = 6)
+plot(x,y,type="l",
+     xlab = "",
+     ylab = "")
+title(main = "Densidad de probabilidad normail",
+      sub = expression(paste(mu==175,"y",sigma==6)))
+polygon(c(165,
+          x[x>=165&x<=180],180),
+        c(0,
+          y[x>=165&x<=180],0),
+        col = "yellow")
+
+```
+
+Para obtener $P(X\geq 182)$, es decir, la probabilidad de que X tome un valor mayor o igual a 182, una alternativa es:
+```{r geq,comment=NA}
+pnorm(q = 182, mean = 175, sd = 6, lower.tail = FALSE)
+#graficando
+plot(x,y,type="l",
+     xlab = "",
+     ylab = "")
+title(main = "Densidad de probabilidad normail",
+      sub = expression(paste(mu==175,"y",sigma==6)))
+
+polygon(c(182,
+          x[x>=182], max(x)),
+        c(0,
+          y[x>=182], 0),
+        col="blue")
+
+dev.off() # Para mostrar solo una gráfica
+```
+
+## CUANTILES 
+
+Recordemos que los cuantiles ayudan a determinar porcentajes que superan o no un determinado valor de la variable.
+Para encontrar el número $b$, tal que $P(X \leq b) = 0.75$, es decir, el cuantil de orden 0.75, ejecutamos:
+
+```{r c75,comment=NA}
+(b <- qnorm(p = 0.75, mean = 175, sd = 6)) 
+
+```
 
 
