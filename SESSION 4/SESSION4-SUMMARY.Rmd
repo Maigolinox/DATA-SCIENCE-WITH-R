@@ -23,7 +23,7 @@ Se define como un experimento con las siguientes características:
 
 Se dice que una variable aleatoria Y tiene una distribución binomial basada en $n$ pruebas con probabilidad $p$ de éxito, si y solo si. $$P_x= \left( \begin{matrix} n\\ x  \end{matrix}\right)p^x q^{m-x}$$
 
-De donde $P$ es probabilidad binomial, de donde $x$ es el numero de veces para obtener un resultado específico en $n$ ensayos, de donde $\left( \begin{matrix} n\\ x  \end{matrix}\right)$, de donde $p$ es la probabilidad de exito en un solo ensayo,$q$ es probabilidad de fallo en un solo ensayo y $n$ es el numero de ensayos.
+De donde $P$ es probabilidad binomial, de donde $x$ es el numero de veces para obtener un resultado específico en $n$ ensayos, de donde $\left( \begin{matrix} n\\ x  \end{matrix}\right)$, de donde $p$ es la probabilidad de exito en un solo ensayo,$q$ es probabilidad de fallo en un solo ensayo y $n$ es el numero de ensayos. Y donde $P$ que es la posibilidad tiene que cumplir con $0\leq P\leq 1$
 
 ### EJEMPLO DE APLICACION DE DISTRIBUCION BINOMIAL
 
@@ -41,6 +41,46 @@ Sustituyendo los datos en la fomrula de distribución binomial tenemos lo siguie
 $$P_{x\leq2} = \left( \begin{matrix} 4\\ 0  \end{matrix}\right)(0.8)^0 (0.2)^{4-0} +\left( \begin{matrix} 4\\ 1  \end{matrix}\right)(0.8)^1(0.2)^{4-1} +\left( \begin{matrix} 4\\ 2  \end{matrix}\right)(0.8)^2(0.2)^{4-2}=0.1808 $$
 
 
+## DISTRIBUCIÓN NORMAL
 
+A una distribución normal se le conoce como distribución Gaussiana o distribucion de Laplace Gauss. Se utiliza csolamente con variables continuas (variables que pueden tomar un numero infinito de valores entre dos valores cualesquiera de una caracteristica).
 
+Su gráfica es en forma de campana y simétrica respecto de un determinado parametro estadístico. Éste tipo de distribución propicia el modelado de numerosos fenómenos naturales, sociales y psicológicos. El centro de la campana es el promedio $\bar{x} $. La desviación estandar nos indican que tan dispersos o separados están los datos conr especto la media.
 
+Para calcular la probabilidad normal se divide la cantidad de casos favorables entre la cantidad de datos totales, para ello se tuliza la siguiente fórmula: $$z=\dfrac{x-\mu}{\sigma} $$
+
+De donde tenemos que $x$ es el valor de la condición y $\mu$ es el promedio también conocido como media y $\sigma$ es la desviación estandar. Manualmente podríamos calcularlo con las tablas de distribución normal.
+
+Las funciones de densidad de probabilidad (de  variables aleatorias continuas) cumplen con las siguientes propiedades:
+
+* El área bajo la curva de la función de densidad de probabilidad es igual a 1
+* La probabilidad de que X se encuentre en determinado intervalo (a, b) es igual al área bajo la curva entre los puntos a y b.
+* $P(X = c) = 0$ para cualquier valor c para el que se encuentre definida la función de densidad.
+
+La funcion de densidad de probabilidad de una variable aleatoria $x$ que se distribuye como normal con media $\mu$ y desviacion estandar $\sigma$ es: $f(x)=\dfrac{1}{\sigma\cdot\sqrt{2\pi}}\cdot e^{-{\dfrac{(x-\mu)^2}{(2\sigma)^2}}} $ 
+
+![Distribución normal](C:/users/Victor miguel terron/Documents/dnorm.png)
+
+## DISTRIBUCIÓN $t$ DE STUDENT
+
+La función de densidad $t$ de Student se define como:
+
+En el caso de la distribución $t$ la media $\mu=0$ y $\sigma^2=\dfrac{v}{(v-2)}$ para $v>2$ respectivamente.
+
+ La apariencia general de la distribución t es similar a la de la distribución normal estándar: ambas son simétricas y unimodales, y el valor máximo de la ordenada se alcanza en la media $\mu=0$. Sin embargo, la distribución $t$ tiene colas más amplias que la normal; esto es, la probabilidad de las colas es mayor que en la distribución normal. A medida que el número de grados de libertad tiende a infinito, la forma límite de la distribución $t$ es la distribución normal estándar.
+
+### PROPIEDADES DE LA DISTRIBUCIÓN $t$ DE STUDENT
+
+* Cada curva tiene forma de campana con centro en 0.
+* Cada curva $t$ está más dispersa que la curva normal estandar $z$
+* A medida que $v$ aumenta, la distribución de la curva $t$ correspondiente disminuye
+* A medida que $v\rightarrow\infty$ la secuencia de curvas $t$ se aproxima a la curva normal estandar, por lo que la curva $z$ recibe a veces el nombre de curva $t$ con grados de libertad (gl)$gl=\infty$.
+
+La distribución de la variable aleatoria $t$ está dada por:
+$$f(t)=\dfrac{\Gamma\left(\dfrac{v+1}{2} \right)}{\Gamma\left(\dfrac{v}{2} \right)\cdot\sqrt{\pi v\sigma}}\cdot\left( 1+ \dfrac{1}{v} \left( \dfrac{x-\mu}{\sigma}  \right )^2 \right)^{-\dfrac{v+1}{2} } $$
+
+De donde debemos recordar que $\sigma^2$ corresponde a varianza y no desviación estandar. Y que $v$ son los grados de libertad.
+
+La formula de la varianza es: $\sigma^2\cdot\dfrac{v}{v-2} $, la moda es $=\mu$
+
+![Densidad t de student con 7 GDL](C:/Users/Victor Miguel Terron/Documents/student7.png)

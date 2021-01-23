@@ -15,6 +15,7 @@ plot(modelo1)
 #ACOMODA LOS GRAFICOS EN UNA SOLA GRAFICA
 par(mfrow=c(2,2))
 plot(modelo1)
+#dev.off borra el grid que teníamos anteriormente dentro de la sección de plot
 dev.off()
 # Diga si es razonable suponer para los errores aleatoriedad,
 # normalidad y varianza constante.
