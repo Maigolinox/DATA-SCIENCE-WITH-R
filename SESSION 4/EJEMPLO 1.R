@@ -136,3 +136,5 @@ polygon(c(182,
 #el cuantil de orden 0.75, ejecutamos
 
 (b <- qnorm(p = 0.75, mean = 175, sd = 6)) 
+
+
