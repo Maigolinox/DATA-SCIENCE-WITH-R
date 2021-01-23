@@ -45,7 +45,7 @@ $$P_{x\leq2} = \left( \begin{matrix} 4\\ 0  \end{matrix}\right)(0.8)^0 (0.2)^{4-
 
 A una distribución normal se le conoce como distribución Gaussiana o distribucion de Laplace Gauss. Se utiliza csolamente con variables continuas (variables que pueden tomar un numero infinito de valores entre dos valores cualesquiera de una caracteristica).
 
-Su gráfica es en forma de campana y simétrica respecto de un determinado parametro estadístico. Éste tipo de distribución propicia el modelado de numerosos fenómenos naturales, sociales y psicológicos. El centro de la campana es el promedio $\bar{x} $. La desviación estandar nos indican que tan dispersos o separados están los datos conr especto la media.
+Su gráfica es en forma de campana y simétrica respecto de un determinado parametro estadístico. Éste tipo de distribución propicia el modelado de numerosos fenómenos naturales, sociales y psicológicos. El centro de la campana es el promedio. La desviación estandar nos indican que tan dispersos o separados están los datos conr especto la media.
 
 Para calcular la probabilidad normal se divide la cantidad de casos favorables entre la cantidad de datos totales, para ello se tuliza la siguiente fórmula: $$z=\dfrac{x-\mu}{\sigma} $$
 
@@ -57,7 +57,7 @@ Las funciones de densidad de probabilidad (de  variables aleatorias continuas) c
 * La probabilidad de que X se encuentre en determinado intervalo (a, b) es igual al área bajo la curva entre los puntos a y b.
 * $P(X = c) = 0$ para cualquier valor c para el que se encuentre definida la función de densidad.
 
-La funcion de densidad de probabilidad de una variable aleatoria $x$ que se distribuye como normal con media $\mu$ y desviacion estandar $\sigma$ es: $f(x)=\dfrac{1}{\sigma\cdot\sqrt{2\pi}}\cdot e^{-{\dfrac{(x-\mu)^2}{(2\sigma)^2}}} $ 
+La funcion de densidad de probabilidad de una variable aleatoria $x$ que se distribuye como normal con media $\mu$ y desviacion estandar $\sigma$ es: $$f(x)=\dfrac{1}{\sigma\cdot\sqrt{2\pi}} e^{-{\dfrac{(x-\mu)^2}{(2\sigma)^2}}} $$ 
 
 ![Distribución normal](C:/users/Victor miguel terron/Documents/dnorm.png)
 
@@ -65,7 +65,7 @@ La funcion de densidad de probabilidad de una variable aleatoria $x$ que se dist
 
 La función de densidad $t$ de Student se define como:
 
-En el caso de la distribución $t$ la media $\mu=0$ y $\sigma^2=\dfrac{v}{(v-2)}$ para $v>2$ respectivamente.
+En el caso de la distribución $t$ la media $\mu=0$ y $$\sigma^2=\dfrac{v}{(v-2)}$$ para $v>2$ respectivamente.
 
  La apariencia general de la distribución t es similar a la de la distribución normal estándar: ambas son simétricas y unimodales, y el valor máximo de la ordenada se alcanza en la media $\mu=0$. Sin embargo, la distribución $t$ tiene colas más amplias que la normal; esto es, la probabilidad de las colas es mayor que en la distribución normal. A medida que el número de grados de libertad tiende a infinito, la forma límite de la distribución $t$ es la distribución normal estándar.
 
@@ -81,6 +81,9 @@ $$f(t)=\dfrac{\Gamma\left(\dfrac{v+1}{2} \right)}{\Gamma\left(\dfrac{v}{2} \righ
 
 De donde debemos recordar que $\sigma^2$ corresponde a varianza y no desviación estandar. Y que $v$ son los grados de libertad.
 
-La formula de la varianza es: $\sigma^2\cdot\dfrac{v}{v-2} $, la moda es $=\mu$
+La formula de la varianza es: $$\sigma^2\cdot\dfrac{v}{v-2}$$, la moda es $=\mu$
 
 ![Densidad t de student con 7 GDL](C:/Users/Victor Miguel Terron/Documents/student7.png)
+
+
+
