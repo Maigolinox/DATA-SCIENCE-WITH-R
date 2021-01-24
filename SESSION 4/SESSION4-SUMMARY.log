@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2021.1.13)  24 JAN 2021 13:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2021.1.13)  24 JAN 2021 14:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -632,7 +632,7 @@ LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
 ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-<C:/users/Victor miguel terron/Documents/dnorm.png, id=235, 473.77pt x 466.7437
+<C:/users/Victor miguel terron/Documents/dnorm.png, id=267, 473.77pt x 466.7437
 4pt>
 File: C:/users/Victor miguel terron/Documents/dnorm.png Graphic file (type png)
 
@@ -641,7 +641,7 @@ Package pdftex.def Info: C:/users/Victor miguel terron/Documents/dnorm.png  use
 d on input line 224.
 (pdftex.def)             Requested size: 469.77112pt x 462.80417pt.
 [2] [3 <c:/Users/Victor Miguel Terron/Documents/dnorm.png>]
-<C:/Users/Victor Miguel Terron/Documents/student7.png, id=252, 473.77pt x 466.7
+<C:/Users/Victor Miguel Terron/Documents/student7.png, id=284, 473.77pt x 466.7
 4374pt>
 File: C:/Users/Victor Miguel Terron/Documents/student7.png Graphic file (type p
 ng)
@@ -652,7 +652,7 @@ used on input line 277.
 
 LaTeX Warning: Command \textellipsis invalid in math mode on input line 285.
 
-<C:/Users/Victor Miguel Terron/Documents/defini.png, id=253, 794.97pt x 144.54p
+<C:/Users/Victor Miguel Terron/Documents/defini.png, id=285, 794.97pt x 144.54p
 t>
 File: C:/Users/Victor Miguel Terron/Documents/defini.png Graphic file (type png
 )
@@ -666,7 +666,7 @@ Underfull \hbox (badness 1210) in paragraph at lines 308--312
  ex-pre-sada como una fór-mula, que in-dica
  []
 
-<C:/users/Victor Miguel Terron/Documents/segundo.png, id=255, 665.48625pt x 443
+<C:/users/Victor Miguel Terron/Documents/segundo.png, id=287, 665.48625pt x 443
 .6575pt>
 File: C:/users/Victor Miguel Terron/Documents/segundo.png Graphic file (type pn
 g)
@@ -675,7 +675,7 @@ Package pdftex.def Info: C:/users/Victor Miguel Terron/Documents/segundo.png  u
 sed on input line 315.
 (pdftex.def)             Requested size: 469.75682pt x 313.1712pt.
 [4] [5 <c:/Users/Victor Miguel Terron/Documents/student7.png>]
-<C:/Users/Victor Miguel Terron/Documents/tercero.png, id=268, 580.1675pt x 319.
+<C:/Users/Victor Miguel Terron/Documents/tercero.png, id=300, 580.1675pt x 319.
 1925pt>
 File: C:/Users/Victor Miguel Terron/Documents/tercero.png Graphic file (type pn
 g)
@@ -683,7 +683,7 @@ g)
 Package pdftex.def Info: C:/Users/Victor Miguel Terron/Documents/tercero.png  u
 sed on input line 326.
 (pdftex.def)             Requested size: 469.75603pt x 258.44708pt.
-<C:/Users/Victor Miguel Terron/Documents/errores.png, id=269, 513.92pt x 259.97
+<C:/Users/Victor Miguel Terron/Documents/errores.png, id=301, 513.92pt x 259.97
 125pt>
 File: C:/Users/Victor Miguel Terron/Documents/errores.png Graphic file (type pn
 g)
@@ -696,7 +696,7 @@ sed on input line 327.
 
 LaTeX Warning: Command \textellipsis invalid in math mode on input line 334.
 
-<C:/Users/Victor Miguel Terron/Documents/contra.png, id=278, 208.78pt x 187.701
+<C:/Users/Victor Miguel Terron/Documents/contra.png, id=310, 208.78pt x 187.701
 25pt>
 File: C:/Users/Victor Miguel Terron/Documents/contra.png Graphic file (type png
 )
@@ -704,7 +704,7 @@ File: C:/Users/Victor Miguel Terron/Documents/contra.png Graphic file (type png
 Package pdftex.def Info: C:/Users/Victor Miguel Terron/Documents/contra.png  us
 ed on input line 342.
 (pdftex.def)             Requested size: 208.7922pt x 187.71223pt.
-<C:/Users/Victor Miguel Terron/Documents/lc.png, id=279, 820.06375pt x 389.455p
+<C:/Users/Victor Miguel Terron/Documents/lc.png, id=311, 820.06375pt x 389.455p
 t>
 File: C:/Users/Victor Miguel Terron/Documents/lc.png Graphic file (type png)
 <use C:/Users/Victor Miguel Terron/Documents/lc.png>
@@ -713,7 +713,7 @@ n input line 346.
 (pdftex.def)             Requested size: 469.76865pt x 223.09697pt.
 [7 <c:/Users/Victor Miguel Terron/Documents/tercero.png> <c:/Users/Victor Migue
 l Terron/Documents/errores.png>]
-<C:/Users/Victor Miguel Terron/Documents/Contras.png, id=287, 771.88374pt x 346
+<C:/Users/Victor Miguel Terron/Documents/Contras.png, id=319, 771.88374pt x 346
 .29375pt>
 File: C:/Users/Victor Miguel Terron/Documents/Contras.png Graphic file (type pn
 g)
@@ -721,7 +721,7 @@ g)
 Package pdftex.def Info: C:/Users/Victor Miguel Terron/Documents/Contras.png  u
 sed on input line 356.
 (pdftex.def)             Requested size: 469.75304pt x 210.74745pt.
-<C:/Users/Victor Miguel Terron/Documents/after.png, id=288, 933.4875pt x 316.18
+<C:/Users/Victor Miguel Terron/Documents/after.png, id=320, 933.4875pt x 316.18
 124pt>
 File: C:/Users/Victor Miguel Terron/Documents/after.png Graphic file (type png)
 
@@ -729,7 +729,7 @@ File: C:/Users/Victor Miguel Terron/Documents/after.png Graphic file (type png)
 Package pdftex.def Info: C:/Users/Victor Miguel Terron/Documents/after.png  use
 d on input line 371.
 (pdftex.def)             Requested size: 469.7623pt x 159.11302pt.
-<C:/Users/Victor Miguel Terron/Documents/after1.png, id=289, 964.60374pt x 416.
+<C:/Users/Victor Miguel Terron/Documents/after1.png, id=321, 964.60374pt x 416.
 55624pt>
 File: C:/Users/Victor Miguel Terron/Documents/after1.png Graphic file (type png
 )
@@ -737,7 +737,7 @@ File: C:/Users/Victor Miguel Terron/Documents/after1.png Graphic file (type png
 Package pdftex.def Info: C:/Users/Victor Miguel Terron/Documents/after1.png  us
 ed on input line 377.
 (pdftex.def)             Requested size: 469.74568pt x 202.85582pt.
-<C:/Users/Victor Miguel Terron/Documents/after2.png, id=290, 761.84625pt x 456.
+<C:/Users/Victor Miguel Terron/Documents/after2.png, id=322, 761.84625pt x 456.
 70625pt>
 File: C:/Users/Victor Miguel Terron/Documents/after2.png Graphic file (type png
 )
@@ -745,7 +745,7 @@ File: C:/Users/Victor Miguel Terron/Documents/after2.png Graphic file (type png
 Package pdftex.def Info: C:/Users/Victor Miguel Terron/Documents/after2.png  us
 ed on input line 383.
 (pdftex.def)             Requested size: 469.74745pt x 281.6009pt.
-<C:/Users/Victor Miguel Terron/Documents/after3.png, id=291, 865.2325pt x 398.4
+<C:/Users/Victor Miguel Terron/Documents/after3.png, id=323, 865.2325pt x 398.4
 8875pt>
 File: C:/Users/Victor Miguel Terron/Documents/after3.png Graphic file (type png
 )
@@ -768,7 +768,7 @@ File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
 (Font)              Font shape `T1/lmtt/b/n' tried instead on input line 453.
 [12] [13] [14]
-<SESSION4-SUMMARY_files/figure-latex/frpp-1.pdf, id=348, 469.755pt x 325.215pt>
+<SESSION4-SUMMARY_files/figure-latex/frpp-1.pdf, id=380, 469.755pt x 325.215pt>
 
 File: SESSION4-SUMMARY_files/figure-latex/frpp-1.pdf Graphic file (type pdf)
 <use SESSION4-SUMMARY_files/figure-latex/frpp-1.pdf>
@@ -776,7 +776,7 @@ Package pdftex.def Info: SESSION4-SUMMARY_files/figure-latex/frpp-1.pdf  used o
 n input line 700.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [15 <./SESSION4-SUMMARY_files/figure-latex/frpp-1.pdf>] [16]
-<SESSION4-SUMMARY_files/figure-latex/edwl-1.pdf, id=366, 469.755pt x 325.215pt>
+<SESSION4-SUMMARY_files/figure-latex/edwl-1.pdf, id=398, 469.755pt x 325.215pt>
 
 File: SESSION4-SUMMARY_files/figure-latex/edwl-1.pdf Graphic file (type pdf)
 <use SESSION4-SUMMARY_files/figure-latex/edwl-1.pdf>
@@ -784,7 +784,7 @@ Package pdftex.def Info: SESSION4-SUMMARY_files/figure-latex/edwl-1.pdf  used o
 n input line 785.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [17 <./SESSION4-SUMMARY_files/figure-latex/edwl-1.pdf>]
-<SESSION4-SUMMARY_files/figure-latex/edwl-2.pdf, id=378, 469.755pt x 325.215pt>
+<SESSION4-SUMMARY_files/figure-latex/edwl-2.pdf, id=410, 469.755pt x 325.215pt>
 
 File: SESSION4-SUMMARY_files/figure-latex/edwl-2.pdf Graphic file (type pdf)
 <use SESSION4-SUMMARY_files/figure-latex/edwl-2.pdf>
@@ -792,7 +792,7 @@ Package pdftex.def Info: SESSION4-SUMMARY_files/figure-latex/edwl-2.pdf  used o
 n input line 867.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [18]
-<SESSION4-SUMMARY_files/figure-latex/pconj-1.pdf, id=383, 469.755pt x 325.215pt
+<SESSION4-SUMMARY_files/figure-latex/pconj-1.pdf, id=415, 469.755pt x 325.215pt
 >
 File: SESSION4-SUMMARY_files/figure-latex/pconj-1.pdf Graphic file (type pdf)
 <use SESSION4-SUMMARY_files/figure-latex/pconj-1.pdf>
@@ -800,7 +800,7 @@ Package pdftex.def Info: SESSION4-SUMMARY_files/figure-latex/pconj-1.pdf  used
 on input line 900.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [19 <./SESSION4-SUMMARY_files/figure-latex/edwl-2.pdf>]
-<SESSION4-SUMMARY_files/figure-latex/geq-1.pdf, id=396, 469.755pt x 325.215pt>
+<SESSION4-SUMMARY_files/figure-latex/geq-1.pdf, id=428, 469.755pt x 325.215pt>
 File: SESSION4-SUMMARY_files/figure-latex/geq-1.pdf Graphic file (type pdf)
 <use SESSION4-SUMMARY_files/figure-latex/geq-1.pdf>
 Package pdftex.def Info: SESSION4-SUMMARY_files/figure-latex/geq-1.pdf  used on
@@ -808,14 +808,14 @@ Package pdftex.def Info: SESSION4-SUMMARY_files/figure-latex/geq-1.pdf  used on
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [20 <./SESSION4-SUMMARY_files/figure-latex/pconj-1.pdf>] [21 <./SESSION4-SUMMAR
 Y_files/figure-latex/geq-1.pdf>]
-<SESSION4-SUMMARY_files/figure-latex/c75-1.pdf, id=420, 469.755pt x 325.215pt>
+<SESSION4-SUMMARY_files/figure-latex/c75-1.pdf, id=452, 469.755pt x 325.215pt>
 File: SESSION4-SUMMARY_files/figure-latex/c75-1.pdf Graphic file (type pdf)
 <use SESSION4-SUMMARY_files/figure-latex/c75-1.pdf>
 Package pdftex.def Info: SESSION4-SUMMARY_files/figure-latex/c75-1.pdf  used on
  input line 988.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [22 <./SESSION4-SUMMARY_files/figure-latex/c75-1.pdf>]
-<SESSION4-SUMMARY_files/figure-latex/hisatorial-1.pdf, id=433, 469.755pt x 325.
+<SESSION4-SUMMARY_files/figure-latex/hisatorial-1.pdf, id=465, 469.755pt x 325.
 215pt>
 File: SESSION4-SUMMARY_files/figure-latex/hisatorial-1.pdf Graphic file (type p
 df)
@@ -824,7 +824,7 @@ Package pdftex.def Info: SESSION4-SUMMARY_files/figure-latex/hisatorial-1.pdf
 used on input line 1052.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [23 <./SESSION4-SUMMARY_files/figure-latex/hisatorial-1.pdf>]
-<SESSION4-SUMMARY_files/figure-latex/regempi-1.pdf, id=447, 469.755pt x 325.215
+<SESSION4-SUMMARY_files/figure-latex/regempi-1.pdf, id=479, 469.755pt x 325.215
 pt>
 File: SESSION4-SUMMARY_files/figure-latex/regempi-1.pdf Graphic file (type pdf)
 
@@ -837,7 +837,7 @@ d on input line 1103.
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
 (hyperref)                than one, level fixed on input line 1118.
 
-<SESSION4-SUMMARY_files/figure-latex/fdens-1.pdf, id=452, 469.755pt x 325.215pt
+<SESSION4-SUMMARY_files/figure-latex/fdens-1.pdf, id=485, 469.755pt x 325.215pt
 >
 File: SESSION4-SUMMARY_files/figure-latex/fdens-1.pdf Graphic file (type pdf)
 <use SESSION4-SUMMARY_files/figure-latex/fdens-1.pdf>
@@ -845,14 +845,14 @@ Package pdftex.def Info: SESSION4-SUMMARY_files/figure-latex/fdens-1.pdf  used
 on input line 1131.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [25 <./SESSION4-SUMMARY_files/figure-latex/regempi-1.pdf>]
-<SESSION4-SUMMARY_files/figure-latex/rco-1.pdf, id=467, 469.755pt x 325.215pt>
+<SESSION4-SUMMARY_files/figure-latex/rco-1.pdf, id=500, 469.755pt x 325.215pt>
 File: SESSION4-SUMMARY_files/figure-latex/rco-1.pdf Graphic file (type pdf)
 <use SESSION4-SUMMARY_files/figure-latex/rco-1.pdf>
 Package pdftex.def Info: SESSION4-SUMMARY_files/figure-latex/rco-1.pdf  used on
  input line 1161.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [26 <./SESSION4-SUMMARY_files/figure-latex/fdens-1.pdf>]
-<SESSION4-SUMMARY_files/figure-latex/observacione-1.pdf, id=479, 469.755pt x 32
+<SESSION4-SUMMARY_files/figure-latex/observacione-1.pdf, id=511, 469.755pt x 32
 5.215pt>
 File: SESSION4-SUMMARY_files/figure-latex/observacione-1.pdf Graphic file (type
  pdf)
@@ -861,7 +861,7 @@ Package pdftex.def Info: SESSION4-SUMMARY_files/figure-latex/observacione-1.pdf
   used on input line 1189.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [27 <./SESSION4-SUMMARY_files/figure-latex/rco-1.pdf>]
-<SESSION4-SUMMARY_files/figure-latex/CUANT-1.pdf, id=490, 469.755pt x 325.215pt
+<SESSION4-SUMMARY_files/figure-latex/CUANT-1.pdf, id=522, 469.755pt x 325.215pt
 >
 File: SESSION4-SUMMARY_files/figure-latex/CUANT-1.pdf Graphic file (type pdf)
 <use SESSION4-SUMMARY_files/figure-latex/CUANT-1.pdf>
@@ -870,7 +870,7 @@ on input line 1234.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [28 <./SESSION4-SUMMARY_files/figure-latex/observacione-1.pdf>] [29 <./SESSION4
 -SUMMARY_files/figure-latex/CUANT-1.pdf>]
-<SESSION4-SUMMARY_files/figure-latex/TSTUDENT-1.pdf, id=513, 469.755pt x 325.21
+<SESSION4-SUMMARY_files/figure-latex/TSTUDENT-1.pdf, id=545, 469.755pt x 325.21
 5pt>
 File: SESSION4-SUMMARY_files/figure-latex/TSTUDENT-1.pdf Graphic file (type pdf
 )
@@ -879,7 +879,7 @@ Package pdftex.def Info: SESSION4-SUMMARY_files/figure-latex/TSTUDENT-1.pdf  us
 ed on input line 1289.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [30 <./SESSION4-SUMMARY_files/figure-latex/TSTUDENT-1.pdf>] [31] [32]
-<SESSION4-SUMMARY_files/figure-latex/ploteo-1.pdf, id=550, 469.755pt x 325.215p
+<SESSION4-SUMMARY_files/figure-latex/ploteo-1.pdf, id=582, 469.755pt x 325.215p
 t>
 File: SESSION4-SUMMARY_files/figure-latex/ploteo-1.pdf Graphic file (type pdf)
 <use SESSION4-SUMMARY_files/figure-latex/ploteo-1.pdf>
@@ -887,7 +887,7 @@ Package pdftex.def Info: SESSION4-SUMMARY_files/figure-latex/ploteo-1.pdf  used
  on input line 1473.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [33 <./SESSION4-SUMMARY_files/figure-latex/ploteo-1.pdf>]
-<SESSION4-SUMMARY_files/figure-latex/ploteo-2.pdf, id=560, 469.755pt x 325.215p
+<SESSION4-SUMMARY_files/figure-latex/ploteo-2.pdf, id=592, 469.755pt x 325.215p
 t>
 File: SESSION4-SUMMARY_files/figure-latex/ploteo-2.pdf Graphic file (type pdf)
 <use SESSION4-SUMMARY_files/figure-latex/ploteo-2.pdf>
@@ -895,7 +895,7 @@ Package pdftex.def Info: SESSION4-SUMMARY_files/figure-latex/ploteo-2.pdf  used
  on input line 1589.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [34] [35 <./SESSION4-SUMMARY_files/figure-latex/ploteo-2.pdf>]
-<SESSION4-SUMMARY_files/figure-latex/EJ2S4-1.pdf, id=580, 469.755pt x 325.215pt
+<SESSION4-SUMMARY_files/figure-latex/EJ2S4-1.pdf, id=613, 469.755pt x 325.215pt
 >
 File: SESSION4-SUMMARY_files/figure-latex/EJ2S4-1.pdf Graphic file (type pdf)
 <use SESSION4-SUMMARY_files/figure-latex/EJ2S4-1.pdf>
@@ -915,7 +915,7 @@ ias correspondientes a las muestras"[]
  []
 
 [37]
-<SESSION4-SUMMARY_files/figure-latex/EJ2S4-2.pdf, id=598, 469.755pt x 325.215pt
+<SESSION4-SUMMARY_files/figure-latex/EJ2S4-2.pdf, id=630, 469.755pt x 325.215pt
 >
 File: SESSION4-SUMMARY_files/figure-latex/EJ2S4-2.pdf Graphic file (type pdf)
 <use SESSION4-SUMMARY_files/figure-latex/EJ2S4-2.pdf>
@@ -928,7 +928,7 @@ Overfull \hbox (44.74348pt too wide) in paragraph at lines 1839--1839
 dias correspondientes a las muestras"[] 
  []
 
-<SESSION4-SUMMARY_files/figure-latex/EJ2S4-3.pdf, id=611, 469.755pt x 325.215pt
+<SESSION4-SUMMARY_files/figure-latex/EJ2S4-3.pdf, id=643, 469.755pt x 325.215pt
 >
 File: SESSION4-SUMMARY_files/figure-latex/EJ2S4-3.pdf Graphic file (type pdf)
 <use SESSION4-SUMMARY_files/figure-latex/EJ2S4-3.pdf>
@@ -942,7 +942,7 @@ edias correspondientes a las muestras"[]
  []
 
 [40 <./SESSION4-SUMMARY_files/figure-latex/EJ2S4-3.pdf>]
-<SESSION4-SUMMARY_files/figure-latex/EJ2S4-4.pdf, id=628, 469.755pt x 325.215pt
+<SESSION4-SUMMARY_files/figure-latex/EJ2S4-4.pdf, id=660, 469.755pt x 325.215pt
 >
 File: SESSION4-SUMMARY_files/figure-latex/EJ2S4-4.pdf Graphic file (type pdf)
 <use SESSION4-SUMMARY_files/figure-latex/EJ2S4-4.pdf>
@@ -956,7 +956,7 @@ xponencial y parametro lambda=3"[]
  []
 
 [42]
-<SESSION4-SUMMARY_files/figure-latex/ej3s4-1.pdf, id=649, 469.755pt x 325.215pt
+<SESSION4-SUMMARY_files/figure-latex/ej3s4-1.pdf, id=681, 469.755pt x 325.215pt
 >
 File: SESSION4-SUMMARY_files/figure-latex/ej3s4-1.pdf Graphic file (type pdf)
 <use SESSION4-SUMMARY_files/figure-latex/ej3s4-1.pdf>
@@ -970,7 +970,7 @@ Overfull \hbox (76.2434pt too wide) in paragraph at lines 2101--2101
  []
 
 [43 <./SESSION4-SUMMARY_files/figure-latex/ej3s4-1.pdf>]
-<SESSION4-SUMMARY_files/figure-latex/ej3s4-2.pdf, id=662, 469.755pt x 325.215pt
+<SESSION4-SUMMARY_files/figure-latex/ej3s4-2.pdf, id=694, 469.755pt x 325.215pt
 >
 File: SESSION4-SUMMARY_files/figure-latex/ej3s4-2.pdf Graphic file (type pdf)
 <use SESSION4-SUMMARY_files/figure-latex/ej3s4-2.pdf>
@@ -985,7 +985,7 @@ y el 1 (éxito) con probabilidad p = 0.55"[]
  []
 
 [45]
-<SESSION4-SUMMARY_files/figure-latex/ej3s4-3.pdf, id=679, 469.755pt x 325.215pt
+<SESSION4-SUMMARY_files/figure-latex/ej3s4-3.pdf, id=711, 469.755pt x 325.215pt
 >
 File: SESSION4-SUMMARY_files/figure-latex/ej3s4-3.pdf Graphic file (type pdf)
 <use SESSION4-SUMMARY_files/figure-latex/ej3s4-3.pdf>
@@ -1000,7 +1000,7 @@ aleatorias de tamaño n2 = 41 de una distribución exponencial con parámetro lamb
 da2 = 1.5."[] 
  []
 
-<SESSION4-SUMMARY_files/figure-latex/ej3s4-4.pdf, id=692, 469.755pt x 325.215pt
+<SESSION4-SUMMARY_files/figure-latex/ej3s4-4.pdf, id=725, 469.755pt x 325.215pt
 >
 File: SESSION4-SUMMARY_files/figure-latex/ej3s4-4.pdf Graphic file (type pdf)
 <use SESSION4-SUMMARY_files/figure-latex/ej3s4-4.pdf>
@@ -1015,7 +1015,7 @@ ulli con p2 = 0.53"[]
  []
 
 [48 <./SESSION4-SUMMARY_files/figure-latex/ej3s4-4.pdf>]
-<SESSION4-SUMMARY_files/figure-latex/ej3s4-5.pdf, id=709, 469.755pt x 325.215pt
+<SESSION4-SUMMARY_files/figure-latex/ej3s4-5.pdf, id=742, 469.755pt x 325.215pt
 >
 File: SESSION4-SUMMARY_files/figure-latex/ej3s4-5.pdf Graphic file (type pdf)
 <use SESSION4-SUMMARY_files/figure-latex/ej3s4-5.pdf>
@@ -1023,7 +1023,7 @@ Package pdftex.def Info: SESSION4-SUMMARY_files/figure-latex/ej3s4-5.pdf  used
 on input line 2476.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [49] [50 <./SESSION4-SUMMARY_files/figure-latex/ej3s4-5.pdf>] [51] [52]
-<SESSION4-SUMMARY_files/figure-latex/EJ4S4-1.pdf, id=749, 469.755pt x 325.215pt
+<SESSION4-SUMMARY_files/figure-latex/EJ4S4-1.pdf, id=781, 469.755pt x 325.215pt
 >
 File: SESSION4-SUMMARY_files/figure-latex/EJ4S4-1.pdf Graphic file (type pdf)
 <use SESSION4-SUMMARY_files/figure-latex/EJ4S4-1.pdf>
@@ -1031,7 +1031,7 @@ Package pdftex.def Info: SESSION4-SUMMARY_files/figure-latex/EJ4S4-1.pdf  used
 on input line 2782.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [53] [54 <./SESSION4-SUMMARY_files/figure-latex/EJ4S4-1.pdf>] [55] [56]
-<SESSION4-SUMMARY_files/figure-latex/EJ4S4-2.pdf, id=774, 469.755pt x 325.215pt
+<SESSION4-SUMMARY_files/figure-latex/EJ4S4-2.pdf, id=806, 469.755pt x 325.215pt
 >
 File: SESSION4-SUMMARY_files/figure-latex/EJ4S4-2.pdf Graphic file (type pdf)
 <use SESSION4-SUMMARY_files/figure-latex/EJ4S4-2.pdf>
@@ -1039,23 +1039,24 @@ Package pdftex.def Info: SESSION4-SUMMARY_files/figure-latex/EJ4S4-2.pdf  used
 on input line 3018.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [57 <./SESSION4-SUMMARY_files/figure-latex/EJ4S4-2.pdf>]
-<SESSION4-SUMMARY_files/figure-latex/EJ4S4-3.pdf, id=786, 469.755pt x 325.215pt
+<SESSION4-SUMMARY_files/figure-latex/EJ4S4-3.pdf, id=818, 469.755pt x 325.215pt
 >
 File: SESSION4-SUMMARY_files/figure-latex/EJ4S4-3.pdf Graphic file (type pdf)
 <use SESSION4-SUMMARY_files/figure-latex/EJ4S4-3.pdf>
 Package pdftex.def Info: SESSION4-SUMMARY_files/figure-latex/EJ4S4-3.pdf  used 
 on input line 3116.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[58] [59 <./SESSION4-SUMMARY_files/figure-latex/EJ4S4-3.pdf>] [60] [61] (./SESS
-ION4-SUMMARY.aux)
+[58] [59 <./SESSION4-SUMMARY_files/figure-latex/EJ4S4-3.pdf>] [60] [61] [62] [6
+3] [64] [65] [66] [67] [68] [69] [70] [71] [72] [73] [74] [75] [76] [77] [78] [
+79] [80] [81] [82] [83] [84] [85] (./SESSION4-SUMMARY.aux)
 Package rerunfilecheck Info: File `SESSION4-SUMMARY.out' has not changed.
-(rerunfilecheck)             Checksum: 3DD994655FAE5FFD6CBAC803BBFB3D81;9255.
+(rerunfilecheck)             Checksum: 44962257FF4DD258C40FB9387163E918;10171.
  ) 
 Here is how much of TeX's memory you used:
- 11977 strings out of 481252
- 184161 string characters out of 5912817
- 469652 words of memory out of 5000000
- 28480 multiletter control sequences out of 15000+600000
+ 12036 strings out of 481252
+ 184770 string characters out of 5912817
+ 493069 words of memory out of 5000000
+ 28496 multiletter control sequences out of 15000+600000
  450036 words of font info for 69 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  71i,8n,74p,658b,468s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1086,10 +1087,10 @@ TeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb><c:/Users/Victor Miguel Terron/
 AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/Users/V
 ictor Miguel Terron/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lm
 tti10.pfb>
-Output written on SESSION4-SUMMARY.pdf (61 pages, 856082 bytes).
+Output written on SESSION4-SUMMARY.pdf (85 pages, 894393 bytes).
 PDF statistics:
- 911 PDF objects out of 1000 (max. 8388607)
- 746 compressed objects within 8 object streams
- 192 named destinations out of 1000 (max. 500000)
- 617 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1067 PDF objects out of 1200 (max. 8388607)
+ 877 compressed objects within 9 object streams
+ 235 named destinations out of 1000 (max. 500000)
+ 681 words of extra memory for PDF output out of 10000 (max. 10000000)
 
