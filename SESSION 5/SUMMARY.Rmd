@@ -12,3 +12,240 @@ output: pdf_document
 Supongamos que nuestro trabajo consiste en aconsejar a un cliente sobre cómo mejorar las ventas de un producto particular, y el conjunto de datos con el que disponemos son datos de Publicidad que consisten en las ventas de aquel producto en 200 diferentes mercados, junto con presupuestos de publicidad para el producto en cada uno de aquellos mercados para tres medios de comunicación diferentes: TV, radio, y periódico. No es posible para nuestro cliente incrementar directamente las ventas del producto. Por otro lado, ellos pueden controlar el gasto en publicidad para cada uno de los tres medios de comunicación. Por lo tanto, si determinamos que hay una asociación entre publicidad y ventas, entonces podemos instruir a nuestro cliente para que ajuste los presupuestos de publicidad, y así indirectamente incrementar las ventas. 
 
 En otras palabras, nuestro objetivo es desarrollar un modelo preciso que pueda ser usado para predecir las ventas sobre la base de los tres presupuestos de medios de comunicación. En este contexto, los presupuestos de publicidad son las variables de entrada mientras que las ventas es una variable de salida. Las variables de entrada típicamente se denotan usando el símbolo X, con un subíndice para distinguirlas. Así X1 puede ser el presupuesto para TV, X2 el presupuesto para radio, y X3 el presupuesto para periódico. Las entradas tienen diferentes nombres, tales como predictores, variables independientes, características, o a veces solo variables. La variable de salida -en este caso, las ventas- frecuentemente es llamada la variable de respuesta o dependiente, y se denota típicamente con el símbolo Y.
+
+<!-- ```{r instpack,comment=NA,echo=FALSE,eval=FALSE} -->
+<!-- install.packages("TSA") -->
+<!-- ``` -->
+
+Más generalmente, suponga que observamos una respuesta cuantitativa Y y p diferentes predictores, X1, X2, …, Xp. Asumimos que hay alguna relación entre Y y X=(X1, X2, …, Xp), la cual podemos escribir en la forma muy general
+
+![FORMULA](C:/Users/Victor Miguel Terron/Documents/s.png)
+
+Aquí f es alguna función desconocida pero fija de X1, X2, …, Xp, y es un término de error aleatorio, el cual es independiente de X y tiene media cero. En esta formulación, f representa la información sistemática que X proporciona acerca de Y. Sin embargo, la función f que conecta las variables de entrada a la variable de salida en general es desconocida. En esta situación debemos estimar f basados en los datos observados. En esencia, el aprendizaje estadístico se refiere a un conjunto de enfoques para estimar f.
+
+# ¿POR QUÉ ESTIMAR $f$?
+
+Hay dos razones principales por las cuales podemos desear estimar f: predicción e inferencia.
+
+
+## REGRESION LINEAL SIMPLE
+
+Con frecuencia es necesario determinar si dos variables (aleatorias) están relacionadas de alguna manera. Por ejemplo, ¿tendrán los años de educación efecto sobre el salario que percibe un individuo? La relación entre dos variables cuantitativas puede visualizarse en un diagrama de dispersión en el plano, representando los valores de las variables en los ejes horizontal y vertical.
+
+![Ejemplo de regresion lineal](C:/Users/Victor Miguel Terron/Documents/s1.png)
+
+La correlación puede darse entre variables sin ninguna implicación de causalidad entre ellas, por ejemplo: si tomamos una muestra de individuos y medimos los diámetros del antebrazo y del muslo, seguramente encontraremos que hay una correlación positiva alta. Evidentemente no hay ninguna relación de causalidad entre estas variables y más bien ambas dependen del peso y la altura del individuo. A este tipo de correlación entre variables se le conoce como correlación espuria. La asociación más simple entre variables es cuando éstas se relacionan en forma lineal, sin embargo, no siempre es posible establecer este tipo de relación entre ellas. Para medir la magnitud de la asociación lineal entre dos variables, se utiliza comúnmente el coeficiente de correlación introducido por Karl Pearson. Éste es un número entre el -1 y el 1 denotado por la letra R. Si R = -1, se tiene una relación negativa perfecta y los puntos en el diagrama de dispersión se encuentran sobre una recta con pendiente negativa. Si R = 1, la relación lineal es también perfecta pero positiva: los puntos en el diagrama de dispersión están sobre una recta con pendiente positiva. Si R = 0, entonces no hay relación lineal alguna y los puntos forman más bien una nube difusa o algún otro patrón evidentemente no lineal. Lo usual es tener casos intermedios, en donde existe algún grado moderado de correlación lineal entre las variables. En general, en las ciencias sociales es raro tener coeficientes de correlación mayores que 0.7 (o menores que -0.7). A continuación, tenemos datos de estatura y pesos de unos individuos. Altura <- c(1.94, 1.82, 1.75, 1.80, 1.62, 1.64, 1.68, 1.46, 1.50, 1.55, 1.72, 1.67, 1.57, 1.60) Peso <- c(98, 80, 72, 83, 65, 70, 67, 47, 45, 50, 70, 61, 50, 52) Para obtener el coeficiente correlación de Pearson únicamente ejecutamos la siguiente instrucción en R cor(Altura, Peso) lo cual nos da 0.9645. A continuación, vamos a ajustar un modelo de regresión lineal simple a un conjunto de datos en R. Suponga que el conjunto de datos proviene de una fábrica que elabora productos
+
+![tabla](C:/Users/Victor Miguel Terron/Documents/s2.png)
+
+Para cada caso se considera un tamaño del proceso o tamaño de la ejecución (RunSize) y un tiempo del proceso o tiempo de la ejecución (RunTime). El tamaño del proceso representa la cantidad de artículos que se fabrica en un caso determinado, el tiempo del proceso representa la cantidad de minutos que toma elaborar los artículos en el caso especificado. En los datos anteriores, el primer caso indica que para elaborar 175 artículos se requirió un tiempo de 195 minutos. El segundo caso indica que para elaborar 189 artículos se tomó un tiempo de 215 minutos. El último caso indica que, para elaborar 68 artículos, se requirió un tiempo de fabricación de 172 minutos. Para comenzar a trabajar con los datos deberá guardarlos en su directorio de trabajo. A continuación, importe los datos a R mediante la siguiente instrucción production <- read.table("production.txt", header = TRUE), puede observar el conjunto de datos en R al ejecutar la palabra production. Extraiga las columnas RunSize y RunTime del data frame production mediante la instrucción attach(production), es decir, de ahora en adelante podrá utilizar los vectores RunSize y RunTime en R. Realice el gráfico de dispersión de los datos al ejecutar la siguiente instrucción plot(RunSize, RunTime, xlab="Run Size", ylab = "Run Time").
+
+![grafica](C:/Users/Victor Miguel Terron/Documents/s3.png)
+
+Cada punto del gráfico de dispersión representa el tamaño del proceso y el tiempo del proceso de un caso determinado. Ajuste un modelo de regresión lineal simple a los datos en R y obtenga un resumen del modelo ajustado al ejecutar las siguientes dos instrucciones # Ajuste el modelo m1 <- lm(RunTime~RunSize) summary(m1)
+
+![Imagen1](C:/Users/Victor Miguel Terron/Documents/s4.png)
+
+
+![Imagen2](C:/Users/Victor Miguel Terron/Documents/s5.png)
+
+
+![Imagen3](C:/Users/Victor Miguel Terron/Documents/s6.png)
+
+
+![Imagen4](C:/Users/Victor Miguel Terron/Documents/s7.png)
+
+
+![Imagen5](C:/Users/Victor Miguel Terron/Documents/s8.png)
+
+
+
+![Imagen6](C:/Users/Victor Miguel Terron/Documents/s9.png)
+
+
+![Imagen7](C:/Users/Victor Miguel Terron/Documents/s10.png)
+
+
+# MAQUINAS DE VECTORES DE SOPORTE
+
+Un enfoque para clasificación que se desarrolló en la comunidad de las ciencias computacionales en los años 90 y que ha crecido en popularidad desde entonces son las máquinas de vectores de soporte (MVS o SVM por sus siglas en inglés). Las MVS han mostrado un buen desempeño en una variedad de contextos, y frecuentemente se les considera como uno de los mejores clasificadores.
+
+## CLASIFICADOR DE MARGEN MAXIMO
+
+Nuestro objetivo es desarrollar un clasificador basado en los datos de entrenamiento que clasificará una observación de prueba usando sus medidas características.
+
+En un sentido, el hiperplano de margen máximo representa la línea media del bloque más ancho que podemos insertar entre las dos clases. Podemos calcular la distancia de cada observación de entrenamiento a un hiperplano de separación dado; la más pequeña de tales distancias es la distancia mínima de las observaciones al hiperplano y se conoce como el margen. El hiperplano de margen máximo es el hiperplano de separación para el cual el margen es el más grande-es decir, es el hiperplano que tiene la distancia mínima más lejana a las observaciones de entrenamiento-. En un espacio p-dimensional, un hiperplano es un subespacio plano de dimensión p-1 que no necesita pasar por el origen. En p dimensiones, un hiperplano se define por la ecuación
+
+![Imagen8](C:/Users/Victor Miguel Terron/Documents/s11.png)
+
+
+Podemos pensar al hiperplano como que divide el espacio p-dimensional en dos mitades. Por ejemplo, en dos dimensiones tenemos el hiperplano
+
+![Imagen9](C:/Users/Victor Miguel Terron/Documents/s12.png)
+
+
+![Imagen10](C:/Users/Victor Miguel Terron/Documents/s13.png)
+
+
+![Imagen11](C:/Users/Victor Miguel Terron/Documents/s14.png)
+
+
+![Imagen12](C:/Users/Victor Miguel Terron/Documents/s15.png)
+
+
+![Imagen13](C:/Users/Victor Miguel Terron/Documents/s16.png)
+
+
+![Imagen14](C:/Users/Victor Miguel Terron/Documents/s17.png)
+
+
+![Imagen15](C:/Users/Victor Miguel Terron/Documents/s18.png)
+
+
+El hiperplano de margen máximo es la solución al problema de optimización
+
+
+![Imagen16](C:/Users/Victor Miguel Terron/Documents/s19.png)
+
+sujeto a
+
+![Imagen17](C:/Users/Victor Miguel Terron/Documents/s20.png)
+
+
+![Imagen18](C:/Users/Victor Miguel Terron/Documents/s21.png)
+
+
+## EL CASO NO SEPARABLE
+
+Podemos extender el concepto de un hiperplano de separación para desarrollar un hiperplano que casi separa las clases usando lo que se conoce como un margen suave.
+
+
+![Imagen19](C:/Users/Victor Miguel Terron/Documents/s22.png)
+
+## CLASIFICADOR DE VECTORES DE SOPORTE
+
+La distancia de una observación al hiperplano puede considerarse como una medida de nuestra confianza de que la observación se clasifica correctamente. Podemos estar dispuestos a considerar un clasificador basado en un hiperplano que no separe perfectamente las dos clases, con el interés de:
+* Mayor robustez a observaciones individuales, y Mejor clasificación de la mayoría de las observaciones de prueba.
+
+Es decir, podría valer la pena clasificar mal unas pocas observaciones de entrenamiento para hacer un mejor trabajo al clasificar las observaciones restantes. Un hiperplano que casi separa las clases es la solución al problema de optimización.
+
+![Imagen20](C:/Users/Victor Miguel Terron/Documents/s23.png)
+
+
+Sujeto a:
+
+![Imagen21](C:/Users/Victor Miguel Terron/Documents/s24.png)
+
+
+M es el ancho del margen; buscamos hacer esta cantidad tan grande como sea posible. Una vez que hemos resuelto el problema de optimización, clasificamos una observación de prueba x* como antes, al simplemente determinar de que lado del hiperplano se encuentra. Es decir, clasificamos la observación de prueba basados en el signo de
+
+![Imagen22](C:/Users/Victor Miguel Terron/Documents/s25.png)
+
+
+Conforme el presupuesto C se incrementa, nos volvemos más tolerantes con respecto a las violaciones al margen, y así el margen se hará ancho. Por otro lado, cuando C decrece, nos volvemos menos tolerantes a las violaciones al margen y así el margen se hace angosto. En la práctica, C es tratada como un parámetro que generalmente se elige por medio de validación-cruzada.
+__Las observaciones que se encuentran directamente sobre los márgenes o del lado incorrecto del margen considerando su clase, se conocen como vectores de soporte. Clasificación con frontera de decisión no lineal.__
+
+![Imagen23](C:/Users/Victor Miguel Terron/Documents/s26.png)
+
+En el caso del clasificador de vectores de soporte, podemos tratar el problema de posibles fronteras no-lineales entre clases al ampliar el espacio de características usando funciones polinomiales cuadráticas, cúbicas, o incluso de orden superior de los predictores. Por ejemplo, en vez de ajustar un clasificador de vectores de soporte usando p características
+
+
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/s27.png)
+
+podríamos ajustar un clasificador de vectores de soporte usando 2p características
+
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/s28.png)
+
+Entonces el problema de optimización
+
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/s29.png)
+
+
+
+sujeto a 
+
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/s30.png)
+
+
+Se convertiría en:
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/s31.png)
+
+
+
+sujeto a
+
+
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/s32.png)
+
+
+
+
+No es difícil ver que hay muchas maneras de ampliar el espacio de características, y que a menos que seamos cuidadosos, podríamos terminar con un número enorme de características. Entonces los cálculos serían inmanejables.
+
+
+
+## LA MAQUINA DE VECTORES DE SOPORTE
+
+La máquina de vectores de soporte (SVM por sus siglas en inglés) es una extensión del clasificador de vectores de soporte que resulta de ampliar el espacio de características de una manera específica, usando kernels. Podemos querer ampliar nuestro espacio de características para acomodar una frontera no-lineal entre las clases. El enfoque del kernel que describimos aquí es simplemente un enfoque computacional eficiente para llevar a cabo esta idea.
+
+
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/s33.png)
+
+PUEDE DEMOSTRARSE QUE __1__. El clasificador de vectores de soporte lineal se puede representar como:
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/s34.png)
+
+
+donde hay $n$ parametros $i$,$i=1,...,n$, uno por observacion de entrenamiento.
+
+
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/s35.png)
+
+
+# KERNEL
+
+Un kernel es la funcion que cuantifica la similaridad de dos observaciones.
+
+## KERNEL LINEAL
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/s36.png)
+
+
+## KERNEL POLINOMIAL
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/s37.png)
+
+
+Cuando el clasificador de vectores de soporte se combina con un kernel no-lineal, el clasificador que resulta se conoce como una máquina de vectores de soporte. En este caso la función tiene la forma
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/s38.png)
+
+
+## KERNEL RADIAL
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/s39.png)
+
+Comportamiento local del kernel radial
+
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/s40.png)
+
+
+## CLASIFICACIÓN CON FRONTERA DE DECISION NO LINEAL
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/s41.png)
+
+¿Cuál es la ventaja de usar un kernel en lugar de simplemente ampliar el espacio de características usando funciones de las características originales?
+
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/s42.png)
+
+
