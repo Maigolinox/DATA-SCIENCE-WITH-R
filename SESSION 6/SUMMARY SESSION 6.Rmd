@@ -1,0 +1,7 @@
+---
+title: "SUMMARY SESSION 6"
+author: "Victor Miguel Terrón Macias"
+date: "30/1/2021"
+output: pdf_document
+---
+
