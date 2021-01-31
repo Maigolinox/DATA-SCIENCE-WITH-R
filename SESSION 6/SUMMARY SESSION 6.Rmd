@@ -2,6 +2,1510 @@
 title: "SUMMARY SESSION 6"
 author: "Victor Miguel Terrón Macias"
 date: "30/1/2021"
-output: pdf_document
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
 ---
+
+# EJEMPLOS DE SERTIES DE TIEMPO Y TECNICAS DESCRIPTIVAS
+
+Las series de tiempo son analizadas para entender el pasado y para predecir el futuro, permitiendo a los administradores o creadores de políticas tomar decisiones informadas propiamente.
+
+Cuando una variable es medida secuencialmente en el tiempo durante o en un intervalo fijo, conocido como el intervalo de muestreo, los datos que resultan forman una serie de tiempo.
+
+El número de reservas de pasajeros internacionales (en miles) por mes en una aerolínea (Pan Am) en los Estados Unidos fue obtenida de la Administración de Aviación Federal para el periodo 1949-1960 (Brown, 1963). La compañía usó los datos para predecir la demanda futura antes de ordenar nuevos aviones y tripulación de entrenamiento.
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/SESSION 6/img1.png)
+
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/SESSION 6/img2.png)
+
+
+Tendencia. - En general, un cambio sistemático en una serie de tiempo que no parece ser periódica es conocida como una tendencia.
+
+Variación estacional. - Un patrón que se repite dentro de cada año es conocido como variación estacional, aunque el término es aplicado más generalmente para patrones que se repiten dentro de cualquier periodo fijo.
+
+Ciclos. - A veces podemos afirmar que hay ciclos en una serie de tiempo que no corresponden a algún periodo natural fijo.
+
+Los pronósticos confían en la extrapolación, y los pronósticos están generalmente basados en la suposición de que las tendencias presentes continuarán. No podemos verificar esta suposición en alguna forma empírica, pero si podemos identificar causas probables para una tendencia, podemos justificar extrapolarla, por algunos pocos pasos en el tiempo al menos.
+
+Un pronóstico es un valor futuro que se predice, y el número de pasos de tiempo hacia el futuro es el tiempo de espera (k).
+
+Hay varias formas para estimar la tendencia mt al tiempo t, pero un procedimiento relativamente simple, el cual está disponible en R y no asume ninguna forma específica es calcular un promedio móvil centrado en xt.
+
+La longitud de pronósticos promedio móvil es elegida para promediar los efectos estacionales, los cuales pueden ser estimados después.
+
+Un segundo algoritmo de suavizamiento ofrecido por R es stl. Este usa una técnica de regresión ponderada localmente conocida como loess.
+
+Procedimientos de suavizamiento tales como el promedio móvil centrado y loess no requieren un modelo predeterminado, pero no producen una fórmula que pueda ser extrapolada para dar pronósticos
+
+En R, la función decompose estima tendencias y efectos estacionales usando un método de promedio móvil.
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/SESSION 6/img3.png)
+
+
+
+## MODELOS ESTADÍSTICOS BÁSICOS, MODELOS ESTACIONARIOS Y PREDICCIÓN
+
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/SESSION 6/img4.png)
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/SESSION 6/img5.png)
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/SESSION 6/img6.png)
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/SESSION 6/img7.png)
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/SESSION 6/img8.png)
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/SESSION 6/img9.png)
+
+
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/SESSION 6/img10.png)
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/SESSION 6/img11.png)
+
+
+## La función de autocovarianza sólo identifica un único proceso MA(q) si la condición de que el proceso sea invertible es impuesta.
+
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/SESSION 6/img12.png)
+
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/SESSION 6/img13.png)
+
+
+## MODELOS NO ESTACIONARIOS Y PREDICCIÓN
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/SESSION 6/img14.png)
+
+![Imagen](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/SESSION 6/img15.png)
+
+# SESION 6. SERIES DE TIEMPO
+
+
+## OBJETIVO 
+
+Obtener predicciones de ventas, de la demanda de productos o servicios, que ayuden a las organizaciones a ajustar presupuestos, justificar decisiones de marketing, o tener un mejor conocimiento sobre la evolución del negocio.
+
+En esta sesión estudiaremos temas relacionados con los siguientes puntos:
+
+* Datos que provienen de una variable que es medida secuencialmente en el tiempo durante o en un intervalo fijo (series de tiempo)
+* Análisis de series de tiempo y ajustes de modelos para entender el pasado y predecir el futuro
+
+
+# EJEMPLO1. Ejemplos de series de tiempo y técnicas descriptivas
+
+## OBJETIVO
+
+Entender el concepto de serie de tiempo y tomar consciencia sobre los problemas que podrían ayudar a resolver al analizarlas.
+
+## DESARROLLO
+
+
+En este ejemplo se hará la visualización y descomposición de series de tiempo, además de poder determinar la tendencia de nuestros datos a lo largo de un periodo de tiempo determinado, las series de tiempo son recolectadas y sirven para estudios de tipo retrospectivo, además también se pueden realizar predicciones a futuro. A continuación verás aplicaciones que te serán de mucha utilidad.
+
+Técnicas descriptivas: gráficas, tendencias y variación estacional
+El primer dataset corresponde a las ventas mensuales de un filtro de aceite en diversos concesionarios para equipo de construcción.
+
+library(TSA)
+data(oilfilters); plot(oilfilters, type = "o", ylab = "Ventas", xlab = "Tiempo", main = "Ventas Mesuales ")
+plot(oilfilters, type = "l", ylab = "Ventas", xlab = "Tiempo",
+                 main = "Ventas Mensuales de Filtro de Aceite",
+                 sub = "Símbolos Especiales")
+points(y = oilfilters, x = time(oilfilters),
+pch = as.vector(season(oilfilters)))
+Ahora utilizaremos el dataset AirPAssengers, el cual contiene datos de serie de tiempo correspondiente a pasajeros aéreos.
+
+data(AirPassengers)
+AP <- AirPassengers
+AP
+Clase de un objeto
+
+class(AP)
+
+start(AP); end(AP); frequency(AP)
+
+summary(AP)
+
+plot(AP, ylab = "Pasajeros (1000's)", xlab = "Tiempo", 
+     main = "Reserva de pasajeros aéreos internacionales", 
+     sub = "Estados Unidos en el periodo 1949-1960")
+layout(1:2)
+plot(aggregate(AP), xlab = "Tiempo",
+     main = "Reserva de pasajeros aéreos internacionales", 
+     sub = "Estados Unidos en el periodo 1949-1960")
+
+boxplot(AP ~ cycle(AP),
+        xlab = "Boxplot de valores estacionales",
+        sub = "Estados Unidos en el periodo 1949-1960",
+        main = "Reserva de pasajeros aéreos internacionales")
+dev.off()
+Algunos datos en https://github.com/AtefOuni/ts/tree/master/Data
+
+Series de Tiempo Múltiple
+Serie de producción de electricidad, cerveza y chocolate
+
+CBE <- read.csv("cbe.csv", header = TRUE)
+CBE[1:4,]
+class(CBE)
+
+Elec.ts <- ts(CBE[, 3], start = 1958, freq = 12)
+Beer.ts <- ts(CBE[, 2], start = 1958, freq = 12)
+Choc.ts <- ts(CBE[, 1], start = 1958, freq = 12)
+
+Electricidad <- Elec.ts
+Cerveza <- Beer.ts
+Chocolate <- Choc.ts
+
+plot(cbind(Electricidad, Cerveza, Chocolate), 
+     main = "Producción de Chocolate, Cerveza y Electricidad", 
+     xlab = "Tiempo",
+     sub = "Enero de 1958 - Diciembre de 1990")
+Serie de temperatura global
+
+Global <- scan("global.txt")
+Global.ts <- ts(Global, st = c(1856, 1), end = c(2005, 12), fr = 12)
+Global.annual <- aggregate(Global.ts, FUN = mean)
+plot(Global.ts, xlab = "Tiempo", ylab = "Temperatura en °C", main = "Serie de Temperatura Global",
+     sub = "Serie mensual: Enero de 1856 a Diciembre de 2005")
+plot(Global.annual, xlab = "Tiempo", ylab = "Temperatura en °C", main = "Serie de Temperatura Global",
+     sub = "Serie anual de temperaturas medias: 1856 a 2005")
+New.series <- window(Global.ts, start = c(1970, 1), end = c(2005, 12)) 
+New.time <- time(New.series)
+plot(New.series, xlab = "Tiempo", ylab = "Temperatura en °C", main = "Serie de Temperatura Global",
+     sub = "Serie mensual: Enero de 1970 a Diciembre de 2005"); abline(reg = lm(New.series ~ New.time))
+Descomposición de series
+CBE <- read.csv("cbe.csv", header = TRUE)
+Elec.ts <- ts(CBE[, 3], start = 1958, freq = 12)
+Modelo Aditivo
+
+Elec.decom.A <- decompose(Elec.ts)
+
+plot(Elec.decom.A, xlab = "Tiempo", 
+     sub = "Descomposición de los datos de producción de electricidad")
+Componentes
+
+Tendencia <- Elec.decom.A$trend
+Estacionalidad <- Elec.decom.A$seasonal
+Aleatorio <- Elec.decom.A$random
+
+ts.plot(cbind(Tendencia, Tendencia + Estacionalidad), 
+        xlab = "Tiempo", main = "Datos de Producción de Electricidad", 
+        ylab = "Producción de electricidad", lty = 1:2,
+        sub = "Tendencia con efectos estacionales aditivos sobrepuestos")
+
+Tendencia[20] + Estacionalidad[20] + Aleatorio[20]
+Elec.ts[20]
+Modelo Multiplicativo
+
+Elec.decom.M <- decompose(Elec.ts, type = "mult")
+
+plot(Elec.decom.M, xlab = "Tiempo", 
+     sub = "Descomposición de los datos de producción de electricidad")
+Componentes
+
+Trend <- Elec.decom.M$trend
+Seasonal <- Elec.decom.M$seasonal
+Random <- Elec.decom.M$random
+
+ts.plot(cbind(Trend, Trend*Seasonal), xlab = "Tiempo", main = "Datos de Producción de Electricidad", 
+        ylab = "Producción de electricidad", lty = 1:2,
+        sub = "Tendencia con efectos estacionales multiplicativos sobrepuestos")
+
+Trend[7]*Seasonal[7]*Random[7]
+Elec.ts[7]
+
+Trend[100]*Seasonal[100]*Random[100]
+Elec.ts[100]
+
+```{r ej1s6,comment=NA}
+#### Técnicas descriptivas: gráficas, tendencias y variación estacional
+
+library(TSA)
+
+data(oilfilters); plot(oilfilters, type = "o", ylab = "Ventas", xlab = "Tiempo", main = "Ventas Mesuales ")
+plot(oilfilters, type = "l", ylab = "Ventas", xlab = "Tiempo",
+                 main = "Ventas Mensuales de Filtro de Aceite",
+                 sub = "Símbolos Especiales")
+points(y = oilfilters, x = time(oilfilters),
+pch = as.vector(season(oilfilters)))
+
+data(AirPassengers)
+AP <- AirPassengers
+AP
+
+# Clase de un objeto
+
+class(AP)
+
+start(AP); end(AP); frequency(AP)
+
+summary(AP)
+
+plot(AP, ylab = "Pasajeros (1000's)", xlab = "Tiempo", 
+     main = "Reserva de pasajeros aéreos internacionales", 
+     sub = "Estados Unidos en el periodo 1949-1960")
+
+################################################
+
+layout(1:2)
+plot(aggregate(AP), xlab = "Tiempo",
+     main = "Reserva de pasajeros aéreos internacionales", 
+     sub = "Estados Unidos en el periodo 1949-1960")
+
+boxplot(AP ~ cycle(AP),
+        xlab = "Boxplot de valores estacionales",
+        sub = "Estados Unidos en el periodo 1949-1960",
+        main = "Reserva de pasajeros aéreos internacionales")
+dev.off()
+
+################################################
+
+# https://github.com/AtefOuni/ts/tree/master/Data
+
+# Series de Tiempo Múltiple
+
+# Serie de producción de electricidad, cerveza y chocolate
+
+CBE <- read.csv("cbe.csv", header = TRUE)
+CBE[1:4,]
+class(CBE)
+
+Elec.ts <- ts(CBE[, 3], start = 1958, freq = 12)
+Beer.ts <- ts(CBE[, 2], start = 1958, freq = 12)
+Choc.ts <- ts(CBE[, 1], start = 1958, freq = 12)
+
+Electricidad <- Elec.ts
+Cerveza <- Beer.ts
+Chocolate <- Choc.ts
+
+plot(cbind(Electricidad, Cerveza, Chocolate), 
+     main = "Producción de Chocolate, Cerveza y Electricidad", 
+     xlab = "Tiempo",
+     sub = "Enero de 1958 - Diciembre de 1990")
+
+################################################
+
+# Serie de Temperatura Global
+
+Global <- scan("global.txt")
+Global.ts <- ts(Global, st = c(1856, 1), end = c(2005, 12), fr = 12)
+Global.annual <- aggregate(Global.ts, FUN = mean)
+plot(Global.ts, xlab = "Tiempo", ylab = "Temperatura en Â°C", main = "Serie de Temperatura Global",
+     sub = "Serie mensual: Enero de 1856 a Diciembre de 2005")
+plot(Global.annual, xlab = "Tiempo", ylab = "Temperatura en Â°C", main = "Serie de Temperatura Global",
+     sub = "Serie anual de temperaturas medias: 1856 a 2005")
+
+################################################
+
+New.series <- window(Global.ts, start = c(1970, 1), end = c(2005, 12)) 
+New.time <- time(New.series)
+plot(New.series, xlab = "Tiempo", ylab = "Temperatura en Â°C", main = "Serie de Temperatura Global",
+     sub = "Serie mensual: Enero de 1970 a Diciembre de 2005"); abline(reg = lm(New.series ~ New.time))
+
+
+#### Descomposición de series
+
+CBE <- read.csv("cbe.csv", header = TRUE)
+Elec.ts <- ts(CBE[, 3], start = 1958, freq = 12)
+
+# Modelo Aditivo
+
+Elec.decom.A <- decompose(Elec.ts)
+
+plot(Elec.decom.A, xlab = "Tiempo", 
+     sub = "Descomposición de los datos de producción de electricidad")
+
+# Componentes
+
+Tendencia <- Elec.decom.A$trend
+Estacionalidad <- Elec.decom.A$seasonal
+Aleatorio <- Elec.decom.A$random
+
+ts.plot(cbind(Tendencia, Tendencia + Estacionalidad), 
+        xlab = "Tiempo", main = "Datos de Producción de Electricidad", 
+        ylab = "Producción de electricidad", lty = 1:2,
+        sub = "Tendencia con efectos estacionales aditivos sobrepuestos")
+
+Tendencia[20] + Estacionalidad[20] + Aleatorio[20]
+Elec.ts[20]
+
+###
+
+# Modelo Multiplicativo
+
+Elec.decom.M <- decompose(Elec.ts, type = "mult")
+
+plot(Elec.decom.M, xlab = "Tiempo", 
+     sub = "Descomposición de los datos de producción de electricidad")
+
+# Componentes
+
+Trend <- Elec.decom.M$trend
+Seasonal <- Elec.decom.M$seasonal
+Random <- Elec.decom.M$random
+
+ts.plot(cbind(Trend, Trend*Seasonal), xlab = "Tiempo", main = "Datos de Producción de Electricidad", 
+        ylab = "Producción de electricidad", lty = 1:2,
+        sub = "Tendencia con efectos estacionales multiplicativos sobrepuestos")
+
+Trend[7]*Seasonal[7]*Random[7]
+Elec.ts[7]
+
+Trend[100]*Seasonal[100]*Random[100]
+Elec.ts[100]
+
+
+# J. Cryer & K. Chan. (2008). Time Series Analysis With Applications 
+# in R. 233 Spring Street, New York, NY 10013, USA: Springer 
+# Science+Business Media, LLC.
+
+# P. Cowpertwait & A. Metcalfe. (2009). Introductory Time Series with R. 
+# 233 Spring Street, New York, NY 10013, USA: Springer Science+Business 
+# Media, LLC.
+```
+
+# EJEMPLO 2. Modelos estocásticos básicos, modelos estacionarios y predicción
+
+## OBJETIVO
+
+Estudiar algunos modelos estocásticos básicos, modelos estacionarios y realizar predicciones de algunas series de tiempo.
+
+
+## DESARROLLO
+
+En el desarrollo de este ejemplo se van a tratar tópicos como: ruido blanco, caminatas aleatorias, operadores de rezago y diferencia.
+
+Ruido Blanco y simulación en R
+
+set.seed(1)
+w <- rnorm(100)
+plot(w, type = "l", xlab = "")
+title(main = "Ruido Blanco Gaussiano", xlab = "Tiempo")
+Para ilustrar mediante simulación como las muestras pueden diferir de sus poblaciones subyacentes considere lo siguiente
+
+x <- seq(-3, 3, length = 1000)
+hist(rnorm(100), prob = T, ylab = "", xlab = "", main = "") 
+points(x, dnorm(x), type = "l")
+title(ylab = "Densidad", xlab = "Valores simulados de la distribución normal estandar",
+      main = "Comparación de una muestra con su población subyacente")
+set.seed(2)
+acf(rnorm(100), main = "")
+title(main = "Función de Autocorrelación Muestral", 
+      sub = "Valores simulados de la distribución normal estandar")
+Caminata aleatoria y simulación en R
+
+x <- w <- rnorm(1000)
+for(t in 2:1000) x[t] <- x[t-1] + w[t]
+plot(x, type = "l", main = "Caminata Aleatoria Simulada", 
+     xlab = "t", ylab = expression(x[t]), 
+     sub = expression(x[t]==x[t-1]+w[t]))
+acf(x, main = "")
+title(main = "Correlograma para la caminata aleatoria simulada", 
+      sub = expression(x[t]==x[t-1]+w[t]))
+Modelos ajustados y gráficas de diágnostico, series de caminatas aleatorias simuladas. El correlograma de las series de diferencias puede usarse para evaluar si una serie dada puede modelarse como una caminata aleatoria
+
+acf(diff(x), main = "")
+title(main = "Correlograma de la serie de diferencias", 
+      sub = expression(nabla*x[t]==x[t]-x[t-1]))
+Modelos AR(p), MA(q) y ARMA(p, q)
+Modelos AR(p)
+
+Correlograma de un proceso AR(1)
+
+rho <- function(k, alpha) alpha^k
+plot(0:10, rho(0:10, 0.7), type = "h", ylab = "", xlab = "")
+title(main = "Correlograma para un proceso AR(1)",
+      ylab = expression(rho[k] == alpha^k),
+      xlab = "lag k",
+      sub = expression(x[t]==0.7*x[t-1]+w[t]))
+
+plot(0:10, rho(0:10, -0.7), type = "h", ylab = "", xlab = "")
+title(main = "Correlograma para un proceso AR(1)",
+      ylab = expression(rho[k] == alpha^k),
+      xlab = "lag k",
+      sub = expression(x[t]==-0.7*x[t-1]+w[t]))
+abline(h = 0)
+Simulación en R
+
+Un proceso AR(1) puede ser simulado en R como sigue:
+
+set.seed(1)
+x <- w <- rnorm(100)
+for(t in 2:100) x[t] <- 0.7 * x[t-1] + w[t]
+plot(x, type = "l", xlab = "", ylab = "")
+title(main = "Proceso AR(1) simulado",
+      xlab = "Tiempo",
+      ylab = expression(x[t]),
+      sub = expression(x[t]==0.7*x[t-1]+w[t]))
+acf(x, main = "")
+title(main = "Correlograma del proceso AR(1) simulado", 
+      sub = expression(x[t]==0.7*x[t-1]+w[t]))
+pacf(x, main = "")
+title(main = "Correlograma Parcial del proceso AR(1) simulado", 
+      sub = expression(x[t]==0.7*x[t-1]+w[t]))
+Modelos Ajustados
+
+Ajuste de modelos a series simuladas
+
+x.ar <- ar(x, method = "mle")
+x.ar$order
+x.ar$ar
+x.ar$ar + c(-2, 2)*sqrt(x.ar$asy.var)
+Serie de temperatura global: Ajuste de un modelo AR
+
+Global <- scan("global.txt")
+Global.ts <- ts(Global, st = c(1856, 1), end = c(2005, 12), fr = 12)
+Global.annual <- aggregate(Global.ts, FUN = mean)
+plot(Global.ts, xlab = "Tiempo", ylab = "Temperatura en °C", 
+     main = "Serie de Temperatura Global",
+     sub = "Serie mensual: Enero de 1856 a Diciembre de 2005")
+plot(Global.annual, xlab = "Tiempo", ylab = "Temperatura en °C", 
+     main = "Serie de Temperatura Global",
+     sub = "Serie anual de temperaturas medias: 1856 a 2005")
+mean(Global.annual)
+Global.ar <- ar(Global.annual, method = "mle")
+Global.ar$order
+Global.ar$ar
+acf(Global.ar$res[-(1:Global.ar$order)], lag = 50, main = "")
+title(main = "Correlograma de la serie de residuales",
+      sub = "Modelo AR(4) ajustado a la serie de temperaturas globales anuales")
+Modelos MA(q)
+
+Ejemplos en R: Correlograma y Simulación
+
+Función en R para calcular la Función de Autocorrelación
+
+rho <- function(k, beta){
+  q <- length(beta) - 1
+  if(k > q) ACF <- 0 else {
+    s1 <- 0; s2 <- 0
+    for(i in 1:(q-k+1)) s1 <- s1 + beta[i]*beta[i + k]
+    for(i in 1:(q+1)) s2 <- s2 + beta[i]^2
+    ACF <- s1/s2}
+  ACF}
+Correlograma para un proceso MA(3)
+
+beta <- c(1, 0.7, 0.5, 0.2)
+rho.k <- rep(1, 10)
+for(k in 1:10) rho.k[k] <- rho(k, beta)
+plot(0:10, c(1, rho.k), ylab = expression(rho[k]), xlab = "lag k", type = "h",
+     sub = expression(x[t] == w[t] + 0.7*w[t-1] + 0.5*w[t-2] + 0.2*w[t-3]),
+     main = "Función de autocorrelación para un proceso MA(3)")
+abline(0, 0)
+Correlograma para otro proceso MA(3)
+
+beta <- c(1, -0.7, 0.5, -0.2)
+rho.k <- rep(1, 10)
+for(k in 1:10) rho.k[k] <- rho(k, beta)
+plot(0:10, c(1, rho.k), ylab = expression(rho[k]), xlab = "lag k", type = "h",
+     sub = expression(x[t] == w[t] - 0.7*w[t-1] + 0.5*w[t-2] - 0.2*w[t-3]),
+     main = "Función de autocorrelación para un proceso MA(3)")
+abline(0, 0)
+Simulación de un proceso MA(3)
+
+set.seed(1)
+b <- c(0.8, 0.6, 0.4)
+x <- w <- rnorm(1000)
+for(t in 4:1000){
+  for(j in 1:3) x[t] <- x[t] + b[j]*w[t-j]
+}
+
+plot(x, type = "l", ylab = expression(x[t]), xlab = "Tiempo t",
+     sub = expression(x[t] == w[t] + 0.8*w[t-1] + 0.6*w[t-2] + 0.4*w[t-3]),
+     main = "Serie de tiempo simulada de un proceso MA(3)")
+acf(x, main = "")
+title(main = "Correlograma para un proceso MA(3) simulado", 
+      sub = expression(x[t] == w[t] + 0.8*w[t-1] + 0.6*w[t-2] + 0.4*w[t-3]))
+Ajuste de modelos MA
+
+x.ma <- arima(x, order = c(0, 0, 3))
+x.ma
+Modelos ARMA(p, q)
+
+Simulación y ajuste
+
+set.seed(1)
+x <- arima.sim(n = 10000, list(ar = -0.6, ma = 0.5))
+plot(x[1:100], type = "l", xlab = "")
+title(main = "Serie simulada", xlab = "Tiempo", 
+      sub = expression(x[t] == -0.6*x[t-1] + w[t] + 0.5*w[t-1]))
+coef(arima(x, order = c(1, 0, 1)))
+Predicción
+Serie de producción de electricidad
+
+CBE <- read.csv("cbe.csv", header = TRUE)
+Elec.ts <- ts(CBE[, 3], start = 1958, freq = 12)
+plot(Elec.ts, xlab = "", ylab = "")
+title(main = "Serie de Producción de Electricidad",
+      xlab = "Tiempo",
+      ylab = "Producción de electricidad")
+plot(log(Elec.ts), xlab = "", ylab = "")
+title(main = "Serie-log de Producción de Electricidad",
+      xlab = "Tiempo",
+      ylab = "Log de Producción de electricidad")
+Time <- 1:length(Elec.ts)
+Imth <- cycle(Elec.ts)
+Elec.lm <- lm(log(Elec.ts) ~ Time + I(Time^2) + factor(Imth))
+acf(resid(Elec.lm), main = "")
+title(main = "Correlograma de la serie de residuales del modelo de regresión",
+      sub = "Serie de producción de electricidad")
+plot(resid(Elec.lm), type = "l", main = "", xlab = "", ylab = "")
+title(main = "Serie de residuales del modelo de regresión ajustado",
+      sub = "Serie de producción de electricidad",
+      xlab = "Tiempo",
+      ylab = "Residuales")
+Código para encontrar el mejor modelo ARMA(p, q) considerando el AIC (Akaike Information Criterion)
+
+best.order <- c(0, 0, 0)
+best.aic <- Inf
+for(i in 0:2)for(j in 0:2){
+  model <- arima(resid(Elec.lm), order = c(i, 0, j))
+  fit.aic <- AIC(model)
+  if(fit.aic < best.aic){
+    best.order <- c(i, 0, j)
+    best.arma <- arima(resid(Elec.lm), order = best.order)
+    best.aic <- fit.aic
+  }
+}
+
+best.order
+acf(resid(best.arma), main = "")
+title(main = "Serie de residuales del modelo ARMA(2, 0) ajustado",
+      sub = "Serie de residuales del modelo de regresión ajustado a los datos de electricidad")
+new.time <- seq(length(Elec.ts)+1, length = 36)
+new.data <- data.frame(Time = new.time, Imth = rep(1:12, 3))
+predict.lm <- predict(Elec.lm, new.data)
+predict.arma <- predict(best.arma, n.ahead = 36)
+elec.pred <- ts(exp(predict.lm + predict.arma$pred), start = 1991, freq = 12)
+ts.plot(cbind(Elec.ts, elec.pred), lty = 1:2, 
+        col = c("blue", "red"), xlab = "Tiempo", 
+        ylab = "Producción de electricidad",
+        main = "Predicción de los datos de producción de electricidad",
+        sub = "Predicción de 36 meses")
+        
+        
+```{r ej2s6,comment=NA}
+# Ejemplo 2. Modelos estocásticos básicos, modelos estacionarios y predicción
+
+# Ruido Blanco y simulación en R
+
+set.seed(1)
+w <- rnorm(100)
+plot(w, type = "l", xlab = "")
+title(main = "Ruido Blanco Gaussiano", xlab = "Tiempo")
+
+###
+
+# Para ilustrar mediante simulación como las muestras pueden diferir 
+# de sus poblaciones subyacentes considere lo siguiente
+
+x <- seq(-3, 3, length = 1000)
+hist(rnorm(100), prob = T, ylab = "", xlab = "", main = "") 
+points(x, dnorm(x), type = "l")
+title(ylab = "Densidad", xlab = "Valores simulados de la distribución normal estandar",
+      main = "Comparación de una muestra con su población subyacente")
+
+###
+
+set.seed(2)
+acf(rnorm(100), main = "")
+title(main = "Función de Autocorrelación Muestral", 
+      sub = "Valores simulados de la distribución normal estandar")
+
+###
+
+              # Caminata Aleatoria
+              # Simulación en R
+
+x <- w <- rnorm(1000)
+for(t in 2:1000) x[t] <- x[t-1] + w[t]
+plot(x, type = "l", main = "Caminata Aleatoria Simulada", 
+     xlab = "t", ylab = expression(x[t]), 
+     sub = expression(x[t]==x[t-1]+w[t]))
+acf(x, main = "")
+title(main = "Correlograma para la caminata aleatoria simulada", 
+      sub = expression(x[t]==x[t-1]+w[t]))
+
+###
+
+        # Modelos Ajustados y gráficas de diagnóstico
+      # Series de caminatas aleatorias simuladas
+
+# El correlograma de las series de diferencias puede usarse para evaluar si una serie dada
+# puede modelarse como una caminata aleatoria
+
+acf(diff(x), main = "")
+title(main = "Correlograma de la serie de diferencias", 
+      sub = expression(nabla*x[t]==x[t]-x[t-1]))
+
+#### Modelos AR(p), MA(q) y ARMA(p, q)
+
+# Modelos AR(p)
+
+# Correlograma de un proceso AR(1)
+
+rho <- function(k, alpha) alpha^k
+plot(0:10, rho(0:10, 0.7), type = "h", ylab = "", xlab = "")
+title(main = "Correlograma para un proceso AR(1)",
+      ylab = expression(rho[k] == alpha^k),
+      xlab = "lag k",
+      sub = expression(x[t]==0.7*x[t-1]+w[t]))
+
+plot(0:10, rho(0:10, -0.7), type = "h", ylab = "", xlab = "")
+title(main = "Correlograma para un proceso AR(1)",
+      ylab = expression(rho[k] == alpha^k),
+      xlab = "lag k",
+      sub = expression(x[t]==-0.7*x[t-1]+w[t]))
+abline(h = 0)
+
+###
+
+# Simulación en R
+
+# Un proceso AR(1) puede ser simulado en R como sigue:
+
+set.seed(1)
+x <- w <- rnorm(100)
+for(t in 2:100) x[t] <- 0.7 * x[t-1] + w[t]
+plot(x, type = "l", xlab = "", ylab = "")
+title(main = "Proceso AR(1) simulado",
+      xlab = "Tiempo",
+      ylab = expression(x[t]),
+      sub = expression(x[t]==0.7*x[t-1]+w[t]))
+
+#
+
+acf(x, main = "")
+title(main = "Correlograma del proceso AR(1) simulado", 
+      sub = expression(x[t]==0.7*x[t-1]+w[t]))
+
+#
+
+pacf(x, main = "")
+title(main = "Correlograma Parcial del proceso AR(1) simulado", 
+      sub = expression(x[t]==0.7*x[t-1]+w[t]))
+
+###
+
+# Modelos Ajustados
+
+# Ajuste de modelos a series simuladas
+
+x.ar <- ar(x, method = "mle")
+x.ar$order
+x.ar$ar
+x.ar$ar + c(-2, 2)*sqrt(x.ar$asy.var)
+
+# Serie de temperatura global: Ajuste de un modelo AR
+
+Global <- scan("global.txt")
+Global.ts <- ts(Global, st = c(1856, 1), end = c(2005, 12), fr = 12)
+Global.annual <- aggregate(Global.ts, FUN = mean)
+plot(Global.ts, xlab = "Tiempo", ylab = "Temperatura en Â°C", 
+     main = "Serie de Temperatura Global",
+     sub = "Serie mensual: Enero de 1856 a Diciembre de 2005")
+plot(Global.annual, xlab = "Tiempo", ylab = "Temperatura en Â°C", 
+     main = "Serie de Temperatura Global",
+     sub = "Serie anual de temperaturas medias: 1856 a 2005")
+
+#
+
+mean(Global.annual)
+Global.ar <- ar(Global.annual, method = "mle")
+Global.ar$order
+Global.ar$ar
+acf(Global.ar$res[-(1:Global.ar$order)], lag = 50, main = "")
+title(main = "Correlograma de la serie de residuales",
+      sub = "Modelo AR(4) ajustado a la serie de temperaturas globales anuales")
+
+####################################################################################################################################################
+
+# Modelos MA(q)
+
+# Ejemplos en R: Correlograma y Simulación
+
+# Función en R para calcular la Función de Autocorrelación
+
+rho <- function(k, beta){
+  q <- length(beta) - 1
+  if(k > q) ACF <- 0 else {
+    s1 <- 0; s2 <- 0
+    for(i in 1:(q-k+1)) s1 <- s1 + beta[i]*beta[i + k]
+    for(i in 1:(q+1)) s2 <- s2 + beta[i]^2
+    ACF <- s1/s2}
+  ACF}
+
+# Correlograma para un proceso MA(3)
+
+beta <- c(1, 0.7, 0.5, 0.2)
+rho.k <- rep(1, 10)
+for(k in 1:10) rho.k[k] <- rho(k, beta)
+plot(0:10, c(1, rho.k), ylab = expression(rho[k]), xlab = "lag k", type = "h",
+     sub = expression(x[t] == w[t] + 0.7*w[t-1] + 0.5*w[t-2] + 0.2*w[t-3]),
+     main = "Función de autocorrelación para un proceso MA(3)")
+abline(0, 0)
+
+# Correlograma para otro proceso MA(3)
+
+beta <- c(1, -0.7, 0.5, -0.2)
+rho.k <- rep(1, 10)
+for(k in 1:10) rho.k[k] <- rho(k, beta)
+plot(0:10, c(1, rho.k), ylab = expression(rho[k]), xlab = "lag k", type = "h",
+     sub = expression(x[t] == w[t] - 0.7*w[t-1] + 0.5*w[t-2] - 0.2*w[t-3]),
+     main = "Función de autocorrelación para un proceso MA(3)")
+abline(0, 0)
+
+####################################################################################################################################################
+
+# Simulación de un proceso MA(3)
+
+set.seed(1)
+b <- c(0.8, 0.6, 0.4)
+x <- w <- rnorm(1000)
+for(t in 4:1000){
+  for(j in 1:3) x[t] <- x[t] + b[j]*w[t-j]
+}
+
+plot(x, type = "l", ylab = expression(x[t]), xlab = "Tiempo t",
+     sub = expression(x[t] == w[t] + 0.8*w[t-1] + 0.6*w[t-2] + 0.4*w[t-3]),
+     main = "Serie de tiempo simulada de un proceso MA(3)")
+
+###
+
+acf(x, main = "")
+title(main = "Correlograma para un proceso MA(3) simulado", 
+      sub = expression(x[t] == w[t] + 0.8*w[t-1] + 0.6*w[t-2] + 0.4*w[t-3]))
+
+####################################################################################################################################################
+
+# Ajuste de modelos MA 
+
+x.ma <- arima(x, order = c(0, 0, 3))
+x.ma
+
+####################################################################################################################################################
+
+# Modelos ARMA(p, q)
+
+
+# Simulación y Ajuste
+
+set.seed(1)
+x <- arima.sim(n = 10000, list(ar = -0.6, ma = 0.5))
+plot(x[1:100], type = "l", xlab = "")
+title(main = "Serie simulada", xlab = "Tiempo", 
+      sub = expression(x[t] == -0.6*x[t-1] + w[t] + 0.5*w[t-1]))
+
+#
+
+coef(arima(x, order = c(1, 0, 1)))
+
+#### Predicción
+
+# Serie de producción de electricidad
+
+CBE <- read.csv("cbe.csv", header = TRUE)
+Elec.ts <- ts(CBE[, 3], start = 1958, freq = 12)
+plot(Elec.ts, xlab = "", ylab = "")
+title(main = "Serie de Producción de Electricidad",
+      xlab = "Tiempo",
+      ylab = "Producción de electricidad")
+
+#
+
+plot(log(Elec.ts), xlab = "", ylab = "")
+title(main = "Serie-log de Producción de Electricidad",
+      xlab = "Tiempo",
+      ylab = "Log de Producción de electricidad")
+
+#
+
+Time <- 1:length(Elec.ts)
+Imth <- cycle(Elec.ts)
+Elec.lm <- lm(log(Elec.ts) ~ Time + I(Time^2) + factor(Imth))
+
+#
+
+acf(resid(Elec.lm), main = "")
+title(main = "Correlograma de la serie de residuales del modelo de regresión",
+      sub = "Serie de producción de electricidad")
+
+#
+
+plot(resid(Elec.lm), type = "l", main = "", xlab = "", ylab = "")
+title(main = "Serie de residuales del modelo de regresión ajustado",
+      sub = "Serie de producción de electricidad",
+      xlab = "Tiempo",
+      ylab = "Residuales")
+
+###
+
+# Código para encontrar el mejor modelo ARMA(p, q) considerando el AIC 
+# (Akaike Information Criterion)
+
+best.order <- c(0, 0, 0)
+best.aic <- Inf
+for(i in 0:2)for(j in 0:2){
+  model <- arima(resid(Elec.lm), order = c(i, 0, j))
+  fit.aic <- AIC(model)
+  if(fit.aic < best.aic){
+    best.order <- c(i, 0, j)
+    best.arma <- arima(resid(Elec.lm), order = best.order)
+    best.aic <- fit.aic
+  }
+}
+
+best.order
+
+#
+
+acf(resid(best.arma), main = "")
+title(main = "Serie de residuales del modelo ARMA(2, 0) ajustado",
+      sub = "Serie de residuales del modelo de regresión ajustado a los datos de electricidad")
+
+###
+
+new.time <- seq(length(Elec.ts)+1, length = 36)
+new.data <- data.frame(Time = new.time, Imth = rep(1:12, 3))
+predict.lm <- predict(Elec.lm, new.data)
+predict.arma <- predict(best.arma, n.ahead = 36)
+elec.pred <- ts(exp(predict.lm + predict.arma$pred), start = 1991, freq = 12)
+
+#
+
+ts.plot(cbind(Elec.ts, elec.pred), lty = 1:2, 
+        col = c("blue", "red"), xlab = "Tiempo", 
+        ylab = "Producción de electricidad",
+        main = "Predicción de los datos de producción de electricidad",
+        sub = "Predicción de 36 meses")
+
+
+```
+
+# RETO 1. PROCESO AR
+
+## OBJETIVO
+
+Observar algunas características de una serie de tiempo que proviene de un proceso AR(1) y ajustar un modelo.
+
+
+## DESARROLLO
+
+Reto 1. Simulación de un proceso AR(1)
+
+Simula un proceso AR(1) de la forma $x[t] = 0.5 * x[t-1] + w[t]$ para $t = 1, 2, ..., 200$ y muestra gráficamente la serie de tiempo obtenida
+
+Obtén el correlograma y el correlograma parcial del proceso AR(1) simulado
+
+Ajusta un modelo autorregresivo a la serie simulada utilizando la función $ar$, observa el orden del modelo y el parámetro estimado (los parámetros estimados)
+
+
+```{r r1s6,comment=NA}
+# Reto 1. Proceso AR(1)
+
+# 1. Simule un proceso AR(1) de la forma x[t] = 0.5 * x[t-1] + w[t] para
+# t = 1, 2, ..., 200 y muestre gráficamente la serie de tiempo obtenida
+
+# 2. Obtenga el correlograma y el correlograma parcial del proceso AR(1)
+# simulado
+
+# 3. Ajuste un modelo autorregresivo a la serie simulada utilizando la
+# función ar, observe el orden del módelo y el parámetro 
+# estimado (los paramétros estimados) 
+
+# **Solución**
+
+# Simulación en R
+
+# Un proceso AR(1) puede ser simulado en R como sigue:
+
+set.seed(1)
+x <- w <- rnorm(200)
+for(t in 2:200) x[t] <- 0.5 * x[t-1] + w[t]
+plot(x, type = "l", xlab = "", ylab = "")
+title(main = "Proceso AR(1) simulado",
+      xlab = "Tiempo",
+      ylab = expression(x[t]),
+      sub = expression(x[t]==0.5*x[t-1]+w[t]))
+
+#
+
+acf(x, main = "")
+title(main = "Correlograma del proceso AR(1) simulado", 
+      sub = expression(x[t]==0.5*x[t-1]+w[t]))
+
+#
+
+pacf(x, main = "")
+title(main = "Correlograma Parcial del proceso AR(1) simulado", 
+      sub = expression(x[t]==0.5*x[t-1]+w[t]))
+
+###
+
+# Modelos Ajustados
+
+# Ajuste de modelos a series simuladas
+
+x.ar <- ar(x, method = "mle")
+x.ar$order
+x.ar$ar
+
+```
+
+
+# EJEMPLO 3. MODELOS NO ESTACIONARIOS Y PREDICCIÓN
+
+
+## DESARROLLO
+
+Tomamos datos de https://github.com/AtefOuni/ts/tree/master/Data
+
+Serie de producción de electricidad de Australia
+
+CBE <- read.csv("cbe.csv", header = TRUE)
+Elec.ts <- ts(CBE[, 3], start = 1958, freq = 12)
+plot(Elec.ts, xlab = "", ylab = "")
+title(main = "Serie de Producción de Electricidad Australiana",
+      ylab = "Producción de electricidad (GWh)",
+      xlab = "Tiempo")
+plot(diff(Elec.ts), xlab = "", ylab = "")
+title(main = "Serie Diferenciada de Producción de Electricidad Australiana",
+      xlab = "Tiempo", ylab = "Dif Serie",
+      sub = "Gráfica de la serie diferenciada de primer órden")
+plot(diff(log(Elec.ts)), xlab = "", ylab = "")
+title(main = "Serie de log dif de Producción de Electricidad Australiana",
+      xlab = "Tiempo", ylab = "Dif log-Serie",
+      sub = "Gráfica de la serie log-transformada diferenciada de primer órden")
+Simulación y ajuste
+
+A continuación, simulamos datos de un modelo ARIMA(1, 1, 1) y luego ajustamos un modelo a la serie simulada para recuperar los parámetros estimados.
+
+set.seed(1)
+x <- w <- rnorm(1000)
+for(i in 3:1000) x[i] <- 0.5*x[i-1] + x[i-1] - 0.5*x[i-2] + w[i] + 0.3*w[i-1]
+plot(x, type = "l", 
+     main = "Serie simulada de un modelo ARIMA(1, 1, 1)",
+     xlab = "Tiempo",
+     ylab = expression(x[t]),
+     sub = expression(x[t] == 0.5*x[t-1] + x[t-1] - 0.5*x[t-2] + w[t] + 0.3*w[t-1]))
+arima(x, order = c(1, 1, 1))
+Simulación con la función arima.sim
+
+x <- arima.sim(model = list(order = c(1, 1, 1), ar = 0.5, ma = 0.3), n = 1000)
+arima(x, order = c(1, 1, 1))
+Serie de producción de cerveza
+
+CBE <- read.csv("cbe.csv", header = TRUE)
+Beer.ts <- ts(CBE[, 2], start = 1958, freq = 12)
+plot(Beer.ts, xlab = "", ylab = "")
+title(main = "Serie de Producción de Cerveza en Australia",
+      ylab = "Producción de Cerveza (Megalitros)",
+      xlab = "Mes")
+Beer.ima <- arima(Beer.ts, order = c(0, 1, 1))
+Beer.ima
+acf(resid(Beer.ima), main = "")
+title(main = "Autocorrelaciones para los Residuales del Ajuste",
+      sub = expression(x[t]==x[t-1]+w[t]-0.33*w[t-1]))
+Beer.1991 <- predict(Beer.ima, n.ahead = 12)
+sum(Beer.1991$pred)
+Modelos Arima estacionales
+Procedimiento de ajuste Serie de producción de electricidad de Australia
+
+CBE <- read.csv("cbe.csv", header = TRUE)
+Elec.ts <- ts(CBE[, 3], start = 1958, freq = 12)
+plot(Elec.ts, xlab = "", ylab = "")
+title(main = "Serie de Producción de Electricidad Australiana",
+      ylab = "Producción de electricidad (GWh)",
+      xlab = "Tiempo")
+plot(log(Elec.ts), xlab = "", ylab = "")
+title(main = "Log de Serie de Producción de Electricidad Australiana",
+      ylab = "Log de Producción de electricidad (GWh)",
+      xlab = "Tiempo")
+Elec.AR <- arima(log(Elec.ts), order = c(1, 1, 0), 
+                 seas = list(order = c(1, 0, 0), 12))
+
+Elec.MA <- arima(log(Elec.ts), order = c(0, 1, 1),
+                 seas = list(order = c(0, 0, 1), 12))
+
+
+AIC(Elec.AR)
+AIC(Elec.MA)
+Función para buscar un buen modelo
+
+get.best.arima <- function(x.ts, maxord = c(1, 1, 1, 1, 1, 1)){
+  best.aic <- 1e8
+  n <- length(x.ts)
+  for(p in 0:maxord[1])for(d in 0:maxord[2])for(q in 0:maxord[3])
+    for(P in 0:maxord[4])for(D in 0:maxord[5])for(Q in 0:maxord[6])
+    {
+      fit <- arima(x.ts, order = c(p, d, q),
+                   seas = list(order = c(P, D, Q),
+                               frequency(x.ts)), method = "CSS")
+      fit.aic <- -2*fit$loglik + (log(n) + 1)*length(fit$coef)
+      if(fit.aic < best.aic){
+        best.aic <- fit.aic
+        best.fit <- fit
+        best.model <- c(p, d, q, P, D, Q)
+      }
+    }
+  list(best.aic, best.fit, best.model)
+}
+Nuevo ajuste a los datos de la serie transformada de producción de electricidad
+
+best.arima.elec <- get.best.arima(log(Elec.ts),
+                                  maxord = c(2, 2, 2, 2, 2, 2))
+
+best.fit.elec <- best.arima.elec[[2]]  # Modelo
+best.arima.elec[[3]] # Tipo de modelo (órdenes)
+best.fit.elec
+best.arima.elec[[1]] # AIC
+ACF para residuales del ajuste
+
+acf(resid(best.fit.elec), main = "")
+title(main = "Correlograma de los residuales del ajuste")
+Predicción
+
+pr <- predict(best.fit.elec, 12)$pred 
+ts.plot(cbind(window(Elec.ts, start = 1981),
+              exp(pr)), col = c("blue", "red"), xlab = "")
+title(main = "Predicción para la serie de producción de electricidad",
+      xlab = "Mes",
+      ylab = "Producción de electricidad (GWh)")
+Inspirado en la siguiente bibliografía:
+
+```{r ej3s6,comment=NA}
+# Ejemplo 3. Modelos no estacionarios y predicción
+
+# https://github.com/AtefOuni/ts/tree/master/Data
+    
+# Serie de Producción de Electricidad de Australia
+
+CBE <- read.csv("cbe.csv", header = TRUE)
+Elec.ts <- ts(CBE[, 3], start = 1958, freq = 12)
+plot(Elec.ts, xlab = "", ylab = "")
+title(main = "Serie de Producción de Electricidad Australiana",
+      ylab = "Producción de electricidad (GWh)",
+      xlab = "Tiempo")
+
+###
+
+plot(diff(Elec.ts), xlab = "", ylab = "")
+title(main = "Serie Diferenciada de Producción de Electricidad Australiana",
+      xlab = "Tiempo", ylab = "Dif Serie",
+      sub = "Gráfica de la serie diferenciada de primer órden")
+
+###
+
+plot(diff(log(Elec.ts)), xlab = "", ylab = "")
+title(main = "Serie de log dif de Producción de Electricidad Australiana",
+      xlab = "Tiempo", ylab = "Dif log-Serie",
+      sub = "Gráfica de la serie log-transformada diferenciada de primer órden")
+
+####################################################################################################################################################
+
+                      # Simulación y ajuste
+
+# A continuación, simulamos datos de un modelo ARIMA(1, 1, 1) y luego ajustamos un modelo a la serie simulada 
+# para recuperar los parámetros estimados.
+
+set.seed(1)
+x <- w <- rnorm(1000)
+for(i in 3:1000) x[i] <- 0.5*x[i-1] + x[i-1] - 0.5*x[i-2] + w[i] + 0.3*w[i-1]
+
+###
+
+plot(x, type = "l", 
+     main = "Serie simulada de un modelo ARIMA(1, 1, 1)",
+     xlab = "Tiempo",
+     ylab = expression(x[t]),
+     sub = expression(x[t] == 0.5*x[t-1] + x[t-1] - 0.5*x[t-2] + w[t] + 0.3*w[t-1]))
+
+###
+
+arima(x, order = c(1, 1, 1))
+
+###
+
+      # Simulación con la función arima.sim
+
+x <- arima.sim(model = list(order = c(1, 1, 1), ar = 0.5, ma = 0.3), n = 1000)
+
+###
+
+arima(x, order = c(1, 1, 1))
+
+####################################################################################################################################################
+
+    # Serie de producción de cerveza
+
+CBE <- read.csv("cbe.csv", header = TRUE)
+Beer.ts <- ts(CBE[, 2], start = 1958, freq = 12)
+plot(Beer.ts, xlab = "", ylab = "")
+title(main = "Serie de Producción de Cerveza en Australia",
+      ylab = "Producción de Cerveza (Megalitros)",
+      xlab = "Mes")
+
+###
+
+Beer.ima <- arima(Beer.ts, order = c(0, 1, 1))
+Beer.ima
+
+###
+
+acf(resid(Beer.ima), main = "")
+title(main = "Autocorrelaciones para los Residuales del Ajuste",
+      sub = expression(x[t]==x[t-1]+w[t]-0.33*w[t-1]))
+
+###
+
+Beer.1991 <- predict(Beer.ima, n.ahead = 12)
+sum(Beer.1991$pred)
+
+#### Modelos Arima estacionales
+
+# Procedimiento de ajuste
+# Serie de Producción de Electricidad de Australia
+
+CBE <- read.csv("cbe.csv", header = TRUE)
+Elec.ts <- ts(CBE[, 3], start = 1958, freq = 12)
+plot(Elec.ts, xlab = "", ylab = "")
+title(main = "Serie de Producción de Electricidad Australiana",
+      ylab = "Producción de electricidad (GWh)",
+      xlab = "Tiempo")
+
+###
+
+plot(log(Elec.ts), xlab = "", ylab = "")
+title(main = "Log de Serie de Producción de Electricidad Australiana",
+      ylab = "Log de Producción de electricidad (GWh)",
+      xlab = "Tiempo")
+
+###
+
+Elec.AR <- arima(log(Elec.ts), order = c(1, 1, 0), 
+                 seas = list(order = c(1, 0, 0), 12))
+
+Elec.MA <- arima(log(Elec.ts), order = c(0, 1, 1),
+                 seas = list(order = c(0, 0, 1), 12))
+
+
+AIC(Elec.AR)
+AIC(Elec.MA)
+
+###
+
+# Función para buscar un buen modelo
+
+get.best.arima <- function(x.ts, maxord = c(1, 1, 1, 1, 1, 1)){
+  best.aic <- 1e8
+  n <- length(x.ts)
+  for(p in 0:maxord[1])for(d in 0:maxord[2])for(q in 0:maxord[3])
+    for(P in 0:maxord[4])for(D in 0:maxord[5])for(Q in 0:maxord[6])
+    {
+      fit <- arima(x.ts, order = c(p, d, q),
+                   seas = list(order = c(P, D, Q),
+                               frequency(x.ts)), method = "CSS")
+      fit.aic <- -2*fit$loglik + (log(n) + 1)*length(fit$coef)
+      if(fit.aic < best.aic){
+        best.aic <- fit.aic
+        best.fit <- fit
+        best.model <- c(p, d, q, P, D, Q)
+      }
+    }
+  list(best.aic, best.fit, best.model)
+}
+
+# Nuevo ajuste a los datos de la serie transformada de producción 
+# de electricidad
+
+best.arima.elec <- get.best.arima(log(Elec.ts),
+                                  maxord = c(2, 2, 2, 2, 2, 2))
+
+best.fit.elec <- best.arima.elec[[2]]  # Modelo
+best.arima.elec[[3]] # Tipo de modelo (órdenes)
+best.fit.elec
+best.arima.elec[[1]] # AIC
+###
+
+# ACF para residuales del ajuste
+
+acf(resid(best.fit.elec), main = "")
+title(main = "Correlograma de los residuales del ajuste")
+
+###
+# Predicción
+
+pr <- predict(best.fit.elec, 12)$pred 
+ts.plot(cbind(window(Elec.ts, start = 1981),
+              exp(pr)), col = c("blue", "red"), xlab = "")
+title(main = "Predicción para la serie de producción de electricidad",
+      xlab = "Mes",
+      ylab = "Producción de electricidad (GWh)")
+
+
+
+```
+
+
+# RETO 2. SIMULACION DE UN PROCESO ARIMA (1,1,1)
+
+
+
+## OBJETIVO
+
+
+Ajustar un modelo a una serie de tiempo simulada, observar que tan adecuado es el ajuste y realizar algunas predicciones.
+
+## DESARROLLO
+
+1. Realiza la siguiente simulación con las siguientes características: n = 1000 valores de un proceso ARIMA(1, 1, 1) con parámetros ar = 0.6 y ma = 0.2
+
+2.Ajusta un modelo Arima a la serie simulada para estimar los parámetros y observe las estimaciones de los parámetros
+
+3. Obtén el correlograma de los residuales del ajuste
+
+4. Realiza tres predicciones con ayuda del modelo ajustado y la función $predict$
+
+```{r reto2s6,comment=NA}
+# Reto 2. Proceso ARIMA(1, 1, 1)
+
+# 1. Simula n = 1000 valores de un proceso ARIMA(1, 1, 1) con parámetros
+# ar = 0.6 y ma = 0.2
+
+# 2. Ajusta un modelo Arima a la serie simulada para estimar los
+# parámetros y observa las estimaciones de los parámetros
+
+# 3. Obtén el correlograma de los residuales del ajuste
+
+# 4. Realiza tres predicciones con ayuda del modelo ajustado y la función
+# `predict`
+
+# **Solución**
+
+# A continuación, simulamos datos de un modelo ARIMA(1, 1, 1) 
+
+set.seed(9)
+x <- arima.sim(model = list(order = c(1, 1, 1), 
+                            ar = 0.6, ma = 0.2), n = 1000)
+
+# ajustamos un modelo a la serie simulada para recuperar los parámetros 
+# estimados
+
+fit <- arima(x, order = c(1, 1, 1))
+
+# observamos las estimaciones de los parámetros
+
+coefficients(fit)
+
+# obtenemos el correlograma de los residuales del ajuste
+
+acf(resid(fit), main = "")
+title(main = "Autocorrelaciones para los Residuales del Ajuste")
+
+# Llevamos a cabo tres predicciones con el modelo ajustado y la función `predict`
+
+pred <- predict(fit, n.ahead = 3)
+pred$pred
+```
+
+# RETO 3. GRAFICA DE SERIES DE TIEMPO
+
+## OBJETIVO
+
+Utilizar las funciones $ts$ y $ts.plot$ para crear series de tiempo en `R`
+
+## DESARROLLO
+
+Con el conjunto de datos soccer.csv realiza lo siguiente
+
+Crea un data frame para el Barcelona que indique el número de goles anotados en cada fecha que ha jugado.
+
+Obtén un data frame que indique el promedio de goles anotados en cada mes que ha jugado
+
+Crea una serie de tiempo mensual para el número promedio de goles anotados por el Barcelona
+
+Realiza los pasos 1 a 3 para el Real Madrid
+
+Muestra en una misma imagen las gráficas de las series de tiempo anteriores
+
+```{r r3s6,comment=NA}
+# RETO 3 SESION 6
+# Reto 3. Gráfica de series de tiempo
+
+# Objetivo
+
+# Utilizar las funciones `ts` y `ts.plot` para crear series de tiempo en `R`.
+
+# Requisitos
+
+# Tener instalado R y RStudio
+# Haber trabajado con el Prework y el Work
+
+# Desarrollo
+
+# Con el conjunto de datos soccer.csv realiza lo siguiente
+
+# 1. Crea un data frame para el Barcelona que indique el número de goles
+# anotados en cada fecha que ha jugado.
+
+# 2. Obtén un data frame que indique el promedio de goles anotados en cada
+# mes que ha jugado
+
+# 3. Crea una serie de tiempo mensual para el número promedio de goles 
+# anotados por el Barcelona
+
+# 4. Realiza los pasos 1 a 3 para el Real Madrid
+
+# 5. Muestra en una misma imagen las gráficas de las series de tiempo
+# anteriores
+
+# **Solución**
+library(dplyr)
+data <- read.csv("soccer.csv")
+data <- mutate(data, date = as.Date(date, "%Y-%m-%d"))
+
+# Anotaciones y fechas como local
+
+d1 <- data %>% select(date, home.team, home.score) %>% 
+  filter(home.team == "Barcelona") %>% 
+  rename(team = home.team, score = home.score)
+
+# Anotaciones y fechas como visitante
+
+d2 <- data %>% select(date, away.team, away.score) %>% 
+  filter(away.team == "Barcelona") %>% 
+  rename(team = away.team, score = away.score)
+
+# data frame de anotaciones y fechas
+
+d <- rbind(d1, d2) 
+
+# data frame de promedio de anotaciones en cada mes
+
+d <- mutate(d, Ym = format(date, "%Y-%m"))
+barca <- d %>% group_by(Ym) %>% summarise(goles = mean(score))
+
+# Creación de la serie de tiempo 
+
+# A partir de agosto 2017
+
+(barca <- ts(barca$goles, start = c(1, 1), end = c(3, 5), # Hasta diciembre de 2019
+             frequency = 10))
+
+######
+
+# Anotaciones y fechas como local
+
+d1 <- data %>% select(date, home.team, home.score) %>% 
+  filter(home.team == "Real Madrid") %>% 
+  rename(team = home.team, score = home.score)
+
+# Anotaciones y fechas como visitante
+
+d2 <- data %>% select(date, away.team, away.score) %>% 
+  filter(away.team == "Real Madrid") %>% 
+  rename(team = away.team, score = away.score)
+
+# data frame de anotaciones y fechas
+
+d <- rbind(d1, d2)
+
+# data frame de promedio de anotaciones en cada mes
+
+d <- mutate(d, Ym = format(date, "%Y-%m"))
+realM <- d %>% group_by(Ym) %>% summarise(goles = mean(score))
+
+# Creación de la serie de tiempo 
+
+(realM <- ts(realM$goles, start = c(1, 1), # A partir de agosto 2017
+             frequency = 10, end = c(3, 5))) # Hasta diciembre de 2019
+
+######
+
+# Gráficas de series de tiempo
+
+ts.plot(cbind(barca, realM), col = c(2, 4), ylim = c(0, 5))
+abline(h = mean(barca), lwd = 2, col = 2, lty = 2)
+abline(h = mean(realM), lwd = 2, col = 4, lty = 2)
+legend(x = 2, y = 5,
+       legend = c("Barcelona", "Real Madrid"),
+       col = c(2, 4), lty = c(1, 1))
+
+
+```
+
+# POSTWORK SESION 6
+
+## OBJETIVO
+
+Aprender a crear una serie de tiempo en R
+
+
+## DESARROLLO
+
+Importa el conjunto de datos match.data.csv a R y realiza lo siguiente:
+
+Agrega una nueva columna sumagoles que contenga la suma de goles por partido.
+
+Obtén el promedio por mes de la suma de goles.
+
+Crea la serie de tiempo del promedio por mes de la suma de goles hasta diciembre de 2019.
+
+Grafica la serie de tiempo.
+
+
+```{r pws6,comment=NA}
+# Postwork 6
+
+# Importe el conjunto de datos match.data.csv a `R`:
+
+# 1. Agregue una nueva columna `sumagoles` que contenga la suma de goles por partido
+# 2. Obtenga el promedio por mes de la suma de goles
+# 3. Creé la serie de tiempo del promedio por mes de la suma de goles hasta diciembre de 2019
+# 4. Grafique la serie de tiempo
+
+# Solución
+
+# Primero cargamos el paquete que utilizaremos para manipular los datos
+
+library(dplyr)
+
+# Establecemos nuestro directorio de trabajo que deberá contener el archivo csv que importaremos a `R`
+
+# Importamos los datos a `R`
+
+data <- read.csv("match.data.csv")
+
+# 1. # 2.
+
+# Agregamos la columna `sumagoles` y obtenemos el promedio por mes
+# de la suma de goles
+
+nd <- data %>% 
+  mutate(date = as.Date(date, "%Y-%m-%d"),
+         sumagoles = home.score + away.score) %>%
+  mutate(Ames = format(date, "%Y-%m")) %>%
+  group_by(Ames) %>%
+  summarise(promgoles = mean(sumagoles))
+
+(nd <- as.data.frame(nd))
+
+(nd <- nd %>% filter(Ames != "2013-06"))
+(nd <- nd[1:95,])
+
+# A partir de agosto de 2010
+
+# 3. Creamos la serie de tiempo en `R`
+
+(promgoles <- ts(nd$promgoles, start = 1,
+                frequency = 10))
+
+# 4. Graficamos la serie de tiempo
+
+ts.plot(promgoles)
+```
 
