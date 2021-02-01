@@ -12,3 +12,705 @@ Trabajar con RStudio desde la nube y enviar (traer) código a (desde) un reposit
 Conectarte a una BDD con `R`
 Importar datos de una BDD a `R`
 Manipular datos de una BDD en `R`
+
+
+# BASE DE DATOS
+
+Una base de datos es una colección organizada de información estructurada, o datos, típicamente almacenados electrónicamente en un sistema de computadora. Una base de datos usualmente se controla por un sistema de gestión de base de datos (DBMS). En conjunto, los datos y el DBMS, junto con las aplicaciones que están asociados con ellos, se conocen como un sistema de base de datos.
+
+Los datos dentro de una bases de datos se modelan generalmente en filas y columnas en una serie de tablas para su procesamiento y que la consulta de datos sea eficiente. La mayoría de las bases de datos utilizan lenguaje de consulta estructurado (SQL) para escribir y consultar datos.
+
+SQL es un lenguaje de programación usado la mayoría de bases de datos relacionales para consultar, manipular y definir datos, y para proporcionar control de acceso. Aunque SQL todavía se usa ampliamente en la actualidad, comienzan a aparecer nuevos lenguajes de programación.
+
+La diferencia entre las bases de datos y las hojas de cálculo (como Microsoft Excel) son dos formas convenientes de almacenar información. Las principales diferencias entre las dos son:
+
+Cómo se almacenan y manipulan los datos
+Quién puede acceder a los datos
+Cuántos datos se pueden almacenar
+Las hojas de cálculo son muy buenas para un solo usuario o un pequeño número de usuarios que no necesitan manipular una gran cantidad de datos complicados. Las bases de datos, están diseñadas para contener colecciones mucho más grandes de información organizada, cantidades masivas en ocasiones, éstas permiten a múltiples usuarios al mismo tiempo acceder y consultar los datos de forma rápida y segura utilizando una lógica y un lenguaje altamente complejos.
+
+Hay diferentes tipos de bases de datos. La mejor base de datos depende de cómo la organización pretende utilizar los datos.
+
+* __Bases de datos relacionales.__ Las bases de datos relacionales se popularizaron en los años ochenta. Los elementos de una base de datos relacional se organizan como un conjunto de tablas con columnas y filas. La tecnología de base de datos relacional proporciona la manera más eficiente y flexible de acceder a información estructurada.
+* __Bases de datos orientadas a objetos.__ La información en una base de datos orientada a objetos se representa en forma de objetos, como en la programación orientada a objetos.
+* __Bases de datos distribuidas.__ Una base de datos distribuida consta de dos o más archivos ubicados en diferentes sitios. La base de datos puede almacenarse en múltiples computadoras, ubicadas en la misma ubicación física o dispersas en diferentes redes.
+* __Almacenes de datos.__ Un almacén de datos es un tipo de base de datos diseñada específicamente para consultas y análisis rápidos, y funciona como un depósito central de datos.
+* __Bases de datos NoSQL.__ Una NoSQL, o una base de datos no relacional, permite que los datos no estructurados y semiestructurados se almacenen y manipulen, a diferencia de una base de datos relacional, que define cómo deben componerse todos los datos insertados en la base de datos. Las bases de datos NoSQL se hicieron populares a medida que las aplicaciones web se hacían más comunes y más complejas.
+
+Algunas de las bases de datos más recientes incluyen:
+
+* __Bases de datos de código abierto.__ Un sistema de base de datos de código abierto es aquel cuyo código fuente es de código abierto; dichas bases de datos podrían ser bases de datos SQL o NoSQL.
+* __Bases de datos en la nube.__ Una base de datos en la nube es una colección de datos, ya sean estructurados o no estructurados, que reside en una plataforma de computación en la nube privada, pública o híbrida. Hay dos tipos de modelos de base de datos en la nube: tradicional y database as a service (DBaaS). Con DBaaS, las tareas administrativas y el mantenimiento son realizados por un proveedor de servicios.
+* __Base de datos multimodelo.__ Las bases de datos multimodelo combinan diferentes tipos de modelos de base de datos en un único back-end integrado. Esto significa que pueden acomodar varios tipos de datos.
+* __Base de datos documental/JSON.__ Diseñadas para almacenar, recuperar y administrar información orientada a documentos, las bases de datos documentales son una forma moderna de almacenar datos en formato JSON en lugar de filas y columnas.
+* __Bases de datos independientes.__ Las bases de datos independientes, el tipo de base de datos más nuevo e innovador (también conocidas como bases de datos autónomas), se basan en la nube y utilizan el aprendizaje autónomo para automatizar el ajuste, la seguridad, las copias de seguridad, las actualizaciones y otras tareas de administración de rutina de las bases de datos que tradicionalmente realizan los administradores de bases de datos.
+
+# LECTURA ¿QUÉ ES CLOUD?
+
+¿Qué es cloud? Lo vemos por todos lados y no sabemos a ciencia cierta qué es. Nos metemos de lleno en este concepto que será el futuro.
+
+Seguramente, te sonará esta palabra y la relacionarán con los servidores, con internet, aplicaciones en web, bases de datos. No vas mal desencaminado/a, así que tampoco estás tan mal ¡Eh! . Si no sabes relacionarlo con nada, no te preocupes porque aquí te ayudaremos a aprender qué es.
+
+Podemos denominarlo como “cloud computing“, pero popularmente se le llama “cloud” al suministro de archivos o recursos a petición del usuario a través de una conexión a internet. Como casi cualquier conexión hay un solicitante (el usuario) y un receptor (el servidor), el solicitante pide un recurso a través de su aplicación y el receptor se lo proporciona.
+
+El cloud computing se puede utilizar de diferentes formas. Como podemos ver más abajo.
+
+## SaaS SOFTWARE COMO SERVICIO
+
+Si ponemos el ejemplo de una plataforma de streaming, se ejecuta un sistema en la nube, que están conectados a los sistemas de usuario mediante Internet y por un navegador.
+
+Lo más interesante del SaaS es que podemos iniciar sesión y utilizar las aplicaciones. Podemos acceder a los datos desde cualquier lado, mientras tengamos internet. Si el sistema falla, no perderemos los datos y el servicio es escalable.
+
+
+## PaaS PLATAFORMA COMO SERVICIO
+
+Es ideal para grupos de trabajo e intercambiar datos o recursos. Mientras uno puede subir y descargar, los otros sólo pueden acceder a esos datos.
+
+Estas plataformas son muy usadas por las empresas de gran tamaño.
+
+
+## IaaS INFRAESTRUCTURA COMO SERVICIO
+
+Este sistema cloud permite dotar de una infraestructura a las empresas para sus recursos, servidores, redes, almacenamiento de datos, etc. Es un servicio muy usado para las empresas que quieren tener una especie de intranet en la que subir aplicaciones o datos, como descargarla.
+
+Los beneficios de este cloud es que no hace falta invertir en hardware, el cloud es escalable y los servicios se adaptan a las empresas.
+
+Rstudio Cloud y Github se encuentra dentro de las categorías SaaS
+
+## JSON JAVASCRIPT OBJECT NOTATION
+
+Es un formato de texto sencillo para el intercambio de datos. Se trata de un subconjunto de la notación literal de objetos de JavaScript, aunque, debido a su amplia adopción como alternativa a XML, se considera un formato independiente del lenguaje.
+
+Una de las supuestas ventajas de JSON sobre XML como formato de intercambio de datos es que resulta mucho más sencillo escribir un analizador sintáctico (parser) para él.
+
+
+## XML
+
+Siglas en inglés de eXtensible Markup Language, traducido como "Lenguaje de Marcado Extensible" o "Lenguaje de Marcas Extensible", es un metalenguaje que permite definir lenguajes de marcas desarrollado por el World Wide Web Consortium (W3C) utilizado para almacenar datos en forma legible.
+
+
+# EJEMPLO 1. Conexión entre RStudio y Github
+
+## OBJETIVO
+
+* Hacer uso de ecurs nube de RStudio y Github
+* Utilizar como repositorio y control de cambios a GitHub
+* Hacer commit, push y pull
+
+## DESARROLLO
+
+Dentro de esta sesión podrás realizar una interacción entre RStudio y Github, haciendo posible trabajar con scripts en una interface de RStudio desde la nube, es decir, que se cargará en la ventada de tu explorador, con esto podrás trabajar de manera remota con scripts y poder alojarlos en algún repositorio.
+
+* Debes entrar a RStudio cloud y linkear el github con el RStudio con las contraseñas de tu Git y se puede hacer gcommit y pull dependiendo de los cambios hechos.
+
+# EJEMPLO 2 CONEXION DE UNA BASE DE DATOS CON R
+
+## OBJETIVO
+
+* Conectarse a una BD utilizando R
+* Lectura de una BD en R
+
+## DESARROLLO
+
+CONFIGURACIONES DE CONEXIÓN: Hay 5 configuraciones necesarias para hacer una conexión:
+
+1. Driver : consulta la sección previa de controladores para obtener información sobre la configuración, se utilizarán los drivers de MySQL
+2. Server : una ruta de red al servidor de la base de datos
+3. UID : nombre de usuario utilizado para acceder al servidor MySQL
+4. PWD : la contraseña correspondiente al UID proporcionado
+5. Port : debe establecerse en 3306 generalmente
+
+
+Comenzaremos instalando las librerías necesarias para realizar la conexión y lectura de la base de datos en RStudio, si previamente los tenías instalados omite la instalación, recuerda que solo necesitas realizarla una vez.
+
+install.packages("DBI")
+install.packages("RMySQL")
+
+library(DBI)
+library(RMySQL)
+Una vez que se tengan las librerías necesarias se procede a la lectura (podría ser que necesites otras, si te las solicita instalalas y cargalas), de la base de datos de Shiny la cual es un demo y nos permite interactuar con este tipo de objetos. El comando dbConnect es el indicado para realizar la lectura, los demás parámetros son los que nos dan acceso a la BDD.
+
+MyDataBase <- dbConnect(
+  drv = RMySQL::MySQL(),
+  dbname = "shinydemo",
+  host = "shiny-demo.csa7qlmguqrf.us-east-1.rds.amazonaws.com",
+  username = "guest",
+  password = "guest")
+Si no se arrojaron errores por parte de R, vamos a explorar la BDD
+
+dbListTables(MyDataBase)
+
+![TABLAS](tablas.jpg)
+
+
+Ahora si se quieren desplegar los campos o variables que contiene la tabla City se hará lo siguiente
+
+dbListFields(MyDataBase, 'City')
+Para realizar una consulta tipo MySQL sobre la tabla seleccionada haremos lo siguiente
+
+DataDB <- dbGetQuery(MyDataBase, "select * from City")
+Observemos que el objeto DataDB es un data frame, por lo tanto ya es un objeto de R y podemos aplicar los comandos usuales
+
+class(DataDB)
+dim(DataDB)
+head(DataDB)
+
+![TABLAS 2](tabla2.jpg)
+
+pop.mean <- mean(DataDB$Population)  # Media a la variable de población
+pop.mean 
+
+pop.3 <- pop.mean *3   # Operaciones aritméticas
+pop.3
+Incluso podemos hacer uso de otros comandos de búsqueda aplicando la librería dplyr
+
+library(dplyr)
+pop50.mex <-  DataDB %>% filter(CountryCode == "MEX" ,  Population > 50000)   # Ciudades del país de México con más de 50,000 habitantes
+
+head(pop50.mex)
+
+unique(DataDB$CountryCode)   # Países que contiene la BDD
+
+```{r ej2s7,comment=NA}
+# Ejemplo 2. Conexión a una BDD con R
+
+# Comenzaremos instalando las librerias necesarias para realizar la conexión y 
+# lectura de la base de datos en RStudio, si previamente los tenías instalados 
+# omite la instalación, recuerda que solo necesitas realizarla una vez.
+
+# install.packages("DBI")
+# install.packages("RMySQL")
+
+library(DBI)
+library(RMySQL)
+
+# Una vez que se tengan las librerias necesarias se procede a la lectura 
+# (podría ser que necesites otras, si te las solicita instalalas y cargalas), 
+# de la base de datos de Shiny la cual es un demo y nos permite interactuar con 
+# este tipo de objetos. El comando dbConnect es el indicado para realizar la 
+# lectura, los demás parametros son los que nos dan acceso a la BDD.
+
+MyDataBase <- dbConnect(
+  drv = RMySQL::MySQL(),
+  dbname = "shinydemo",
+  host = "shiny-demo.csa7qlmguqrf.us-east-1.rds.amazonaws.com",
+  username = "guest",
+  password = "guest")
+
+# Si no se arrojaron errores por parte de R, vamos a explorar la BDD
+
+dbListTables(MyDataBase)
+
+# Ahora si se quieren desplegar los campos o variables que contiene la tabla 
+# City se hará lo siguiente
+
+dbListFields(MyDataBase, 'City')
+
+# Para realizar una consulta tipo MySQL sobre la tabla seleccionada haremos lo 
+# siguiente
+
+DataDB <- dbGetQuery(MyDataBase, "select * from City")
+
+# Observemos que el objeto DataDB es un data frame, por lo tanto ya es un objeto 
+# de R y podemos aplicar los comandos usuales
+
+class(DataDB)
+head(DataDB)
+
+
+pop.mean <- mean(DataDB$Population)  # Media a la variable de población
+pop.mean 
+
+pop.3 <- pop.mean *3   # Operaciones aritméticas
+pop.3
+
+# Incluso podemos hacer unos de otros comandos de busqueda aplicando la 
+# libreria dplyr
+
+library(dplyr)
+pop50.mex <-  DataDB %>% filter(CountryCode == "MEX" ,  Population > 50000)   # Ciudades del país de México con más de 50,000 habitantes
+
+head(pop50.mex)
+
+unique(DataDB$CountryCode)   # Países que contiene la BDD
+```
+
+
+
+# RETO 1 RStudio Cloud -> GitHub
+
+## OBJETIVO
+
+Practicar como transferir un archivo desde RStudio Cloud hacia Github y viceversa
+
+
+## DESARROLLO
+
+
+Ahora vas a practicar los conocimientos adquiridos en esta sesión principalmente con RStudio y Github
+
+* Crea un repositorio en Github llamado Reto_Sesion_7
+
+* Crea un Project llamado Reto_Sesion_07 dentro de RStudio Cloud utilizando tu cuenta de RStudio, que esté ligado al repositorio recién creado
+
+* Ahora en RStudio crea un script llamado queries.Ren donde se conecte a la BDD shinydemo
+
+* Una vez hecha la conexión a la BDD, generar una busqueda con dplyr que devuelva el porcentaje de personas que hablan español en todos los países
+
+* Realizar una gráfica con ggplot que represente este porcentaje de tal modo que en el eje de las Y aparezca el país y en X el porcentaje, y que diferencíe entre aquellos que es su lengua oficial y los que no con diferente color (puedes utilizar la geom_bin2d() y coord_flip())
+
+* Una vez hecho esto hacer el commit y push para mandar tu archivo al repositorio de Github Reto_Sesion_7
+
+
+## SOLUCION
+
+### CREAR EL REPOSITORIO EN GitHub
+
+![SOL1](reto1.png)
+
+### VINCULARLO A RSTUDIO CLOUD
+
+![SOL2](reto1_git.png)
+
+
+### REALIZAR EL COMMIT Y EL PUSH
+
+![SOLU3](push.png)
+
+### COMPROBACION DEL PUSH EN GITHUB
+
+
+
+![SOLU4](pushtogit.png)
+
+
+### CODIGO DEL RETO
+
+
+```{r coderetos7,comment=NA}
+# install.packages("DBI")
+# install.packages("RMySQL")
+# install.packages("dplyr")
+# install.packages("ggplot2")
+library(dplyr)
+library(DBI)
+library(RMySQL)
+library(ggplot2)
+
+MyDataBase <- dbConnect(
+  drv = RMySQL::MySQL(),
+  dbname = "shinydemo",
+  host = "shiny-demo.csa7qlmguqrf.us-east-1.rds.amazonaws.com",
+  username = "guest",
+  password = "guest")
+
+dbListTables(MyDataBase)
+
+dbListFields(MyDataBase, 'CountryLanguage')
+
+DataDB <- dbGetQuery(MyDataBase, "select * from CountryLanguage")
+names(DataDB)
+
+SP <- DataDB %>% filter(Language == "Spanish")
+SP.df <- as.data.frame(SP) 
+
+
+SP.df %>% ggplot(aes( x = CountryCode, y=Percentage, fill = IsOfficial )) + 
+  geom_bin2d() +
+  coord_flip()
+```
+
+
+
+
+# EJEMPLO 3. Variantes en la lectura de BDD con R
+
+
+## OBJETIVO
+
+Utilizar la librería $dplyr$ y$ pool$ para hacer queries a $MySQL$
+
+
+## DESARROLLO
+
+Ahora utilizaremos otra opción para realizar queries a una BDD con la ayuda de dplyr que sustituye a SELECT en MySQL y el operador %>%, hay que recordar que con este comando también podemos realizar búsquedas de forma local.
+
+Comenzamos instalando las paqueterías necesarias y cargándolas a R
+
+install.packages("pool")
+install.packages("dbplyr")
+
+library(dbplyr)
+library(pool)
+Se realiza la lectura de la BDD con el comando dbPool, los demás parámetros se siguen utilizando igual que el ejemplo anterior
+
+my_db <- dbPool(
+  RMySQL::MySQL(), 
+  dbname = "shinydemo",
+  host = "shiny-demo.csa7qlmguqrf.us-east-1.rds.amazonaws.com",
+  username = "guest",
+  password = "guest"
+)
+Para ver el contenido de la BDD y realizar una búsqueda se procede de la siguiente manera
+
+dbListTables(my_db)
+
+<!-- # Obtener los primeros 5 registros de Country -->
+
+my_db %>% tbl("Country") %>% head(5) # library(dplyr)
+
+ <!-- Obtener los primeros 5 registros de CountryLanguage -->
+
+my_db %>% tbl("CountryLanguage") %>% head(5)
+Otra forma de generar una búsqueda será con la librería DBI, utilizando el comando dbSendQuery
+
+library(DBI)
+conn <- dbConnect(
+  drv = RMySQL::MySQL(),
+  dbname = "shinydemo",
+  host = "shiny-demo.csa7qlmguqrf.us-east-1.rds.amazonaws.com",
+  username = "guest",
+  password = "guest")
+
+rs <- dbSendQuery(conn, "SELECT * FROM City LIMIT 5;")
+
+dbFetch(rs)
+
+![QUERIE](querie.jpg)
+
+
+Para finalizar nos desconectamos de la BDD
+
+dbClearResult(rs)
+dbDisconnect(conn)}
+
+
+
+```{r ej3s7,comment=NA}
+# Ejemplo 3. Variantes en la lectura de BDD con R
+
+# Ahora utilizaremos otra opción para realizar queries a una BDD con la ayuda 
+# de dplyr que sustituye a SELECT en MySQL y el operador %>%, hay que recordar 
+# que con este comando también podemos realizar búsquedas de forma local.
+
+# Comenzamos instalando las paqueterías necesarias y cargándolas a R
+
+# install.packages("pool")
+# install.packages("dbplyr")
+
+library(dbplyr)
+library(pool)
+
+# Se realiza la lectura de la BDD con el comando dbPool, los demás parámetros 
+# se siguen utilizando igual que el ejemplo anterior
+
+my_db <- dbPool(
+  RMySQL::MySQL(), 
+  dbname = "shinydemo",
+  host = "shiny-demo.csa7qlmguqrf.us-east-1.rds.amazonaws.com",
+  username = "guest",
+  password = "guest"
+)
+
+# Para ver el contenido de la BDD y realizar una búsqueda se procede de la 
+# siguiente manera
+
+dbListTables(my_db)
+
+# Obtener los primeros 5 registros de Country
+
+my_db %>% tbl("Country") %>% head(5) # library(dplyr)
+
+# Obtener los primeros 5 registros de CountryLanguage
+
+my_db %>% tbl("CountryLanguage") %>% head(5)
+
+# Otra forma de generar una búsqueda será con la librería DBI, utilizando el 
+# comando dbSendQuery
+
+library(DBI)
+conn <- dbConnect(
+  drv = RMySQL::MySQL(),
+  dbname = "shinydemo",
+  host = "shiny-demo.csa7qlmguqrf.us-east-1.rds.amazonaws.com",
+  username = "guest",
+  password = "guest")
+
+rs <- dbSendQuery(conn, "SELECT * FROM City LIMIT 5;")
+
+dbFetch(rs)
+
+# Para finalizar nos desconectamos de la BDD
+
+dbClearResult(rs)
+dbDisconnect(conn)
+```
+
+
+
+
+
+# EJEMPLO 4. LECTURA DE ARCHIVOS JSON, XML  Y TABLAS EN HTML
+
+## OBJETIVO 
+
+* Realizar lectura de archivos JSON y XML para poder aplicar las funciones que se requieran de R y poder extraer información convirtiéndola en un data frame
+
+
+## DESARROLLO
+
+Comenzaremos instalando los paquetes necesarios para después cargarlos a R
+
+install.packages("rjson")   #Siempre usar comillas en el nombre del paquete -->
+
+library(rjson)            # Quitar comillas del nombre
+
+
+```{r ej4s7,comment=NA}
+# EJEMPLO 4 SESION 7
+# Ejemplo 4. Lectura de archivos JSON, XML y tablas en HTML
+
+# Comenzaremos instalando los paquetes necesarios para después cargarlos a R
+
+# install.packages("rjson")   #Siempre usar comillas en el nombre del paquete
+
+library(rjson)            # Quitar comillas del nombre
+
+# Json
+# Vamos a leer un archivo Json de prueba alojado aquí
+
+URL <- "https://tools.learningcontainer.com/sample-json-file.json" # Asignando el link a una variable
+
+JsonData <- fromJSON(file= URL)     # Se guarda el JSon en un objeto de R
+
+class(JsonData)                     # Vemos que tipo de objeto es JsonData
+
+str(JsonData)                       # Vemos la naturaleza de sus variables
+
+# Finalmente ya que pudimos acceder al contenido del Json, también podemos 
+# realizar la manipulación de los datos dentro del Json, por ejemplo:
+
+sqrt(JsonData$Mobile)
+
+# Para entrar a las demás variables recuerda que puedas usar el operador de $, 
+# es decir, JsonData$
+
+# XML
+# Ahora vamos a leer datos XML en R, utilizando un archivo XML alojado aquí
+
+# Lo primero es instalar y cargar el paquete XML y alojar el link en una variable 
+# link, para su lectura
+
+# install.packages("XML")
+library(XML)
+link <- "http://www-db.deis.unibo.it/courses/TW/DOCS/w3schools/xml/cd_catalog.xml"
+
+# Analizando el XML desde la web
+xmlfile <- xmlTreeParse(link)
+# Ahora ya podemos ver las propiedades del objetvo xmlfile
+
+summary(xmlfile)
+head(xmlfile)
+# También gracias al xmlTreeParse podemos extraer los datos contenidos en el archivo
+
+#Extraer los valores xml
+topxml <- xmlSApply(xmlfile, function(x) xmlSApply(x, xmlValue))
+
+# Colocandolos en un Data Frame
+xml_df <- data.frame(t(topxml), row.names= NULL)
+
+str(xml_df) # Observar la naturaleza de las variables del DF
+# Convertiremos incluso las variables de PRICE y YEAR en datos numéricos para 
+# poder realizar operaciones con este dato
+
+xml_df$PRICE <- as.numeric(xml_df$PRICE) 
+xml_df$YEAR <- as.numeric(xml_df$YEAR)
+
+mean(xml_df$PRICE)
+mean(xml_df$YEAR)
+# Todo esto se puede realizar en un solo paso utilizando el siguiente comando
+
+data_df <- xmlToDataFrame(link)
+head(data_df)
+
+# Tablas en HTML
+# Comenzamos instalando el paquete rvest el cual nos permitirá realizar la 
+# lectura de la tabla en el HTML
+
+# install.packages("rvest")
+library(rvest)
+# Introducimos una dirección URL donde se encuentre una tabla
+
+theurl <- "https://solarviews.com/span/data2.htm"
+file <- read_html(theurl)    # Leemos el html
+# Selecciona pedazos dentro del HTML para identificar la tabla
+
+tables <- html_nodes(file, "table")  
+# Hay que analizar 'tables' para determinar cual es la posición en la lista 
+# que contiene la tabla, en este caso es la no. 4
+
+# Extraemos la tabla de acuerdo a la posición en la lista
+
+table1 <- html_table(tables[4], fill = TRUE)
+
+table <- na.omit(as.data.frame(table1))   # Quitamos NA´s que meten filas extras 
+# y convertimos la lista en un data frame para su manipulación con R
+
+str(table)  # Vemos la naturaleza de las variables
+# Por último realizamos una conversión de una columna tipo chr a num, se pueden 
+# hacer las conversiones que se requieran
+
+table$Albedo <- as.numeric(table$Albedo)
+str(table)
+```
+
+# RETO 2. Extracción de tablas en un HTML
+
+Ahora es momento de realizar la extracción de una tabla desde un html, realiza este reto desde tu RStudio Desktop.
+
+De la siguiente dirección donde se muestran los sueldos para Data Scientists
+
+(https://www.glassdoor.com.mx/Sueldos/data-scientist-sueldo-SRCH_KO0,14.htm), realiza las siguientes acciones:
+
+Extraer la tabla del HTML
+
+Quitar los caracteres no necesarios de la columna sueldos (todo lo que no sea número), para dejar solamente la cantidad mensual (Hint: la función gsub podría ser de utilidad)
+
+Asignar ésta columna como tipo numérico para poder realizar operaciones con ella
+
+Ahora podrás responder esta pregunta ¿Cuál es la empresa que más paga y la que menos paga?
+
+
+
+```{r r2s7,comment=NA}
+library(rvest)
+
+theurl <- "https://www.glassdoor.com.mx/Sueldos/data-scientist-sueldo-SRCH_KO0,14.htm"
+
+file<-read_html(theurl)
+
+tables<-html_nodes(file, "table")
+# Hay que analizar 'tables' para determinar cual es la posición en la lista que contiene la tabla, en este caso es la no. 4 
+
+table1 <- html_table(tables[1], fill = TRUE)
+
+
+table <- na.omit(as.data.frame(table1))
+
+str(table)
+
+#Removiendo caracteres inncesarios 
+a <- gsub("MXN","",table$Sueldo)
+a <- gsub("[^[:alnum:][:blank:]?]", "", a)
+a <- gsub("mes", "", a)
+a <- as.numeric(a)
+table$Sueldo <- a
+
+#Removiendo caracteres inncesarios
+b <- gsub("Sueldos para Data Scientist en ", "", table$Cargo)
+table$Cargo <-b
+
+#Máximo sueldo
+max.sueldo <- which.max(table$Sueldo)
+table[max.sueldo,]
+
+#Mínimo sueldo
+min.sueldo <- which.min(table$Sueldo)
+table[min.sueldo,]
+```
+
+
+
+
+# RETO 3. Github -> RStudio
+
+
+
+Del script que se generó en el reto 2, deberás realizar las siguientes acciones
+
+Tendras que subir el archivo al repositorio en github que se creo Reto_Sesion_7
+
+Ahora realizar el pull esto es mandarlo a RStudio Cloud, para poder realizar su manipulación desde la nube
+
+## SOLUCION
+
+
+### SUBIENDO EL ARCHIVO DE SUELDOS.R EN GITHUB
+
+
+
+![SOLUCIONPARTE1RETO3](crear.png)
+
+
+### PEGANDO EL CODIGO DE RETO 2 SESION 7 
+
+![SOLUCIONPARTE2RETO3](sueldos.png)
+
+
+### VERIFICANDO QUE SE CREO
+
+![SOLUCIONPARTE3RETO3](sueldos2.png)
+
+### REALIZANDO EL PULLL EN RSTUDIO
+
+![SOLUCIONPARTE4RETO3](pull.png)
+
+### VERIFICANDO QUE SE REALIZO CORRECTAMENTE LA CARGA DEL ARCHIVO EL RSTUDIO
+
+![SOLUCIONPARTE5RETO3](pull2.png)
+
+
+
+
+# POSTWORK SESION 7. CONEXION CON MONGODB
+
+
+## OBJETIVO
+
+Realizar el alojamiento del fichero de un fichero $.csv$ a una base de datos (BDD), en un local host de Mongodb a traves de R
+
+## DESARROLLO
+
+Utilizando el manejador de BDD Mongodb Compass (previamente instalado), deberás de realizar las siguientes acciones:
+
+1. Alojar el fichero data.csv en una base de datos llamada match_games, nombrando al collection como match
+
+2. Una vez hecho esto, realizar un count para conocer el número de registros que se tiene en la base
+
+3. Realiza una consulta utilizando la sintaxis de Mongodb, en la base de datos para conocer el número de goles que metió el Real Madrid el 20 de diciembre de 2015 y contra que equipo jugó, ¿perdió ó fue goleada?
+
+4. Por último, no olvides cerrar la conexión con la BDD
+
+
+
+
+```{r pws7,comment=NA}
+#POSTWORK SESION 7
+# install.packages("mongolite")
+# install.packages("data.table")
+library(mongolite)
+
+setwd("C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/SESSION 7/")   #dependerá de donde estén guardados tus datos
+match=data.table::fread("data.csv")
+names(match)
+
+my_collection = mongo(collection = "match", db = "match_games") # create connection, database and collection
+my_collection$insert(match)  #insertando el CVS a la BDD
+
+# Número de registros
+my_collection$count()
+
+# Visualizar el fichero 
+my_collection$find()
+
+# Basic queries: ¿Cuántos goles metió como local el Real Madrid el la fecha estipulada?
+my_collection$find('{"date":"2015-12-20", "home_team":"Real Madrid"}')
+
+#Agregar otro CVS a la DDB
+my_collection = mongo(collection = "mtcars", db = "match_games") # create connection, database and collection
+my_collection$insert(mtcars)
+
+# Cerrando la conexión
+rm(my_collection)
+```
+
