@@ -73,10 +73,10 @@ ui <-
                             fluidRow(
                                 titlePanel(h3("Imágen de calor para la correlación de las variables")),
                                 h3("Factor de ganancia Máximo"),
-                                img( src = "max.png", 
+                                img( src = "img1.png", 
                                      height = 350, width = 550),
                                 h3("Factor de ganancia Promedio"),
-                                img( src = "prom.png", 
+                                img( src = "img2.png", 
                                      height = 350, width = 550)
                                 
                                 
