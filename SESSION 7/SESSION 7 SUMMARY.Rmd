@@ -688,8 +688,10 @@ Utilizando el manejador de BDD Mongodb Compass (previamente instalado), deberás
 #POSTWORK SESION 7
 # install.packages("mongolite")
 # install.packages("data.table")
+library(data.table)
 library(mongolite)
-
+#ES NECESARIO ISNTALAR MONGODB SHELL
+#EJECUTAR EN SHELL mongod --port 27017
 setwd("C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/SESSION 7/")   #dependerá de donde estén guardados tus datos
 match=data.table::fread("data.csv")
 names(match)
@@ -712,5 +714,6 @@ my_collection$insert(mtcars)
 
 # Cerrando la conexión
 rm(my_collection)
+
 ```
 
