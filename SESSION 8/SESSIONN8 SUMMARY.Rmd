@@ -2,12 +2,174 @@
 title: "SESSION 8 SUMMARY"
 author: "Victor Miguel Terrón Macias"
 date: "3/2/2021"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+# INTERFAZ GRAFICA DE USUSARIO
+
+También conocida como GUI (del inglés graphical user interface), es un programa informático que actúa de interfaz de usuario, utilizando un conjunto de imágenes y objetos gráficos para representar la información y acciones disponibles en la interfaz. Su principal uso consiste en proporcionar un entorno visual sencillo para permitir la comunicación con el sistema operativo de una máquina o computador.
+
+Habitualmente las acciones se realizan mediante manipulación directa, para facilitar la interacción del usuario con la computadora. Surge como evolución de las interfaces de línea de comandos que se usaban para operar los primeros sistemas operativos y es pieza fundamental en un entorno gráfico. Como ejemplos de interfaz gráfica de usuario, cabe citar los entornos de escritorio Windows, el X-Window de GNU/LINUX o el de MAC OS, Aqua.
+
+# DASHBOARD EN R CON SHINY
+
+Este se presenta como una alternativa a los software tradicionales proporcionando ciertas ventajas como son:
+
+
+* Una alternativa a las presentaciones estáticas, logrando interactuar con la audiencia
+* Es open source, esto es una gran ventaja
+* Crear una mejor experiencia para que el usuario pueda interactuar con los datos en representaciones gráficas, que puedan cambiar fácilmente los parámetros, tablas, data tables, imágenes, summarys, búsquedas con dplyr, todo lo que se te ocurra y sea un objeto de R puede ser integrado, haciendo que la solución de hipótesis pueda ser intuitiva y de manera más amigable
+* La facilidad de poder compartir tu información de manera remota, publicandolos en servidores gratuitos si así se considera
+
+Para la construcción de un dashboard en R se requiere antes que todo generar información que sea útil presentar, esto lo podemos relacionar como un informe en el que se van a mostrar los mejores resultados de la investigación de algún tema o proyecto en el que estés participando, esto no es del todo cierto ya que se pueden ir construyendo al momento de tenerlo.
+
+La manera de crear un dashboard es utilizando creando una Shiny Web Application, esta se compone de dos maneras diferentes en su creación :
+
+* En un solo archivo que se almacena en un archivo llamado app.R
+* En dos archivos ui.R / server.R
+
+![IMAGEN SHINY APP]("C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/SESSION 8/APU1.png")
+
+Las dos funcionan de igual manera, sin embargo si se requiere tener un mejor orden se recomienda la segunda opción.
+
+Como ya se mencionó dentro de las ventajas que tiene Shiny WebApp es la publicación de los dashboard en su servidor, además de que se puede utilizar un servidor de RStudio para poder compartirlos, esto resulta útil y muy sencillo y el proceso para publicación es realmente sencillo.
+
+Algunos sitios que son de interés para la creación de los dashboards son:
+* R Shiny . El sitio oficial donde se podrás encontrar diversos temas y ejemplos que te serán de gran utilidad
+* Bootswatch En este sitio encontraras diversos temas para poder publicar tus dashboards
+* Fontawesome Listas de íconos para hacer que tu dashboard quede en forma y sea amigable su visualización
+
+
+¿Cómo funciona el ui.R y el server.R?
+
+Dentro del ui.R se colocarán los comandos que permitan crear encabezados y agregar su título, paneles laterales, la parte central y demás objetos que darán a vista al dashboard, además de poder integrar pestañas, todo lo que se refiera a la interacción entre usuario y máquina para poder realizar las consultas permitidas y poder interactuar con el ratón o una pantalla touch si es el caso.
+
+Por otro lado en el server.R se codifica la sintaxis necesaria para poder elaborar las tablas, gráficas, imágenes y demás objetos que se mostrarán en la GUI, será nuestro procesador de las entradas (inputs) que se reciban de la GUI.
+
+Al comienzo puede parecer algo confuso el orden y el ingreso de las variables que darán forma a todos lo que se mostrará en la interfaz, sin embargo con la práctica y tomando como base algún tema su implementación se hará de manera natural.
+
+No olvides entrar a los links de más arriba para observar el potencial que tienen las Shiny WebApp, es una forma potente y divertida de presentar tus reportes de resultados.
+
+
+Durante el transcurso de esta sesión serás capaz de desarrollar las siguientes capacidades de R
+
+* Realizar la presentación de gráficas, tablas, data tables, imágenes, queries, entre otras aplicaciones de R en dashboards, haciéndolo mediante una visualización atractiva y pudiendo compartir tu información con cualquier actor clave para su manejo.
+
+# EJEMPLO 1. AMBIENTE DE TRABAJOUI Y SERVER
+
+## OBJETIVO
+
+* Crear un dashboard simple para mostrar gráficas de dispersión en una webApp
+* Entender el entorno de trabajo con la libreria $Shiny$
+* Funciones básicas de la UI y del Server
+
+## DESARROLLO
+
+Durante esta sesión serás capaz de realizar una webApp con el uso de la librería de $Shiny$, está es útil para presentar reportes con los resultados destacados de nuestra investigación. Existen dos formas para realizar webApp, comenzaremos con dos archivos separados para tener un mayor orden:
+
+Lo primero que se debe hacer es generar un archivo Shiny Web App en RStudio
+
+![IMAGEN PASO 1]("C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/SESSION 8/INST1.png")
+
+
+Hay que colocar un nombre de nuestra Web App, además de seleccionar Multiple File (esto creará dos archivos ui.R y server.R) y la ruta donde se almacenará
+
+![IMAGEN PASO 2]("C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/SESSION 8/INST2.png")
+
+Una vez hecho esto, tendremos los dos archivos creados, en el UI (User interface), se establece la visualización de nuestro Dashboar o reporte, y en el Serve se establecen las variables de entrada y salida. Para ejecutar la Web App con dar clic en $Run App$ bastará. Los archivos por default tienen un ejemplo precargado el podría servir como base para ajustarlo a las necesidades de cada usuario
+
+![IMAGEN PASO 3]("C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/SESSION 8/INST3.png")
+
+En la siguiente imágen podemos apreciar el ejemplo indicado anteriormente, ejecuta el ejemplo, intenta mover los parámetros para que observes el resultado tato dentro del archivo ui.R y de la webApp.
+
+
+
+![IMAGEN PASO 4]("C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/SESSION 8/INST4.png")
+
+
+A continuación se creará una webApp desde cero, se deben borrar todos los comentarios para dejar solamente las siguientes líneas de código en el archivo $ui.R$
+
+
+$$library(shiny)\\
+shinyUI(\\
+\\
+\\
+)$$
+
+
+Ahora en ui.R, dentro de la fución shinyUI colocaremos las siguientes instrucciones para poder visualizar las partes de nuestra webApp, posteriormente ejecuta el código para que observes el resultado y puedas ubicar donde se localiza gráficamente cada sentencia
+
+$$library(shiny)\\
+shinyUI(\\
+    pageWithSidebar(\\
+    \\
+        headerPanel("Este es el header panel"),\\
+        sidebarPanel("Este es el sidebar panel"),\\
+        mainPanel("Este es el main panel")\\
+    \\
+    \\)
+\\)$$
+
+
+
+Con lo anterior ya pudiste observar la distrubución de los objetos dentro de la webApp. Ahora vamos a crear webApp una donde se puedan observar algunas gráficas de dispersión para las variables del dataset mtcars.
+
+En el archivo ui.R realiza los siguientes cambios
+
+```{r SHINYAPP,comment=NA,eval=FALSE}
+library(shiny)
+shinyUI(
+    
+    pageWithSidebar(
+        headerPanel ("Aplicacion simple con Shiny"),
+        sidebarPanel (
+            p("Vamos a crear plots con el dataset de 'mtcars'"),
+            selectInput("x", "Selecciona el eje de las X",      # Se indica que la variable "x" será la de entrada
+                        choices = colnames(mtcars) )            # Sirve para desplegar las variables a graficar en este caso son todas las de mtcars
+                    ),
+        mainPanel (h3(textOutput("output_text")), 
+                   plotOutput("output_plot")
+                   )
+                  )
+        )
+```
+
+
+Ahora en el archivo server.R, debes borrar todos los comentarios, de tal modo que quede de la siguiente forma, el código siguiente define los argumentos de input y output qué se visualizaran en la UI, ahora se harán los gráficos correlación entre mpg y el resto de variables de mtcars. (Con renderText y renderPlot se "renderizará" el texto y la gráfica respectivamente)
+
+
+```{r shin,comment=NA,eval=FALSE}
+library(shiny)
+
+shinyServer(function(input, output) { 
+    output$output_text <- renderText(paste("Grafico de mpg ~ ", input$x))   # input$x es la selección que se hizo en la UI
+    output$output_plot <- renderPlot(plot(as.formula(paste("mpg~", input$x)), 
+                                          data = mtcars))
+                                    }
+            )
+```
+
+Tu resultado debería ser como la siguiente imagen
+
+
+![IMAGEN SHINY APP]("C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/SESSION 8/INST5.png")
+
+
+Ejecula la webApp y observa el resultado que se generó con el código, ¿Qué otros escenarios se te ocurren?
+
+
+
+
+
+
+
+
 
 #  POSTWORK 8
 
