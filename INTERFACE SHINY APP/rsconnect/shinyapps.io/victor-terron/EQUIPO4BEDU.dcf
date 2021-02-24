@@ -1,0 +1,13 @@
+name: EQUIPO4BEDU
+title: EQUIPO4BEDU
+username:
+account: victor-terron
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3594032
+bundleId: 4189446
+url: https://victor-terron.shinyapps.io/EQUIPO4BEDU/
+when: 1612637778.05597
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: ANALISIS.Rmd|COMPELTO.R
