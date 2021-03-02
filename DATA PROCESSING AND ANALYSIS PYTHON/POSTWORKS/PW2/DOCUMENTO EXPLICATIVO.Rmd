@@ -1,0 +1,35 @@
+---
+title: "DOCUMENTO EXPLICATIVO"
+author: "EQUIPO 4-BEDU"
+date: "2/3/2021"
+output: pdf_document
+---
+
+# POSTWORK 2. PLANTEAMIENTO DE PREGUNTAS
+
+## OBJETIVO
+
+- Realizar el planteamiento de preguntas
+
+## REQUISITOS
+
+- Haber identificado un problema
+- Haber realizado algo de investigación sobre el problema y entenderlo bien
+- Haber buscado soluciones o análisis que otras eprsonas o instituciones hayan realizado anteriormente para enriquecer nuestro proceso
+
+## DESARROLLO
+
+Ya que hemos identificado un problema y que lo entendemos a profundidad, el siguiente paso es del Planteamiento de Preguntas.
+
+Esto significa hacer una lista de preguntas que nos gustaría responder usando Ciencia de Datos. Es importante plantearse estas preguntas para tener una idea de qué estamos buscando. Esta lista se va a ir modificando con el tiempo así que no te preocupers si no está completa o si no es muy extensa aún. Conforme vayamos avanzando en nuestro proyecto, nuevas preguntas surgirán y algunas de las preguntas que teníamos se transformarán.
+
+## SERIE DE PREGUNTAS
+
+
+1. ¿Cuál es el impacto posterior al confinamiento sobre los hábitos de consumo y compra de productos que tendrá en la población?
+2. ¿De qué forma podemos contrastar los datos de la contingencia sanitaria del 2018(INFLUENZA) generados en la economía con la contingencia sanitaria actual?
+4. ¿Cuál es el sector económico y sector de actividades más afectado?
+5. ¿Cuál es el sector económico más beneficiado?
+7. ¿Cuál es el impacto sobre el PIB del país?
+
+De esa manera pretendemos proponer una serie de acciones para evitar o mitigar los daños que tendrá el confinamiento en el sector económico.

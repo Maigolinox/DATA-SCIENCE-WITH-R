@@ -1,0 +1,52 @@
+---
+title: "POSTWORK 1"
+author: "EQUIPO 4-BEDU"
+date: "2/3/2021"
+output: pdf_document
+---
+
+# POSTWORK 1. IDENTIFICACIÓN DEL PROBLEMA
+
+## IDENTIFICACION DEL PROBLEMA
+
+1. IDENTIFICACIÓN DEL PROBLEMA: Consideramos importante el análisis del impacto económico que tendrá el COVID-19 a lo largo del 2021, emplearemos análisis de datos con diferentes técnicas que nos permitan hacer proyecciones.
+2. INVESTIGACIÓN AL RESPECTO DEL PROBLEMA: Para realizar un buen análisis de datos requerimos obtener estadísticas oficiales, dichas estadísticas deben estar actualizadas, tener información real y computable para poder conocer más a fondo el problema, aunado a ello complementamos con fuentes de información confiables centrandonos en México para obtener un panorama más claro basandonos en análisis de datos tipo ARIMA 
+3. BÚSQUEDA DE SOLUCIONES ANTERIORES: INEGI ya ha realizado una encuesta del impacto generado por el COVID-19 en las empresas de México, ésto para apoyar a la toma de desiciones en custión de políticas públicas.
+
+De la misma forma pretendemos análizar y estimar la recuperación de la economía en México de la economía en 2021, de la misma forma queremos identificar las variables que tienen mayor impacto negativo sobre la economía para identificar puntos de mejora.
+
+## OBJETIVO DE NUESTRA INVESTIGACIÓN
+
+Realizar un análisis que nos permita identificart el impacto económico en México a causa de la contingencia generada por el COVID-19.
+
+## SERIE DE PREGUNTAS
+
+1. ¿Cuál es el sentimiento de la gente sobre si posterior al confinamiento la economía se podrá recuperar rápidamente o será de manera lenta?
+2. ¿Cuál es el impacto posterior al confinamiento sobre los hábitos de consumo y compra de productos que tendrá en la población?
+3. ¿De qué forma podemos contrastar los datos de la contingencia sanitaria del 2018(INFLUENZA) generados en la economía con la contingencia sanitaria actual?
+4. ¿Cuál es el sector económico y sector de actividades más afectado?
+5. ¿Cuál es el sector económico más beneficiado?
+6. ¿Posterior al confinamiento responde las preguntas 4 y 5?
+7. ¿Cuál es el impacto sobre el PIB del país?
+
+De esa manera pretendemos proponer una serie de acciones para evitar o mitigar los daños que tendrá el confinamiento en el sector económico.
+
+## DATASETS
+
+[México | Data (bancomundial.org)](https://datos.bancomundial.org/pais/mexico)
+
+
+[Economic Data - Awesome Datasets - DataHub - Frictionless Data](https://datahub.io/collections/economic-data)
+
+Por acuerdo del equipo 4 decidimos consolidar todos los datos obtenidos de las anteriores fuentes obteniendo el siguiente dataset:
+
+
+
+
+
+[DATASET](https://drive.google.com/file/d/1II5-vE6ENOYExQFMgcPjonGc9MWYNbh6/view?usp=sharing)
+
+Tuvimos que hacer limpieza de datos debido a que el tipo y orden de los datos no era el mismo, ésta limpieza fue realizada con R y editores de texto
+
+Acatando las indicaciones del POSTWORK 1, dentro de la carpeta de éste documento agrego los CSV sin procesar (RAW) y posteriormente procesados.
+

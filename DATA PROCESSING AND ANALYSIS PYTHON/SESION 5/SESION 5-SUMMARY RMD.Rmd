@@ -1,0 +1,982 @@
+---
+title: "SESSION 7-SUMMARY"
+author: "Victor Miguel Terron Macias"
+date: "25/2/2021"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+# SESION 7. FUNCIONES VECTORIZADAS Y LIMPIEZA DE DATOS
+
+## OBJETIVOS
+
+* Identificar las fuentes a las que se tiene que se tiene acceso para realizar proyectos.
+* Practicar el proceso declarativo de transformación de datos y entender como funciona la aplicación de funciones a estructuras de datos de pandas.
+* Realizar la limpieza de datos e identificar a este proceso como el primer paso a realizar en el procesamiento.
+
+# PREWORK SESION 7
+
+* Leer archivos en formato CSV
+* Utilizar técnicas más avanzadas deexploración de datos
+* Utilizar la exploración para encontrar incosistencias, errores y redundancias
+* Usar algunas técnicas básicas de limpieza de datos
+
+## INTRODUCCIÓN
+
+Ya sabemos cómo leer archivos con pandas y cómo realizar una exploración básica del contenido. En esta sesión vamos a aprender algunas técnicas más avanzadas de Exploración de Datos. También vamos a ver los principios de la Limpieza de Datos, que usamos para dejar nuestros conjuntos de datos listos para ser reestructurados, analizados y visualizados.
+
+La Exploración y la Limpieza van totalmente de la mano. No puedes limpiar sin explorar primero, y gran parte de las técnicas de exploración que usamos tienen como objetivo justamente encontrar inconsistencias, errores, redundancias, etc, en nuestro conjunto de datos para poder deshacernos de ellas.
+
+## LECTURA DE CSV's
+
+La sesión pasada aprendimos a leer archivos en formato JSON. El formato JSON, que es muy parecido a los diccionarios de Python, es sólo uno de los tantos formatos con los que nos vamos a topar.
+
+Los CSVs pertenecen a una clase de formatos donde las columnas de nuestra tabla se delimitan usando lo que se llama un separador. CSV significa Comma-Separated Values y como bien imaginarás significa que se una una coma (,) para separar las columnas. Un CSV se ve así:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img1.png)
+
+En un archivo de texto donde cada fila de nuestra tabla tiene su propia línea y donde los valores de cada columna se delimitan usando una coma (,). Leer archivos .csv usando pandas es muy fácil. Lo único que tienes que hacer es lo siguiente:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img2.png)
+
+pandas tiene un muy conveniente método llamado read_csv que nos permite leer archivos .csv directamente. Ese mismo método también puede ayudarnos a leer otros formatos con columnas delimitadas por otros separadores. Por ejemplo, podemos leer .tsv ('tab-separated values'), que son archivos donde cada columna está delimitada por un tab (indentación). Sólo basta con llamar el método con el argumento sep=\t.
+
+¡Como ves, leer archivos tipo .csv es muy fácil!
+
+## ANALISIS EXPLORATORIO DE DATOS
+
+Muy bien, empecemos nuestra exploración con las técnicas que ya conocemos primero:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img3.png)
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img4.png)
+
+Ok, algunas cosas importantes:
+
+* El dataset tiene 19740 filas y 21 columnas
+* Podemos observar que la información que tiene el dataset es básicamente cierta descripción de las propiedades, datos de su ubicación y tipo y fecha de venta.
+* Hay varias columnas float64, rooms es int64, y el resto son object.
+* Tenemos algunos Nans en el dataset.
+
+¿NaNs? ¿Qué quiero decir con eso? Bueno, los NaNs son valores Not a Number que básicamente son valores nulos en nuestro dataset. Estos valores pueden causar muchos problemas, ya que son valores nulos en columnas numéricas pero no podemos realizar operaciones matemáticas con ellos (son valores Not a Number, así que las matemáticas están fuera de las posibilidades). En esta sesión vamos a aprender a lidiar con estos valores, pero antes tenemos que aprender algo llamado funciones vectorizadas, que nos ayudará mucho durante esta exploración.
+
+
+## ARITMÉTICA CON SERIES Y FUNCIONES VECTORIZADAS
+
+¿Recuerdas nuestras funciones map y filter? A esas funciones les pasábamos nosotros una función y una lista y nos regresaban una lista con los resultados de aplicarle la función a cada uno de los elementos en orden.
+
+Las funciones vectorizadas funcionan muy parecido, pero están optimizadas para funcionar con arreglos de pandas y de numpy (si quieres saber más sobre numpy lee esto). Si tomas un arreglo de pandas (es decir, una Serie) y le aplicas una función vectorizada la función se aplica a todo el arreglo elemento por elemento y te regresa un arreglo del mismo tamaño con el resultado de la aplicación.
+
+Aplicar funciones de manera vectorizada a una Serie de pandas es facilísimo, incluso más fácil que usar la función map. Primero veamos que podemos realizar una operación aritmética con una Serie y la operación se aplicará automáticamente a todo el arreglo "elemento por elemento":
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img5.png)
+
+Podemos realizar cualquier operación matemática y la aplicación se hará de la misma manera:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img6.png)
+
+¡Qué genial! No tenemos que usar map, ni que declarar una función, ni que usar lambda. Basta con una simple operación matemática. Pandas además está optimizado para funcionar de esta manera, así que la velocidad de aplicación es mucho mayor que la combinación de map con listas.
+
+Otra manera de aplicar estas transformaciones es usando funciones vectorizadas. Por ejemplo, esto lo podemos hacer usando algunas funciones de numpy. Numpy es otra librería que es muy común entre los científicos de datos. Ofrece muchas herramientas para realizar cálculos numéricos a altas velocidades. No usaremos mucho esta librería en este módulo, pero es importante entender que se pueden utilizar funciones de numpy para aplicar funciones de manera vectorizada a Series de pandas. Para importar numpy hacemos lo siguiente:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img7.png)
+
+Y por ejemplo, si quisiéramos elevar al cuadrado nuestra Serie, podríamos hacer algo como esto:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img8.png)
+
+También podemos sacar la raíz cuadrada de nuestra Serie:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img9.png)
+
+## AGREGACIONES
+
+Hay una variación de estas funciones vectorizadas llamadas agregaciones (o reducciones) que lo que hacen es tomar un arreglo, atravesarlo "elemento por elemento" y regresar un solo número que es un "resumen" del arreglo. Este "resumen" es justamente la agregación o reducción. Podemos aplicar estas funciones usando numpy o directamente desde una Serie o DataFrame de pandas. Para efectos prácticos, vamos a utilizar los métodos que vienen integrados directamente en pandas. Por ejemplo, podemos sumar todos los valores de una Serie de esta manera:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img10.png)
+
+O podemos contar el número de elementos en una Serie así:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img11.png)
+
+Podemos obtener el valor más pequeño de la Serie:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img12.png)
+
+O el valor más grande:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img13.png)
+
+¡Y eso no es todo!
+
+## FUNCIONES VECTORIZADAS Y AGREGACIONES CON DATAFRAMES
+
+Tanto las funciones vectorizadas como las agregaciones pueden ser aplicadas a DataFrames completos.
+
+Veamos primero las agregaciones. Al aplicar una agregación a un DataFrame, lo que obtenemos de regreso es el resultado de aplicar la función a cada una de las columnas (que al final de cuentas son Series, ¿lo recuerdas?). Por ejemplo, tenemos este DataFrame:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img14.png)
+
+Mira qué pasa cuando le aplicamos la agregación sum:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img15.png)
+
+pandas toma cada una de las columnas, suma todos los valores dentro de cada columna y nos regresa el resultado de las sumas en una nueva Serie, donde el índice son los nombres de las columnas en el DataFrame y los valores son las sumas.
+
+También funciona con las demás agregaciones:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img16.png)
+
+Interesante, ¿no lo crees?
+
+Ahora veamos qué pasa cuando aplicamos funciones vectorizadas a nuestro DataFrame:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img17.png)
+
+La función (x * 100) fue aplicada a cada uno de los elementos del DataFrame y obtuvimos un nuevo DataFrame con los resultados, ¿ves?
+
+Cualquier función vectorizada que le apliquemos al DataFrame va a tener el mismo efecto:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img18.png)
+
+Ahora sí, estamos listos para aprender a lidiar con valores nulos (NaNs).
+
+## NaNs NOT A NUMBER
+
+Como ya dijimos, los NaNs (Not a Number) son valores nulos en nuestro conjunto de datos. Son valores que por alguna razón no se encuentran en nuestro dataset. A la hora de coleccionar nuestros datos, al momento de transcribirlos o de almacenarlos, algo pasó que algunos de esos datos faltan en el dataset final. Pandas está diseñado para lidiar con estos datos fácilmente.
+
+Veamos un DataFrame con valores NaN (estamos usando el objeto de numpy np.nan para crear valores Nan):
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img19.png)
+
+Como puedes ver, a este DataFrame le faltan datos. Los valores NaN que contiene son valores nulos, y nos nos dicen nada útil, en realidad. Podríamos asumir cosas acerca de por qué faltan estos datos, pero no serían más que suposiciones.
+
+Ahora, ¿qué pasa con estos datos nulos? Su presencia puede ser problemática para algunos de los análisis que queremos realizar.
+
+En este caso nuestro dataset es muy pequeño y podemos visualizarlo todo de un solo vistazo. Pero vamos a imaginar que nuestro dataset es mucho más grande y que necesitamos saber si hay NaNs y cuántos. Para lograr esto podemos usar una función vectorizada llamada isna que checa cada valor en nuestro DataFrame, lo transforma en True cuando el valor es igual a NaN y a False cuando no lo es:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img20.png)
+
+Ok, ¿y ahora qué hacemos con esto? Podemos usar la agregación sum para hacer un conteo de nuestros valores nulos. Si recuerdas, sum sumaba todos los valores de cada columna y regresaba el total por columna. Si sumas valores booleanos, los Trues cuentan como 1 y los False cuentan como 0. Esto significa que aplicando la función, obtendremos el total de valores nulos en cada columna:
+
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img21.png)
+
+De esta manera podemos saber si hay columnas que tienen demasiados valores nulos como para ser utilizadas.
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img20.png)
+
+También podemos obtener el número de NaNs que hay en cada fila pasándole un argumento a sum. Podemos indicarle a sum el eje en el cual queremos realizar la operación. En el caso de pandas eje se refiere a la dimensión de la estructura de datos. A estos ejes se les llama axis. Vamos a entender mejor los ejes más adelante cuando veamos aritmética de Series; por el momento basta con saber que si le pasamos axis=1 a sum nos regresa la suma de NaNs por índice:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img22.png)
+
+
+La decisión de qué hacer con los NaNs depende mucho del contexto. Vamos a ver 3 cosas básicas que podemos realizar para limpiar estos datos indeseables:
+
+* Eliminar filas con NaNs
+* Eliminar columnas con NaNs
+* Llenar los NaNs con algún valor.
+
+## ELIMINAR FILAS CON NaNs
+
+Usando el método dropna, la eliminación de filas con NaNs se vuelve muy sencillo. Sólo basta con llamar dropna y todas las filas que contienen NaNs son eliminadas:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img23.png)
+
+Esta operación no modifica el DataFrame original, así que si queremos que el cambio persista tenemos que asignarlo a un nuevo DataFrame:
+
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img24.png)
+
+En caso de que queramos eliminar solamente las filas donde TODOS los valores sean NaN, podemos pasarle el argumento how='all':
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img25.png)
+
+En caso de que queramos eliminar solamente las filas donde TODOS los valores sean NaN, podemos pasarle el argumento how='all':
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img26.png)
+
+El valor default es how='any', que elimina las filas donde haya mínimo un NaN.
+
+## ELIMINAR COLUMNAS NaNs
+
+Ahora, ¿qué pasa si quisiéramos eliminar NaNs por columna? Vamos a agregar una columna a nuestro DataFrame que contenga puros NaNs:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img27.png)
+
+Si te fijas, sólo bastó con llamar df['descuento'] = np.nan para conseguir una columna completa de NaNs. Esto tiene que ver con la aritmética de Series. Cuando asigno un solo valor a una Serie, automáticamente toda la Serie toma ese valor.
+
+Para eliminar columnas donde haya NaNs, llamamos también dropna pero con el argumento axis=1:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img28.png)
+
+Como aquí también el valor default es how=any, pandas elimina todas las columnas donde haya mínimo un NaN, que en este caso son todas. Para que elimine sólo las columnas donde todos los valores sean NaNs, hay que pasarle el argumento how=all:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img29.png)
+
+## LLENAR VALORES NULOS CON UN VALOR
+
+Digamos que tenemos ahora un DataFrame que se ve así:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img30.png)
+
+Nuestra primera acción debería de ser eliminar las filas y columnas donde todos los valores sean NaN, porque no nos sirven de nada:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img31.png)
+
+Ahora, ¿qué debemos hacer con valores nulos que nos quedan? Digamos que nuestro análisis más importante tiene que ver con la columna 'precio', entonces esa columna es muy importante que esté limpia. Pero digamos que nuestra 'productos_vendidos' no es tan importante. Tal vez si hay un NaN en productos vendidos podemos asumir que no hay ningún producto vendido hasta ahora. En ese caso, podríamos llenar el/los NaN de la columna 'productos_vendidos' con 0s. Eso se hace con el método fillna:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img32.png)
+
+Seleccionamos la columna donde queremos llenar los NaNs con 0 y llamamos el métodos fillna(0). En este caso sólo estamos obteniendo de regreso la columna rellenada. Para tenerla en nuestro DataFrame podemos reasignarla a la misma columna:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img33.png)
+
+¡Listo!
+
+Ahora sí, podemos eliminar las filas que aún contengan NaNs porque sabemos que los NaNs que quedan son demasiados indeseables:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img34.png)
+
+¡Y ya tenemos un dataset libre de valores nulos!
+
+## APLICACIÓN EN NUESTRO DATASET ORIGINAL
+
+Vamos a ver cómo funciona esto en nuestro dataset que teníamos al principio:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img35.png)
+
+Primero hacemos conteo de NaNs:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img36.png)
+
+Tenemos un total de filas de 19740, así que el hecho de que tengamos alrededor de 11000 valores NaNs en las columnas BuildingArea y YearBuilt no son una buena señal. Tal vez después cambiemos nuestra decisión, pero por el momento vamos a simplemente eliminarlas:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img37.png)
+
+Ok, ahora tenemos que decidir qué vamos a hacer con el resto de los NaNs. Presiento que no es muy grave no tener valores en 'Regionname', ya que es poco probable que usemos esa columna para nuestro análisis. Por lo tanto voy a llenar los NaNs con el valor Unknown:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img38.png)
+
+El resto de las columnas voy a considerarlas esenciales, así que vamos a eliminar todas las filas donde todavía tengamos NaNs:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img39.png)
+
+Y ahora vemos cuántas filas nos han quedado:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img40.png)
+
+Si estas filas que nos quedan son suficientes o no, eso sólo lo sabremos continuando con el proceso.
+
+## REINDEXANDO
+
+Ahora, algo pasó con nuestro dataset después de eliminar los NaNs y es que nuestro índice ya no corresponde con el número de filas en nuestro dataset:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img41.png)
+
+
+Esto sucede porque eliminamos filas pero las filas que se mantuvieron siguen teniendo el mismo índice que antes. Hay veces que eso es lo que queremos (cuando nuestro índice son, nombres, etiquetas, letras, etc), pero en este caso, nos convendría que nuestro índice coincidiera con la posición de la fila en el dataset. Podemos corregir esto usando el método reset_index de la siguiente manera:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img42.png)
+
+Como ves, el índice ahora corresponde con el número de filas que tenemos. El único problema es que ahora tenemos una columna llamada índice que contiene los índices anteriores. Una vez más, hay veces que queremos eso (cuando la información contenida ahí era relevante y no queremos deshacernos de ella), pero en este caso, en realidad no nos interesa mantener esa columna. Para resetear el índice y eliminarlo al mismo tiempo, usamos reset_index(drop=True):
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img43.png)
+
+¡Listo!
+
+## RENOMBRANDO COLUMNAS
+
+Además del índice, otros identificadores que tenemos que nos interesa mantener siempre limpios y claros son los nombres de nuestras columnas. En el caso de nuestro dataset, los nombres no son suficientemente homogéneos. Tenemos cosas como Regionname (segunda palabra con minúscula) y otras como CouncilArea (segunda palabra con mayúscula). Además, hay errores ortográficos (lattitude, longtitude). Y también que prefiero que los nombres sigan la convención de nombramiento de Python (snake_case). Voy a renombrar mis columnas para que sigan las mismas convenciones.
+
+
+Normalmente renombramos columnas cuando los nombres:
+
+* No son lo suficientemente claros
+* No representan la información que contiene esa columna.
+* Tienen información basura.
+* Tienen errores ortográficos.
+* No siguen la convención que hemos decidido que deberían de tener.
+* Son demasiado largos o difíciles de escribir.
+
+Cambiemos entonces nuestros nombres de columnas. Primero creamos un mapa de los nombres viejos a los nombres nuevos:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img44.png)
+
+Y ahora usamos el método rename para cambiar los nombres:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/img45.png)
+
+Esto es todo por hoy. ¡Nos vemos en el Work para practicar todo lo que aprendimos!
+
+
+# WORK SESION 5. FUNCIONES VECTORIZADAS Y LIMPIEZA DE DATOS
+
+## OBJETIVOS
+
+1. Identificar y utilizar las funciones vectorizadas.
+2. Identificar agregaciones/reducciones.
+3. Leer un CSV.
+4. Encontrar y limpiar datos nulos.
+5. Reindexar y cambiar el nombre de las columnas.
+
+
+## CONTENIDO
+
+### INTRODUCCIÓN
+
+El día de hoy vamos a aprender a limpiar un poco nuestros datasets. Necesitamos limpiar nuestros datasets para facilitarnos los procesos posteriores de análisis y visualización. Trabajar con un dataset sucio es muy difícil y frustrante.
+
+Vamos a aprender a encontrar valores nulos en nuestro dataset y limpiarlos.
+
+Pero para poder hacer esto, primero vamos a aprender dos herramientas que se llaman funciones vectorizadas y agregaciones que expandirán tus posibilidades muchísimo.
+
+# ARITMÉTICA CONSERIES Y FUNCIONES VECTORIZADAS
+
+## EJEMPLO 1. FUNCIONES VECTORIZADAS CON SERIES
+
+### OBJETIVOS
+
+- A prender cómo utilizar las funciones vectorizadas aplicadas a Series de pandas
+
+### DESARROLLO
+
+Tenemos la siguiente serie:
+
+```{python}
+import pandas as pd
+serie_1 = pd.Series([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+
+```
+
+Recuerdas cómo utilizamos map para aplicar una función elemento por elemento a un arreglo. Podemos utilizar funciones vectorizadas para hacer esto mismo con Series y DataFrames de pandas. Esto resulta sumamente eficiente pues pandas está construido para funcionar de esta manera. Primero que nada, veamos cómo es posible aplicar operaciones aritméticas a Series de pandas y son aplicadas elemento por elemento. Por ejemplo:
+
+```{python}
+serie_1 + 10
+serie_1 * 10
+(serie_1 + 10) * 100
+serie_1 * 60 / 100
+import numpy as np
+np.power(serie_1, 2)
+np.sqrt(serie_1)
+
+```
+
+¿Ves qué fácil resulta?
+
+# EJEMPLO 2. AGREGACIONES
+
+Las agregaciones son una variación de las funciones vectorizadas. Lo que hacen es tomar un arreglo (una Serie, por ejemplo), aplicar una operación a todos los elementos y regresar un resultado único que es la agregación o reducción del arreglo. Una agregación se ve así:
+
+## OBJETIVOS
+
+- Aprender cómo usar agregaciones para resumir o reducir un arreglo
+
+## DESARROLLO
+
+Las agregaciones entonces aplican una función a todo el arreglo entero y regresan un único valor que es la agregación o reducción del arreglo.
+
+pandas ya tiene incluidas bastantes de éstas. Así que podemos llamarlas con tan sólo usar un método de nuestra Serie:
+
+```{python}
+import pandas as pd
+serie = pd.Series([1, 2, 3, 4, 5])
+
+```
+
+sum suman todos los elementos de nuestro arreglo:
+
+```{python}
+serie.sum()
+
+```
+
+min y max nos dan el valor mínimo y máximo, respectivamente, de nuestro arreglo:
+
+```{python}
+serie.min()
+serie.max()
+
+```
+
+count nos da el conteo total del número de elementos en nuestro arreglo:
+
+```{python}
+serie.count()
+
+```
+
+# EJEMPLO 3. FUNCIONES VECTORIZADAS Y AGREGACIONES CON DATAFRAMES
+
+También podemos aplicar estas herramientas a DataFrames completos. Tanto las operaciones aritméticas, funciones vectorizadas y agregaciones funcionan con ligeras diferencias de procedimiento.
+
+## OBJETIVO
+
+- Aprender cómo usar Funciones vectorizadas y agregaciones aplicadas a `DataFrames` completos
+
+## DESARROLLO
+
+```{python}
+import pandas as pd
+
+```
+
+Tenemos el siguiente dataset:
+
+```{python}
+datos = {
+    'precio': [34, 54, 223, 78, 56, 12, 34],
+    'cantidad_en_stock': [3, 6, 10, 2, 5, 45, 2],
+    'productos_vendidos': [3, 45, 23, 76, 24, 6, 2]
+}
+
+df = pd.DataFrame(datos, index=["Pokemaster", "Cegatron", "Pikame Mucho", "Lazarillo de Tormes", "Stevie Wonder", "Needle", "El AyMeDuele"])
+
+df
+```
+
+
+Si aplicamos operaciones aritméticas a nuestro DataFrame la operación se aplicará elemento por elemento a nuestro DataFrame completo:
+
+```{python}
+df * 100
+(df + 100) / 2
+
+```
+
+También podemos aplicar funciones vectorizadas con el mismo resultado:
+
+```{python}
+import numpy as np
+np.power(df, 2)
+np.sqrt(df)
+np.sin(df) + 100
+
+```
+
+Si usamos agregaciones, las agregaciones se hacen de manera automática por columna:
+
+```{python}
+df.sum()
+
+```
+
+Aunque podemos cambiar ese comportamiento usando axis=1 para hacerlo por fila:
+
+```{python}
+df.sum(axis=1)
+
+```
+
+Todas las demás agregaciones funcionan también. El default (o axis=0) es hacerlo por columna, pero todas pueden funcionar por fila usando axis=1:
+
+
+```{python}
+df.min()
+df.min(axis=1)
+df.max()
+df.max(axis=1)
+
+```
+
+# EJEMPLO 4. IDENTIFICACION DE VALORES NAN O VALORES NULOS Y CONTEO
+
+Como viste en tu Prework, los valores NaN (Not a Number) son bastante indeseables porque no podemos utilizarlos para realizar análisis estadístico u operaciones aritméticas. Es por eso que uno de los primeros pasos en la Limpieza de Datos suele ser la eliminación de estos valores.
+
+## OBJETIVOS
+
+- Aprender a identificar NaNs
+- Aprender a realizar conteo de NaNs por fila y por columna
+
+## DESARROLLO
+
+Los NaNs se ven así:
+
+```{python}
+import pandas as pd
+import numpy as np
+
+datos = {
+    'precio': [34, 54, np.nan, np.nan, 56, 12, 34],
+    'cantidad_en_stock': [3, 6, 14, np.nan, 5, 2, 10],
+    'productos_vendidos': [3, 45, 23, np.nan, 24, 6, np.nan]
+}
+
+df = pd.DataFrame(datos, index=["Pokemaster", "Cegatron", "Pikame Mucho", "Lazarillo de Tormes", "Stevie Wonder", "Needle", "El AyMeDuele"])
+df
+
+```
+
+Para contarlos podemos usar una función vectorizada llamada isna, que nos regresa esto:
+
+```{python}
+df.isna()
+
+```
+
+isna regresa True cuando encuentra un NaN y False cuando el valor es válido.
+
+Después, podemos contar cuántos NaNs existen usando la agregación sum, que suma 1 por cada True y 0 por cada False:
+
+```{python}
+df.isna().sum(axis=0)
+
+```
+
+Con axis=0 nos regresa el conteo por columnas. Con axis=1 nos regresa el conteo por filas:
+
+```{python}
+df.isna().sum(axis=1)
+
+```
+
+Practiquemos rápidamente esto antes de aprender a deshacernos de estos NaNs.
+
+# EJEMPLO 5. LIMPIEZA DE NANS 
+
+Hay 3 operaciones básicas que podemos realizar para eliminar NaNs de nuestros datasets:
+
+1. Eliminar filas con NaNs
+2. Eliminar columnas con NaNs
+3. Llenar los NaNs con algún valor.
+
+Exploraremos las 3 opciones
+
+## OBJETIVOS
+
+- Aprender a limpiar NaNs por filas
+- Aprender a limpiar NaNs por columnas
+- Aprender a llenar NaNs con otros valores útiles
+
+
+## DESARROLLO
+
+**LIMPIANDO NANS POR FILAS**
+
+Tenemos el siguiente dataset
+
+```{python}
+import pandas as pd
+import numpy as np
+
+datos = {
+    'precio': [34, 54, np.nan, np.nan, 56, 12, 34],
+    'cantidad_en_stock': [3, 6, 14, np.nan, 5, 2, 10],
+    'productos_vendidos': [3, 45, 23, np.nan, 24, 6, np.nan]
+}
+
+df = pd.DataFrame(datos, index=["Pokemaster", "Cegatron", "Pikame Mucho", "Lazarillo de Tormes", "Stevie Wonder", "Needle", "El AyMeDuele"])
+
+df
+
+```
+
+Para limpiar las filas que tengan mínimo 1 valor NaN, se utiliza dropna(axis=0, how='any'):
+
+```{python}
+df.dropna(axis=0, how='any')
+
+```
+
+Con el axis=0 le estamos diciendo que queremos eliminar por filas. Con how='any' le decimos que queremos eliminar cualquier fila que tenga mínimo un NaN.
+
+Si quisiéramos eliminar sólo las filas donde todos los valores sean NaN, podemos usar axis='all':
+
+```{python}
+df.dropna(axis=0, how='all')
+
+```
+
+
+Estos resultados no se aplican directamente al DataFrame original. Si queremos que persistan tenemos que asignarlos a otra variable:
+
+```{python}
+df_dropped = df.dropna(axis=0, how='all')
+
+```
+
+**LIMPIANDO NANS POR COLUMNAS**
+
+Vamos a agregar una columna:
+
+```{python}
+df['descuento'] = np.nan
+df
+```
+
+Al igual que por filas, eliminar NaNs por columna también se puede hacer usando ´any´ y ´all´. La única diferencia es que ahora hay que usar axis=1 para que se haga la eliminación por columnas:
+
+```{python}
+df.dropna(axis=1, how='any')
+df_dropped = df.dropna(axis=1, how='all')
+
+```
+
+**LLENANDO NANS CON VALORES**
+
+Otra cosa que podemos hacer es llenar los valores NaN con algún otro valor.
+
+Por ejemplo, digamos que tenemos este dataset:
+
+```{python}
+df
+
+```
+
+Lo primero que hay que hacer es eliminar filas y columnas donde todos los valores sean NaN, puesto que no nos sirven de nada:
+
+```{python}
+df_no_nans = df.dropna(axis=0, how='all')
+df_no_nans = df_no_nans.dropna(axis=1, how='all')
+
+df_no_nans
+```
+
+Ahora, digamos que podemos asumir que si hay un valor NaN en "productos_vendidos" es porque no ha sido vendido aún. En ese caso podemos rellenar ese NaN usando fillna:
+
+```{python}
+df_no_nans['productos_vendidos'] = df_no_nans['productos_vendidos'].fillna(0)
+
+df_no_nans
+```
+
+Para finalizar, "precio" sí es una variable muy importante, así que nos deshacemos de las filas que aún tengan NaNs:
+
+```{python}
+df_no_nans.dropna(axis=0)
+
+```
+
+# EJEMPLO 6. APLICANDO LOS CONOCIMIENTOS A UN DATASET REAL-LIMPIEZA DE NANS EN UN DATASET REAL-
+
+¡Vamos a ver un pequeño ejemplo donde vamos a aplicar lo que hemos visto el día de hoy a un dataset real!
+
+Este dataset está en formato CSV, que quiere decir que cada columna está separada por una coma. Las líneas de nuestro archivo .csv son cada una las filas de nuestro dataset, y los datos en cada fila, separados por comas (,), conforman las columnas:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/imgej6.png)
+
+## DESARROLLO
+
+```{python}
+import pandas as pd
+
+```
+
+
+Para leer un archivo .csv en pandas, usamos read_csv y le indicamos que el separador (el signo que delimita las columnas en el archivo .csv) es una coma:
+
+```{python}
+import pandas as pd
+df=pd.read_csv('https://raw.githubusercontent.com/beduExpert/Procesamiento-de-Datos-con-Python-Santander/master/Datasets/melbourne_housing-raw.csv',sep=',')
+df
+df.shape
+df.head(5)
+df.isna().sum()
+```
+
+Éste es el número de columnas con el que nos quedamos:
+
+```{python}
+df_dropped.shape
+
+```
+
+Guardemos el resultado:
+
+```{python}
+df_dropped.to_csv('C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/melbourne_housing-no_nans_TERRON.csv')
+
+```
+
+Seguiremos trabajando este dataset en el último ejemplo.
+
+# EJEMPLO 7. REINDEXANDO Y RENOMBRANDO COLUMNAS
+
+Tenemos ahora un dataset que ha sido limpiado de NaNs. Tenemos ahora dos problemas. El primero es que nuestro índice no corresponde al número de filas que tenemos ahora:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/imgej7.png)
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 5/imgej8.png)
+
+## OBJETIVOS 
+
+- Limpiar un poco más nuestro dataset asignándole un índice y nombres de columnas apropiadas
+
+## DESARROLLO
+
+Limpiemos nuestro dataset hasta que esté justo como lo dejamos en el Ejemplo pasado:
+
+```{python}
+import pandas as pd
+df = pd.read_csv('https://raw.githubusercontent.com/beduExpert/Procesamiento-de-Datos-con-Python-Santander/master/Datasets/melbourne_housing-raw.csv')
+df_2 = df.drop(columns=['BuildingArea', 'YearBuilt'])
+df_2['Regionname'] = df_2['Regionname'].fillna('Unknown')
+df_dropped = df_2.dropna(axis=0, how='any')
+df_dropped
+```
+
+Ahora, tenemos dos situaciones:
+
+1. La primera es que nuestro índice no coincide con el número de filas que tenemos. En este caso, dado que nuestro índice es secuencial y numérico, y no tiene ningún significado además de eso, nos convendría que reflejara la cantidad de filas que tenemos en nuestro dataset.
+
+
+Para lograr eso vamos a usar el método reset_index:
+
+```{python}
+df_dropped.reset_index()
+
+```
+
+Nuestro índice ya está correcto, pero ahora tenemos un columna llamada index que contiene el índice original. Como no queremos guardar esos datos, agregamos la opción drop=True para eliminar el índice anterior:
+
+```{python}
+df_dropped.reset_index(drop=True)
+
+```
+
+Guardemos nuestros cambios:
+
+```{python}
+df_dropped = df_dropped.reset_index(drop=True)
+
+```
+
+Ahora tenemos un problema con los nombres de las columnas: Tienen inconsistencias en la manera cómo están nombradas y algunas incluso tienen errores ortográficos. Vamos a cambiarles los nombres para tener consistencia:
+
+```{python}
+column_name_mapping = {
+    'Suburb': 'suburb',
+    'Address': 'address',
+    'Rooms': 'rooms',
+    'Type': 'type',
+    'Price': 'price',
+    'Method': 'method',
+    'SellerG': 'seller_g',
+    'Date': 'date',
+    'Distance': 'distance',
+    'Postcode': 'post_code',
+    'Bedroom2': 'bedrooms',
+    'Bathroom': 'bathroom',
+    'Car': 'car',
+    'Landsize': 'land_size',
+    'CouncilArea': 'council_area',
+    'Lattitude': 'latitude',
+    'Longtitude': 'longitude',
+    'Regionname': 'region_name',
+    'Propertycount': 'property_count'
+}
+
+df_renamed = df_dropped.rename(columns=column_name_mapping)
+
+df_renamed
+```
+
+¡Listo! Nuestro dataset va agarrando forma.
+
+# RETO 1. FUNCIONES VECTORIZADAS
+
+**PORCENTAJE TOTAL**
+
+Eres maestro en la H. Universidad de las Américas Unidas. Has realizado el examen final de la primera generación de estudiantes de la escuela. El conteo máximo de aciertos en el examen era de 68 (es decir, 68 aciertos equivale al 100% de las preguntas respondidas correctamente). La siguiente Serie reúne los aciertos obtenidos por los 25 alumnos de la generación:
+
+```{python}
+import pandas as pd
+aciertos = pd.Series([50, 55, 45, 65, 66, 46, 48, 53, 55, 56, 59, 68, 67, 60, 45, 56, 66, 64, 59, 55, 34, 45, 49, 48, 55])
+
+```
+
+Tus calificaciones las das siempre en "porcentaje de aciertos". Tu reto es convertir la Serie aciertos en la Serie porcentajes, que contiene cada valor de aciertos como un porcentaje del número de aciertos totales (68).
+
+SÓLO puedes usar funciones vectorizadas de numpy para realizar tus cálculos. Aquí puedes encontrar las funciones que necesitas.
+
+https://www.interactivechaos.com/es/manual/tutorial-de-numpy/funciones-universales-matematicas
+
+```{python,eval=FALSE}
+## Realiza aquí tus cálculos
+##
+## ...
+## ...
+
+porcentajes =
+```
+
+# RETO 2. AGREGACIONES
+
+## OBJETIVOS
+
+- Usar funciones vectorizadas y agregaciones para computar la desviación estándar de un conjunto de datos
+
+## DESARROLLO
+
+**DESVIACIÓN ESTANDAR**
+
+La desviación estándar es una medida que nos dice qué tan dispersos están los datos con respecto a la media. Es una de las medidas estadísticas más comunes e importantes. En este reto vamos a calcular la desviación estándar de un conjunto de datos usando funciones vectorizadas y agregaciones
+
+Imagina que has realizado un censo en la H. Universidad de las Américas Unidas. Quieres saber qué tanta dispersión de edades hay en la universidad. Dada la naturaleza de la universidad, hay tanto alumnos extremadamente jóvenes (el más joven tiene 15 años) hasta alumnos bastante mayores (el alumno de más edad tiene 52 años). Para saber qué tan dispersas están las edades de los alumnos, vas a usar la desviación estándar.
+
+El algoritmo para sacar la desviación estándar es el siguiente:
+
+1. Saca el promedio de tu Serie. Esto se hace sumando todos tus datos y luego dividiéndolos entre la cantidad de datos (n)
+2. Después toma tu Serie y réstale a cada elemento el promedio. De esta manera obtenemos una nueva Serie que contiene las diferencias entre cada dato y el promedio.
+3. Después eleva tu Serie al cuadrado. Esto sirve para acentuar a los datos que están más alejados de tu promedio.
+4. Ahora suma todos los elementos de tu Serie y divídelos entre la cantidad de datos de la Serie original menos 1 (n - 1).
+5. Por último, saca la raíz cuadrada del valor obtenido: Ésta es tu desviación estándar.
+Utiliza aritmética con Series, funciones vectorizadas y agregaciones para calcular esta estadística.
+
+Asigna tu resultado final a la variable std.
+
+```{python}
+import pandas as pd
+#AGREGA OTRO IMPORT QUE NECESITES
+
+
+edades = pd.Series([23, 24, 23, 34, 30, 17, 18, 24, 35, 28, 27, 27, 34, 32, 29, 16, 16, 17, 19, 34, 45, 46, 43, 45, 43, 32, 25, 29, 28, 38, 30, 37, 38, 24, 26, 25, 24, 19, 19, 18, 17, 18, 21, 20, 23, 24, 25, 25, 26, 24, 23, 32, 24, 25, 24, 36, 35, 36, 38, 39, 45, 46, 43, 48, 42, 41, 41, 26, 19, 19, 19, 20, 39, 38, 43, 28, 27, 39, 43, 52, 50, 38, 15, 17, 23, 25, 19, 32, 34, 35, 19, 19, 20, 26, 25, 43, 45, 46, 34, 33, 30, 30, 34, 45, 50, 50, 47, 25, 34, 37, 38, 19, 19, 20, 25, 28, 34, 32, 36, 39, 39, 28, 34, 33, 22, 25, 17, 17, 22, 24, 25, 45, 46, 43, 34, 35, 32, 23])
+
+```
+
+```{python,eval=FALSE}
+## Realiza aquí tus cálculos
+##
+## ...
+## ...
+
+std =
+```
+
+# RETO 3. AGREGACIONES CON DATAFRAMES
+
+## OBJETIVOS
+
+- Aplicar agregaciones a DataFrames completos para obtener un análisis estadístico
+
+## DESARROLLO
+
+**ANÁLISIS ESTADÍSTICO CON AGREGACIONES**
+
+Eres el Analista de Datos de EyePoker Inc. Te han pedido que realices ciertas agregaciones con un conjunto de datos para poder realizar un análisis estadístico básico de los datos que hay dentro.
+
+El conjunto de datos es el siguiente:
+
+```{python}
+import pandas as pd
+#REALIZA CUALQUIER OTRA IMPORTACIÓN QUE NECESITES
+
+
+
+datos = {
+    'producto': ["Pokemaster", "Cegatron", "Pikame Mucho", "Lazarillo de Tormes", "Stevie Wonder", "Needle", "El AyMeDuele", "El Desretinador", "Sacamel Ojocles", "Desojado", "Maribel Buenas Noches", "Cíclope", "El Cuatro Ojos"],
+    'precio': [12000, 5500, 2350, 4800, 8900, 6640, 1280, 1040, 23100, 16700, 15000, 13400, 19600],
+    'cantidad_en_stock': [34, 54, 36, 78, 56, 12, 34, 4, 0, 18, 45, 23, 5],
+    'cantidad_vendidos': [120, 34, 59, 9, 15, 51, 103, 72, 39, 23, 10, 62, 59]
+}
+
+df = pd.DataFrame(datos)
+df
+
+
+```
+
+Tu tarea es muy simple. Usando métodos de agregación, asigna las variables de la siguiente celda con los resultados de agregar nuestro DataFrame por columna usando cada una de las medidas estadísticas. Algunas de los métodos ya los conoces. Los que no, puedes encontrarlos en este link. Lo que queremos obtener es una Serie con los nombres de las columnas como índice y las agregaciones por columna como valores. Una de las columnas que tenemos en el DataFrame no se presta para realizar análisis numéricos, elimínala antes de realizar tu análisis y asigna el resultado a la variable df_droppped.
+
+Sólo utiliza funciones de agregación para tu análisis. En este caso no requieres hacer ninguna operación aritmética.
+
+
+```{python,eval=FALSE}
+df_dropped =
+
+# El valor mínimo de cada columna
+mins =
+
+# El valor máximo de cada columna
+maxs =
+
+# El promedio por columna
+means =
+
+# La mediana por columna (El valor que se encuentra a la mitad de la secuencia ordenada de valores)
+medians =
+
+# La desviación estándar por columna
+stds =
+```
+
+# RETO 4. IDENTIFICANDO Y LIMPIANDO NANS
+
+## OBJETIVO
+
+- Practicar la identificación de NaNs
+- Practicar eliminar NaNs de un `DataFrame` usando diferentes técnicas
+
+## DESARROLLO
+
+**Limpiando un dataset de NaNs**
+
+Eres el Data Wrangler de EyePoker Inc. Te han dado el siguiente dataset para que apliques algunas técnicas de procesamiento de datos:
+
+```{python}
+import pandas as pd
+import numpy as np
+
+pd.options.mode.chained_assignment = None
+#QUITA WARNINGS DE LA LIBREIRA PANDAS EN ALGUNOS CASOS
+# LEER DOCUMENTACION
+
+
+datos = {
+    'precio': [12000, 5500, np.nan, 4800, 8900, np.nan, 1280, 1040, 23100, np.nan, 15000, 13400, np.nan],
+    'cantidad_en_stock': [34, 54, np.nan, 78, 56, np.nan, 34, 4, 0, 18, 45, 23, 5],
+    'cantidad_vendidos': [120, 34, np.nan, 9, 15, np.nan, 103, np.nan, np.nan, 23, 10, 62, 59],
+    'descuentos': [np.nan] * 13
+}
+
+df = pd.DataFrame(datos, index=["Pokemaster", "Cegatron", "Pikame Mucho", "Lazarillo de Tormes", "Stevie Wonder", "Needle", "El AyMeDuele", "El Desretinador", "Sacamel Ojocles", "Desojado", "Maribel Buenas Noches", "Cíclope", "El Cuatro Ojos"])
+df
+
+```
+
+
+Para poder realizar los análisis y visualizaciones posteriores, te han pedido que elimines los NaNs del dataset. Realiza los siguientes pasos para limpiar tu dataset:
+
+1. Has un conteo de cuántos NaNs hay en cada fila y en cada columna
+2. Elimina las filas y columnas donde todos los valores sean NaN.
+3. Dado que la columna cantidad_vendidos no es tan importante, cambia los NaNs que haya en esa columna por 0.
+4. Dado que la columna precio es muy importante, elimina las filas restantes que tengan algún NaN en dicha columna.
+
+Realiza todas tus transformaciones usando el DataFrame df_copy.
+
+```{python,eval=FALSE}
+df_copy = df.copy()
+
+## Realiza aquí tus transformaciones
+##
+## ...
+## ...
+```
+
+# RETO 5. LIMPIANDO UN DATASET
+
+## OBJETIVOS
+- Aplicar todo lo que aprendimos el día de hoy a un dataset real
+
+## DESARROLLO
+**Limpieza de datos en el mundo real**
+
+Hasta ahora hemos estado realizando ejercicios con datasets dummy (falsos). Ahora vamos a aplicar todo lo que hemos aprendido el día de hoy a un dataset real.
+
+El dataset se encuentra en la carpeta Datasets en la raíz del repositorio. El nombre el dataset es 'melbourne_housing-raw.csv'.
+
+Lee el dataset usando pandas y realiza las siguientes tareas:
+
+1. Ve a este link (https://www.kaggle.com/anthonypino/melbourne-housing-market) para conocer más sobre el dataset y los datos que contiene.
+2. Explora tu dataset para entender su estructura
+3. Identifica los NaNs en el dataset y dónde se encuentran
+4. Elimina los NaNs de tu dataset
+5. Resetea tu índice para que sea compatible con el nuevo dataset
+6. Cambia los nombres de las columnas para que tengan consistencia y no haya errores ortográficos
+7. Realiza agregaciones (min, man, mean, etc) de las siguientes filas para conocer mejor la distribución de tus datos: a) Price b) Distance c) Landsize
+8. Si tienes dudas en algún momento, por favor pídele a la experta que te oriente. Todas las tareas que hay que realizar ya las hemos hecho en otros retos; puedes ir a revisar esos otros ejercicios para recordar.
+
+¡Mucha suerte!
+
+

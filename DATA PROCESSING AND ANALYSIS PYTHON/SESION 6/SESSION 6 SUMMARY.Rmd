@@ -1,0 +1,1074 @@
+---
+title: "SESSION 6 - SUMMARY"
+author: "Victor Miguel Terron Macias"
+date: "25/2/2021"
+output:
+  html_document:
+    df_print: paged
+---
+
+# APIS, AUTOMATIZACIÓN Y CONCATENACIÓN DE DATAFRAMES
+
+## OBJETIVOS
+
+* Adquirir datos y crear datrasets
+* Automatizar procesos repetitivos y aprender a evitar posibles errores en nuestro código
+* Reestructurar DataFrames
+
+# PRE-WORK
+
+## OBJETIVOS
+
+* Hacer peticiones a APIs.
+* Automatizar peticiones a APIs utilizando For loops y Excepciones.
+* Usar concat para unir múltiples Series.
+* Indexar usando Multi Índices en filas
+* Usar concat para unir múltiples DataFrames.
+* Guardar datasets localmente en formato .csv.
+
+## INTRODUCCIÓN
+
+En este Prework vamos a aprender a adquirir datos de una nueva fuente: las APIs. Vamos a usar la API de la NASA para obtener datos acerca de los objetos que orbitan cerca de la Tierra.
+
+También vamos a aprovechar esto para aprender a automatizar procesos. Vamos a aprender un poquito sobre un par de estructuras que podemos usar en Python para hacer automatizaciones: for loops y excepciones.
+
+Para terminar vamos a realizar una exploración acerca de una de las maneras que tenemos de unir DataFrames: la concatenación.
+
+## APIs
+
+Una API es una interfaz para comunicarnos con un software que está corriendo en algún servidor remoto. Normalmente, una API se usa para obtener datos acerca de algún tema en específico. Diferentes compañías, instituciones, universidades, etc, tienen APIs para que nosotros (programadores/desarrolladores/científicos de datos) podamos construir programas usando los datos que ofrecen. Hay una infinidad de APIs que ofrecen una gran diversidad de información.
+
+Hoy vamos a aprender a comunicarnos con una para pedir datos y vamos a aprender a automatizar nuestras peticiones. Pero primero, un poquito de teoría.
+
+**Peticiones HTTP**
+
+Una peticiones HTTP es una solicitud de información de un cliente a un servidor usando el protocolo HTTP. El protocolo HTTP es simplemente una serie de reglas que nos dicen cuál es la manera apropiada de comunicarnos con el servidor.
+
+**Endpoints y URLs**
+
+Los URLs son las direcciones a donde pedimos información. Una API tiene normalmente una documentación donde te indica cuáles son los URLs disponibles. Cada URL apunta hacia información o recursos distintos. Usamos algún tipo de software (Postman o Requests) para "llamar" dicho endpoint (URL) y aplicar una acción.
+
+**Verbos HTTP**
+
+Cuando realizamos una petición HTTP usamos 1 tipo de "verbo", que indica la acción que queremos realizar. Hay muchos verbos, pero 5 son los más importantes:
+
+* GET: Lo usamos cuando queremos pedir información
+* POST: Lo usamos cuando queremos enviar información para crear algo (una cuenta de usuario, por ejemplo)
+* PUT: Lo usamos cuando queremos sustituir algún dato por otro
+* PATCH: Lo usamos cuando queremos modificar algún dato
+* DELETE: Lo usamos cuando queremos eliminar algún dato
+
+Para los propósitos de la adquisición de datos, el verbo que más nos interesa es el verbo GET (si quieres saber más sobre los demás verbos, puedes ir aquí), así que usaremos solamente ese.
+
+**Parámetros**
+
+Cuando hacemos una solicitud HTTP, normalmente vamos a tener que enviar parámetros para delimitar nuestras búsquedas. Los parámetros funcionan de manera similar a los parámetros de las funciones, tienen un nombre y le pasamos un valor como argumento. Los parámetros que enviemos determinarán qué datos vamos a obtener de regreso y en qué forma.
+
+**Respuestas**
+
+Las respuestas son los datos que recibimos de una API. Normalmente los datos que se transfieren a través de una API están en formato JSON. Las respuestas contienen los datos que solicitamos, algo "metadata" (datos acerca de los datos) y un estatus de la petición.
+
+**Estatus de la petición**
+
+Cuando recibimos una respuesta, también vamos a recibir un código de estatus que sirve para identificar cuál fue el resultado de nuestra solicitud. También hay muchísimos estatus distintos, pero los más importantes son los siguientes:
+
+* 200: Todo salió bien.
+* 201: Los recursos que querías crear fueron creados con éxito
+* 404: El recurso no fue encontrado en ese URL
+* 400: Los datos que enviaste son incorrectos
+* 500: Hubo un error interno en el servidor
+
+## Librería Requests
+
+¡Estamos listos para hacer nuestras peticiones HTTP! Antes que nada, hay que instalar la librería de Python que usaremos para hacer nuestras peticiones: requests.
+
+En una celda usa el comando !pip install requests para instalar la librería.
+
+Ahora, necesitamos un API. Vamos a explorar un API que ofrece la NASA acerca de objetos en el espacio cuya órbita pasa cerca de la Tierra. Puedes encontrar dicha API y su documentación aquí. Para poder acceder a la API, necesitamos registrarnos en la página de la NASA y obtener lo que se llama un Api Key, que es un tipo contraseña que necesitamos para hacer peticiones a su API. Puedes obtener tu propia Api Key registrándote aquí.
+
+Entonces, vamos a importar requests en un Jupyter Notebooks:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img1.png)
+
+Según la documentación, el siguiente es el url al que podemos pedir datos acerca de estos objetos que orbitan cerca de la Tierra:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img2.png)
+
+Vamos a realizar una petición GET usando requests a ver qué pasa:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img3.png)
+
+Ok... ¿Y ahora qué?
+
+Un primer paso sería revisar el estatus de la llamada:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img4.png)
+
+El estatus 403 significa que el recurso está prohibido. Podemos ver un poco más de información pidiendo el cuerpo de la respuesta en formato json:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img5.png)
+
+¡Lo que pasa es que no hemos mandado la API Key!
+
+Según la documentación, la API Key tiene que ser mandada como parámetro en la petición. Podemos agregarla a los parámetros de la siguiente manera:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img6.png)
+
+Veamos la respuesta:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img7.png)
+
+¡Éxito!
+
+Si revisamos los datos enviados en la respuesta podemos ver que ya tenemos algo que parece útil:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img8.png)
+
+Para entender mejor este json, vamos a revisar las keys primero:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img9.png)
+
+Ok, veamos qué hay en links:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img10.png)
+
+Esta metadata nos dice qué link es el que solicitamos (self) y el siguiente link que tendríamos que usar para pedir los datos posteriores (next). Esto está buenísimo porque nos permite automatizar nuestras llamadas. Al saber siempre cuál es el link que sigue podemos extraerlo de ahí y realizar una nueva llamada.
+
+Veamos qué hay en pages:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img11.png)
+
+Esta es información sobre la "página" que hemos pedido. Como si fuera un libro, cada página tiene una cierta cantidad de información. Podemos ver que esta página tiene 20 entradas (size), que el total de elementos que hay en la base de datos es de 23777 (total_elements), que el total de páginas es de 1189 (que como podrás imaginar, es 23777 dividido entre 20), y que la página actual es la 0 (number).
+
+Ahora veamos near_earth_objects:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img12.png)
+
+¡Estos son nuestros datos! Podemos ver que tenemos una lista con diccionarios dentro. Esto es algo que podemos leer directamente en pandas. Vamos a hacer eso. Debido a que el json que tenemos tiene muchos datos "anidados" (diccionarios dentro de diccionarios dentro de diccionarios), necesitamos primero "normalizar" nuestros datos. Esto básicamente significa extraer los datos anidados para convertirlos en su propia columna (puedes aprender más sobre este proceso aquí[https://www.kaggle.com/jboysen/quick-tutorial-flatten-nested-json-in-pandas]). Simplemente hay que usar el siguiente código:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img13.png)
+
+Y ahora creamos un DataFrame usando from_dict:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img14.png)
+
+¡Listo! Ya tenemos un DataFrame con nuestros datos.
+
+Ahora, estas son sólo 20 entradas de un total de 23777. Si queremos hacer un verdadero análisis, vamos a necesitar un poco más de datos. Hacer estas peticiones manualmente nos tomaría años, así que vamos a utilizar algunas herramientas de Python para automatizar este proceso.
+
+## FOR LOOPS
+
+Los for loops son operadores de control de flujo que sirven para realiza iteraciones, lo cual puede ser utilizado para ejecutar un mismo código repetidas veces. Un for loop se ve así:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img15.png)
+
+Vamos a diseccionarlo.
+
+range(0, 10) le indica a Python que queremos iterar en el rango de 0 a 9 (el último número nunca se incluye).
+
+for i in significa que "cada iteración que realicemos, el valor que le corresponda a dicha iteración va a ser asignado a una variable llamada i".
+
+Después escribimos dos puntos (:) y el bloque del for loop. En este caso, en el bloque estamos imprimiendo el valor de i que es el valor obtenido de range(0, 10) en cada iteración.
+
+Vamos a usar un for loop para realizar 10 peticiones a la API de la NASA de manera automática.
+
+En cada iteración hacemos la llamada, revisamos el estatus, extraemos los datos correspondientes y después usamos [links][next] para obtener el nuevo link y repetir la operación. Como el valor del for loop no va a ser utilizado (sólo queremos repetir el código 10 veces y ya), podemos escribir _ en vez de i:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img16.png)
+
+Fíjate en la última línea donde asignamos endpoint = new_link para que en la siguiente iteración la petición se haga al nuevo link.
+
+Es una buena práctica esperar un poco entre cada petición. Para eso vamos a usar la librería time para esperar 5 segundos entre cada petición:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img17.png)
+
+Ahora, ¿qué hacemos con nuestros datos? ¿cómo los podemos guardar para utilizarlos después? Podríamos tener un diccionario donde guardemos los nuevos datos en cada iteración. La llave va a ser el número de iteración. Para lograr esto necesitamos volver a definir i y agregar los datos a un diccionario llamado dict_datos:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img18.png)
+
+Veamos qué hay en dict_datos:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img19.png)
+
+¿Ves? Tenemos un diccionario donde cada llave contiene una de las listas de jsons que obtenemos en cada llamada.
+
+Ahora, vamos a poner un método de seguridad para asegurarnos que nuestra automatización no vaya a fallar.
+
+## EXCEPCIONES
+
+Hay veces que algún error (una Exception) sucede durante la ejecución de nuestro programa, Python lo detecta y detiene el programa completo para evitar que el error cause problemas. Por ejemplo, aquí tenemos un error que sucede durante la lectura de una llave inexistente en un diccionario:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img20.png)
+
+Este error podría suceder durante la lectura de la respuesta a nuestra petición, cuando accedemos a near_earth_object o a links. Si este error sucediera, nuestro programa se detendría. Dado que lo que queremos es automatizar este proceso, dejar que nuestro programa se detenga suena a una muy mala idea.
+
+Para evitar que eso suceda, usamos una estructura llamada try except. Básicamente lo que sucede es que cierto código se intenta correr durante el bloque de try, y si ese código lanza una excepción (un error), en vez de detener el programa el bloque de except se corre para que tú puedas hacer algo para lidiar con el problema. En nuestro ejemplo, esto se vería así:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img21.png)
+
+Vamos a agregar un try except a nuestro for loop para evitar que haya errores que arruinen nuestro programa. También voy a agregar un parámetro timeout=5 a mi petición GET. Esto significa que cada vez que hagamos una llamada, vamos a esperar durante 5 segundos a obtener una respuesta. Si no obtenemos respuesta, se lanza un error. Esto sirve para evitar que nuestro programa se quede esperando durante años para obtener una respuesta. Dado que la agregación del timeout significa que puede haber un error de timeout, vamos a envolver todo el código del bloque for loop con nuestro try except. De esta manera "cachamos" cualquier error que suceda ahí:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img22.png)
+
+En el bloque de except lo único que estoy haciendo es agregar un continue. Esto le indica a Python "si hay un error, simplemente continúa con la siguiente iteración". Obviamente la petición se va a realizar a la misma URL de la iteración que falló. Podríamos agregar lógica para intentar evitar esto, pero eso se quedará pendiente para alguna otra ocasión.
+
+Observa también que cambié el lugar de time.sleep(5), para asegurarme de que se corra ese código en cada iteración, sin importar si hay un error o no.
+
+Ahora que ya tenemos nuestro programa para obtener nuestros datos, necesitamos saber qué hacer con esos datos. Sobre todo, es necesario aprender a juntar todos nuestros datos obtenidos en un mismo DataFrame. Para eso vamos a aprender a concatenar DatFrames.
+
+## CONCATENACIÓN DE DATAFRAMES
+
+Otra de las principales tareas de un Data Wrangler es la de unir conjuntos de datos en un solo DataFrame. Dado que los datos que hemos estado obteniendo están separados en pedazos (chunks, como les dicen en su casa), vamos a aprender una de las técnicas que existen para unir DataFrames, la concatenación. En realidad, en esta instancia en particular, una opción más directa hubiera sido simplemente unir la lista que obtenemos en cada iteración con una lista principal que contenga todas las entradas. Pero vamos a aprovechar la fragmentación de nuestro dataset para aprender sobre concatenación.
+
+Primero que nada, voy a usar otro for loop para iterar por todas las llaves de nuestro diccionario. Si uso la misma estructura, pero en lugar de range(0, 10) itero sobre el diccionario, cada i se convierte en una de las llaves de nuestro diccionario:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img23.png)
+
+Entonces, en cada iteración voy a normalizar la lista de diccionarios, voy a convertirla en un DataFrame y la voy a guardar en el mismo diccionario, reemplazando el valor anterior por uno nuevo:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img24.png)
+
+Ahora todos nuestros valores son DataFrames:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img25.png)
+
+Vamos a juntarlos todos en un gran, rechoncho y sanote DataFrame. Pero primero, vamos a entender bien cómo funciona pd.concat.
+
+pandas ofrece varias maneras de unir DataFrames un solo DataFrame. Una de ellas es la función pd.concat. pd.concat te permite concatenar Series y DataFrames usando diferentes axis. Comencemos con las Series.
+
+## pd.concat con Series
+
+Tenemos las siguientes dos Series:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img26.png)
+
+Podemos unirlas de manera vertical llamando pd.concat con axis=0. Observa que tenemos que pasarle las dos Series dentro de una lista:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img27.png)
+
+Si queremos unirlas horizontalmente, podemos llamar la función usando axis=1:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img28.png)
+
+Aquí hay dos cosas que observar:
+
+* Usé el argumento keys para ponerle nombre a las columnas (ya que las Series originales no tenían nombres).
+* Debido a que las Series tienen diferentes índices, la concatenación horizontal deja muchos valores vacíos. Esto se debe a que la serie_1 no tiene valores que correspondan a los índices 'd', 'f', y 'e'; mientras que la serie_2 no tiene valores que correspondan a los índices 'a', 'b', y 'c'.
+
+Mira lo que pasa si concatenamos dos Series que compartan el mismo índice:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img29.png)
+
+Si concatenamos verticalmente dos Series que comparten el mismo índice, tenemos un pequeño problema:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img30.png)
+
+Como ves, el índice se repite. Hay veces que esto es justo lo que queremos, pero en este caso, no parece muy deseable. En este caso tenemos dos opciones.
+
+
+1. Si no nos interesa mucho el índice actual, podemos resetearlo para obtener uno nuevo donde no haya repeticiones: 
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img31.png)
+
+2. En caso de que sí nos interese el índice, pero queramos poder diferenciar entre los índices que vienen de la serie_1 y los que vienen de la serie_3, podemos usar el argumento keys para agregar un segundo nivel en el índice:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img32.png)
+
+¿Y eso qué es? ¿Un segundo nivel de índice? Pues sí, aunque no lo creas, podemos crear diferentes niveles de índices que nos ayudan a segmentar nuestros datos a más detalle. Existen los Multiíndices de filas y también de columnas. En este caso, tenemos uno de filas.
+
+
+## PEQUEÑA DIGRESION PARA HABLAR SOBRE MULTIINDICES EN FILAS
+
+Que no cunda el pánico. Si quisieras acceder a tus datos usando loc simplemente tendrías que hacer algo como esto:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img33.png)
+
+¿Ves? como primer argumento a nuestro loc, en vez de un solo valor, le pasamos una tupla de valores. Una tupla es eso que ves dentro de dos paréntesis (('serie_1', 'b')). Es una manera de contener dos o más valores. En este caso, nuestros dos valores son los dos niveles de nuestro índice que queremos acceder: primero serie_1 y después b. Si queremos acceder al índice b de la serie_3, haríamos lo siguiente:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img34.png)
+
+Podríamos concatenar muchas Series con los mismos índices y mantenerlas segmentadas usando multi índices:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img35.png)
+
+Lo más genial es que si accedemos a la nueva Serie usando sólo el primer nivel, obtenemos una de nuestras Series completa:
+
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img36.png)
+
+Pero bueno, salgamos de nuestra pequeña digresión para hablar sobre la concatenación de DataFrames.
+
+## pd.concat CON DATAFRAMES
+
+La misma lógica aplica para la unión de DataFrames. Tenemos ahora dos DataFrames:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img37.png)
+
+Usamos axis=0 para concatenarlos verticalmente:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img38.png)
+
+Si usamos axis=1 de nuevo vamos a tener valores NaN porque los DataFrames no comparten índice:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img39.png)
+
+Si tenemos dos DataFrames que comparten índice, pasa lo siguiente:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img40.png)
+
+Si los DataFrames comparten índice y queremos concatenarlos verticalmente, también podemos usar un multiíndice en las filas para diferenciarlos:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img41.png)
+
+Al igual que con las Series podemos acceder a ese DataFrame usando un solo nivel o ambos niveles:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img42.png)
+
+Observa bien que en la primera indexación lo que obtuvimos es un DataFrame, pero en la segunda indexación ¡obtuvimos una Serie! Esto tiene mucho sentido, ya que en el índice ('df_1', 'b') en realidad hay dos valores, el que le corresponde a la column_1 y el que le corresponde a la column_2. Ya habrá tiempo de practicar, no te preocupes.
+
+## UNIENDO NUESTRO DATASET USANDO pd.concat
+
+Regresemos al fin a nuestro dataset original, el que obtuvimos de la API. Vamos a usar nuestras nuevas habilidades para unir los DataFrames en uno solo. También vamos a resetear el índice porque no nos interesa mantenerlo. Aquí está una posible solución:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/img43.png)
+
+Ya que tenemos las primeras 10 páginas de la API guardadas en un DataFrame, no queremos tener que volver a repetir todo el proceso. Para evitar esto, podemos guardar nuestro DataFrame en un archivo .csv para acceder a él después:
+
+Ahora podríamos llevar a cabo el Procesamiento de Datos pertinente, pero eso lo llevaremos a cabo en otra sesión. Por lo pronto "¡hasta luego y gracias por el pescado!".
+
+# WORK SESION 6. APIS
+
+
+## OBJETIVOS
+
+* Hacer peticiones a APIs.
+* Automatizar peticiones a APIs utilizando For loops y Excepciones.
+* Usar concat para unir múltiples Series.
+* Indexar usando Multiíndices en filas
+* Usar concat para unir múltiples DataFrames.
+* Guardar datasets localmente en formato **.csv**.
+
+
+## CONTENIDO
+
+Introducción
+
+Hoy vamos a aprender a adquirir datos de una manera que difiere mucho de las que hemos visto hasta ahora. No vamos a obtener los datos directamente de un archivo que descargamos o que obtenemos directamente de alguien más, sino que vamos a usar una API para obtener nuestros datos programáticamente y convertirlos en un DataFrame que podamos utilizar.
+
+En el proceso no sólo veremos APIs sino que también aprenderemos a automatizar procesos usando Python, a concatenar DataFrames y a indexar Series y DataFrames usando multiíndices en las filas.
+
+## APIS
+
+En el Prework vimos una descripción detallada de lo que son las APIs y cómo funcionan. Vimos que para hacer una petición a una API, tenemos que tomar en cuenta las siguientes cosas:
+
+1. URL: la "dirección" a donde vamos a realizar nuestra petición
+2. Verbo HTTP: El tipo de acción que vamos a realizar (i.e. GET, POST, PUT, PATCH, DELETE, etc.)
+3. Parámetros: Valores que agregamos a nuestra petición para enviar información relevante a la API (datos de acceso, filtros, etc)
+4. Estatus de la respuesta: Un código que nos dice si nuestra petición fue realizada exitosamente o no (i.e. 200, 201, 400, 404, 500, etc.)
+5. Cuerpo de la respuesta: Los datos que nos fueron enviados de regreso al finalizar la petición.
+
+Veamos esto en acción.
+
+## LIBRERIA REQUEST
+
+Vamso a usar la libreria requestpara realizar nuestras peticiones en Python. primero que nada, tenemos que instalarla utilizando:
+
+`!pip install requests`
+
+Ahora vamos a ver cómo utilizarla
+
+# EJEMPLO 1. USANDO LA LIBRERIA REQUESTS
+
+## OBJETIVOS
+
+- A prender a usar al librería Request para hacer peticiones HTTP
+
+## DESARROLLO
+
+```{python,eval=FALSE}
+pip install requests
+
+```
+
+
+Se importan las librerias:
+```{python}
+import requests
+import pandas as pd
+```
+
+Vamos a hacer peticiones a una api de la NASA que ofrece datos sobre objetos que orbitan cerca de la Tierra. Pueden ver la documentación aquí : https://api.nasa.gov/ . Ahí podemos ver los endpoints y la manera en la que se usa la Api Key. Ve a la página y consigue tu propia Api Key para que puedas realizar los ejercicios.
+
+Ahora, para empezar, necesitamos nuestro endpoint y nuestro diccionario de parámetros.
+
+```{python}
+endpoint = 'https://api.nasa.gov/neo/rest/v1/neo/browse/'
+payload = {'api_key': 'awVSXRU0UbA4arWSHOwbedKpqut6ZdR2pEzkb21u'}
+```
+
+
+Ambos se los pasamos al método GET de requests para realizar la petición a ese endpoint y enviar los parámetros como información extra que el API necesita para validar nuestra petición:
+
+```{python}
+r = requests.get(endpoint, params=payload)
+```
+
+Ahora, podemos leer lo siguiente de nuestro objeto de respuesta:
+
+```{python}
+r.status_code
+#r.json()
+# OUTPUT FUERA DE DIMENSIONES PARA R
+```
+
+¡Esa es una respuesta muy larga! Vamos a diseccionarla:
+
+```{python}
+json = r.json()
+json.keys()
+json['links']
+json['page']
+data = json['near_earth_objects']
+data[0]
+
+```
+
+links y page son metadata que vamos a utilizar luego para automatizar el proceso de peticiones. data es una lista de diccionarios que contiene los datos que queremos utilizar. Vamos a convertirlos en un DataFrame:
+
+```{python}
+normalized = pd.json_normalize(data)
+
+df = pd.DataFrame.from_dict(normalized)
+
+df.head()
+```
+
+¡Listo! Ahora tenemos un DataFrame con los datos de nuestra primera petición. En esta sesión vamos a aprender a automatizar este proceso. Pero antes, practiquemos un poco el uso de la librería requests.
+
+
+# RETO 1. PETICIONES A UNA API UTILIZANDO REQUESTS
+
+## OBJETIVOS
+
+- Usar la librería Requests para hacer una petición HTTP a una API
+
+## DESARROLLO
+
+### PETICION HTTP A API DE NASA
+
+Vamos a implementar un programa que realice una llamada HTTP a la API de NASA.
+
+Puedes leer la documentación de la API aquí, bajo el título de "Asteroids NeoWs".
+
+
+```{python}
+import requests
+import pandas as pd
+```
+
+Tu reto consiste en los siguientes pasos:
+
+1. Crea una cuenta en el API de NASA para obtener tu propia API Key. Copia la API Key en la celda debajo para que no la pierdas:
+
+```{python}
+api_key='awVSXRU0UbA4arWSHOwbedKpqut6ZdR2pEzkb21u'
+```
+
+2. Asigna la variable $endpoint$ -donde tendrás el URL base de la API de NASA- y la variable payload -donde tendrás el diccionario que usarás para pasar parámetros a tu petición.
+
+3. Usa tu diccionario $payload$ para agregar los parámetros necesarios para pedir la hoja número 100 de la API. Durante el ejemplo, pedimos simplemente la primera hoja. En esta ocasión, debes de descubrir que parámetros requieres pasarle para obtener la hoja #100. Además queremos que el número de resultados que nos regresen sea menor al default. El default es 20, pero tú tienes que mandar los parámetros adecuados para que te regresen solamente 5 resultados
+.
+
+```{python}
+endpoint = 'https://api.nasa.gov/neo/rest/v1/neo/browse/'
+payload = {'api_key':api_key,'page':100,'size':5}
+
+```
+
+4. Realiza tu petición HTTP aquí debajo y checa tu código de respuesta para asegurarte de que la petición se haya hecho exitosamente:
+
+```{python}
+r = requests.get(endpoint, params=payload)
+r.status_code
+```
+
+5. Si todo ha salido bien, extrae tus datos, normalízalos, crea un DataFrame con ellos y asígnalo a objetos. Revisa que solamente tengas 5 filas, para saber que tu petición se realizó exitosamente:
+
+```{python}
+data=r.json()['near_earth_objects']
+normalizado=pd.json_normalize(data)
+objetos =pd.DataFrame.from_dict(normalizado)
+objetos
+```
+
+# EJEMPLO 2. AUTOMATIZACIÓN CON CICLOS FOR
+
+Podemos usar for loops para automatizar la realización de múltiples peticiones a distintos URLs. Primero que nada, vamos a ver cómo es que funcionan los for loops. Un for loop se ve así:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/ej2.png)
+
+## OBJETIVOS
+
+- Aprender a usar for loops para luego poder automatizar procesos
+
+## DESARROLLO
+
+Los for loops nos ayudan a automatizar procesos. Básicamente definimos primero sobre qué queremos iterar (o ciclar), después definimos una varibale (o variables) que vana recibir cada vfalor de cada iteracion, y luego tenemos el bucle for loop, que es donde realizamos todos los procesos a automatizar. Mira como se ven en acción:
+
+```{python}
+
+for i in range(0, 10):
+    print(i)
+```
+
+```{python}
+lista_de_numeros = []
+
+for i in range(0, 50):
+    lista_de_numeros.append(i)
+    
+print(lista_de_numeros)
+```
+
+```{python}
+
+numero = 150
+
+for _ in range(0, 20):
+    
+    # este proceso es independiente del loop, por eso no usamos la variable del loop
+    # en este caso el loop solo sirve para realizar una tarea repetidas veces
+    
+    numero = numero + 1
+
+print(numero)
+```
+
+```{python}
+
+dict_1 = {
+    'a': 1,
+    'b': 2,
+    'c': 3,
+    'd': 4,
+    'e': 5
+}
+
+for key in dict_1:
+    print(dict_1[key])
+```
+
+# RETO 2. AUTOMATIZACIÓN CON FOR LOOPS
+
+## OBJETIVOS
+
+- Automatizar un proceso sencillo usando for loops
+
+## DESARROLLO
+
+### POTENCIAS DE 2
+
+Las potencias de dos son sumamente importantes en el mundo computacional. Dado que las computadoras trabajan con lenguaje binario, gran parte del funcionamiento interno de las computadoras funciona con potencias de 2. He aquí una muestra de las primeras potencias de 2.
+
+$$2^{0}=1,\ 2^{1}=2,\ 2^{2}=4,\ 2^{3}=8,\ 2^{4}=16 $$
+
+Tu reto es completar la función potencia_de_dos. Esta función recibe el exponente (el número pequeño al lado del 2) y regresa el resultado de 2 elevado a esa potencia. El detalle es que no puedes usar ningún operador o función que compute exponentes (como ** o np.power), sino que tienes que realizar el cálculo utilizando 1 bloque if y 1 for loop. Completa el código debajo.
+
+```{python, eval=FALSE}
+def potencia_de_dos(exponente):
+    
+    resultado = 2
+    
+    ## Tu código va aquí
+        
+    return resultado
+```
+
+Trabajando sobre el ejercicio tenemos lo siguiente:
+```{python}
+# expon=int(input(("Introduce el numero exponente al que quieres que se eleve el numero 2: ")))
+expon=8
+def potencia_de_dos(expon):
+    
+    resultado = 2
+    
+    if expon==0:
+      return 1
+    
+    for i in range(0,expon-1):
+      resultado=resultado*2
+        
+    return resultado
+    
+potencia_de_dos(5)
+```
+
+# EJEMPLO 3. PREOTECCION DEL PROGRAMA CON $TRY EXCEPT$
+
+Cuando automatizamos cosas, no queremos tener que estar revisando todo el proceso continuamente. Si tuviéramos que hacer eso, el proceso no estaría muy automatizado que digamos. Durante la ejecución de nuestro programa pueden suceder errores que hagan que nuestro programa deje de correr.
+
+Para evitar que estos errores detengan nuestro programa, podemos usar estructuras try except para indicarle a Python qué hacer cuando un error suceda:
+
+## OBJETIVOS
+
+- Aprender a usar try except para evitrar que las excepciones detengan nuestros programas
+
+## DESARROLLO
+
+Durante el proceso de un programa pueden suceder diferentes tipos de errores, que llamamos Excepciones. Una Excepción puede suceder en alguno de estos casos, por ejemplo:
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/errores.png)
+
+Cuando automatizamos programas, tenemos que evitar que Excepciones ocurran, pues detendrían nuestro programa y arruinarían nuestra automatización. Podemos usar estructuras try except para evitar que esto suceda:
+
+```{python}
+lista_2 = [1, 2, 3, 4, 5]
+
+try:
+    print(lista_2[10])
+except:
+    print("Ese numero esta fuera de rango")
+    print("Mejor leamos este número")
+    print(lista_2[2])
+```
+
+```{python}
+dict_2 = {
+    'a': 1,
+    'b': 2,
+    'c': 3,
+    'd': 4
+}
+
+try:
+    print(dict_2['z'])
+except:
+    print("Esa llave no existe")
+    print("Mejor leamos esta llave")
+    print(dict_2['b'])
+```
+
+```{python}
+
+try:
+    print(int("Holi"))
+except:
+    print("Ese no es un número")
+    print("Mejor vamos a imprimirlo convirtiéndolo en una lista")
+    print(list("Holi"))
+```
+
+# RETO 3. EVITANDO ERRORES CON TRY EXCEPT
+
+## OBJETIVOS 
+
+- Usar una estructura try except para evitar que una funcion lance el error:
+
+## DESARROLLO
+
+### EVITANDO ERRORES AL HACER CONVERSIÓN DE TIPOS DE DATOS
+
+La conversión de tipos de dato (data casting) es una de las labores más importantes de un procesador de datos. A veces tenemos datos que deberían de tener un tipo de dato pero que tienen otro. Vamos a imaginar que tenemos un sistema donde recibimos input de un usuario. Este input son números que están representados como strings, como por ejemplo:
+
+* "1.5"
+* "4"
+* "100.23"
+* "134.99"
+
+Nosotros queremos guardar esos datos como float, no como string y por lo tanto vamos a crear una función que convierta una lista de strings en una lista de float. El problema es que a veces, el usuario envía inputs que no son números representados como strings, sino otro tipo de caracteres, como:
+
+* "a"
+* "fgwe"
+* "4r5t"
+* "#!"
+
+Esos caracteres no los podemos convertir en float y por lo tanto vamos a sustituirlos por un NaN de numpy (np.nan). Tu reto es el siguiente:
+
+1. Completa la función debajo que recibe una lista de strings y regresa una lista de floats.
+2. Usa un for loop para iterar por la lista de strings y convertir uno por uno los valores a float (puedes leer cómo hacer eso aquí y aquí)
+3. Los resultados exitosos de la conversión guárdalos en una la lista lista_de_floats que es lo que regresa la función.
+4. Agrega una estructura try except para evitar errores cuando la conversión no sea posible y para agregar un np.nan a lista_de_floats en caso de que la conversión haya fallado.
+
+```{python retoorig3s6,comment=FALSE,eval=FALSE}
+def lista_de_strings_a_lista_de_floats(lista_de_strings):
+    
+    lista_de_floats = []
+    
+    ## Tú código va aquí
+    ## ...
+    ## ...
+        
+    return lista_de_floats
+```
+
+Trabajando en la resolución del reto tenemos lo siguiente:
+
+```{python}
+import numpy as np
+def lista_de_strings_a_lista_de_floats(lista_de_strings):
+    
+    lista_de_floats = []
+    
+    ## Tú código va aquí
+    ## ...
+    ## ...
+    for string in lista_de_strings:
+      try:
+        float_=float(string)
+        lista_de_floats.append(float_)
+      except:
+        lista_de_floats.append(np.nan)
+    
+    
+        
+    return lista_de_floats
+lista_de_strings_a_lista_de_floats(["a","b","5.51222"])
+```
+
+# EJEMPLO 4. CONCATENACIÓN DE SERIES
+
+Cuando obtenemos nuestros datos en "cachitos", como cuando hacemos peticiones a una API, necesitamos luego unir todos nuestros datos en un solo DataFrame. Para eso podemos usar la función pd.concat de pandas. Primero vamos a aprender los principios básicos usando Series, para luego poder aplicar esos mismos principios a los DataFrames.
+
+![IMG](C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/ej4.png)
+
+## OBJETIVOS
+
+- Usar pd.concat para concatenar Series
+
+## DESARROLLO
+
+Muchas veces vamos a tener Series o DataFrames que queremos unir en una sola estructura. Para eso podemos usar pd.concat. Concatenando Series, podemos hacer lo siguiente:
+
+```{python}
+import pandas as pd
+serie_1 = pd.Series([1, 2, 3], index=['a', 'b', 'c'])
+serie_2 = pd.Series([4, 5, 6], index=['d', 'f', 'e'])
+# CONCATENACION VERTICAL
+pd.concat([serie_1, serie_2], axis=0)
+
+
+```
+
+CONCATENACION HORIZONTAL
+También podemos concatenar horizontalmente:
+
+```{python}
+pd.concat([serie_1, serie_2], axis=1)
+
+```
+
+CONCATENACIÓN DE COLUMNAS
+
+Podemos nombrar nuestras columnas para saber cuál era cuál:
+
+```{python}
+pd.concat([serie_1, serie_2], axis=1, keys=['serie_1', 'serie_2'])
+
+```
+
+Esto pasa si concatenamos horizontalmente usando el mismo índice:
+
+```{python}
+serie_3 = pd.Series([7, 8, 9], index=['a', 'b', 'c'])
+
+pd.concat([serie_1, serie_3], axis=1, keys=['serie_1', 'serie_3'])
+```
+
+Si concatenamos verticalmente dos Series que comparten el índice, tenemos el problema de no poder diferenciar los índices:
+
+```{python}
+pd.concat([serie_1, serie_3], axis=0)
+
+```
+
+A veces queremos esto, pero cuando no, podemos agregar un segundo nivel de índice para hacer la diferencia:
+
+```{python}
+pd.concat([serie_1, serie_3], axis=0, keys=['serie_1', 'serie_3'])
+
+```
+
+Esto se llama un Multiíndice. Podemos acceder a un multiíndice en un solo nivel o en ambos:
+
+```{python}
+series_concat = pd.concat([serie_1, serie_3], axis=0, keys=['serie_1', 'serie_3'])
+series_concat.loc['serie_1']
+```
+
+```{python}
+series_concat.loc[('serie_1', 'b')]
+```
+
+# CONCATENACIÓN DE DATAFRAMES
+
+Los mismos principios de concatenación aplican tanto a Series como a DataFrames. Vamos a verlos en acción y realizar una práctica para que nos quede todo súper claro.
+
+# EJEMPLO 5. CONCATENACION DE DATAFRAMES
+
+## OBJETIVOS
+
+- Usar pd.concat para concatenar DataFrames
+
+# DESARROLLO
+
+Exactamente los mismo principios aplican a la concatenación de DataFrames:
+
+```{python}
+import pandas as pd
+
+data_1 = {
+    'column_1': [1, 2, 3],
+    'column_2': [4, 5, 6]
+}
+
+df_1 = pd.DataFrame(data_1, index=['a', 'b', 'c'])
+
+df_1
+
+
+
+
+
+data_2 = {
+    'column_1': [7, 8, 9],
+    'column_2': [10, 11, 12]
+}
+
+df_2 = pd.DataFrame(data_1, index=['d', 'e', 'f'])
+
+df_2
+```
+
+Podemos unirlos verticalmente:
+
+```{python}
+pd.concat([df_1, df_2], axis=0)
+
+```
+
+Horizontalmente:
+
+```{python}
+pd.concat([df_1, df_2], axis=1)
+
+```
+
+Si tienen el mismo índice, evitamos los NaNs:
+
+```{python}
+
+data_3 = {
+    'column_3': [7, 8, 9],
+    'column_4': [10, 11, 12]
+}
+
+df_3 = pd.DataFrame(data_3, index=['a', 'b', 'c'])
+
+df_3
+
+
+
+
+pd.concat([df_1, df_3], axis=1)
+
+```
+
+Si concatenamos verticalmente con el mismo índice, no podemos diferenciarlos:
+
+```{python}
+data_4 = {
+    'column_1': [7, 8, 9],
+    'column_2': [10, 11, 12]
+}
+
+df_4 = pd.DataFrame(data_4, index=['a', 'b', 'c'])
+
+df_4
+
+
+
+
+pd.concat([df_1, df_4], axis=0)
+
+```
+
+Podemos agregar multiíndices:
+
+```{python}
+
+df_concat = pd.concat([df_1, df_4], axis=0, keys=['df_1', 'df_4'])
+
+df_concat
+```
+
+Y podemos accesarlos de igual manera:
+
+```{python}
+df_concat.loc['df_1']
+
+
+
+df_concat.loc[('df_1', 'b')]
+
+
+```
+
+También podemos unir más de dos DataFrames agregándolos todos a la lista:
+
+```{python}
+pd.concat([df_1, df_2, df_3, df_4], axis=1)
+
+```
+
+# RETO 4. CONCATENACION DE SERIES Y DATAFRAMES
+
+## OBJETIVOS
+
+- Practicar la concatenacion de Series y DataFrames usando np.concat y pandas.DataFrame.append
+
+
+## DESARROLLO
+
+### SUMANDO VENTAS POR PRODUCTO Y POR MES
+
+
+Eres el analista financiero de EyePoker Inc. Tienes 12 listas con datos. Cada lista contiene la cantidad de unidades vendidas por producto en un mes determinado.
+
+Tienes también una lista con los nombres de los productos que ofrece la empresa.
+
+Tanto las listas de ventas como la lista de nombres están ordenadas igual. Eso quiere decir que cada índice de cada lista pertenece a datos del mismo producto (es decir, ventas_enero[3], ventas_febrero[3], ventas_marzo[3], ventas_abril[3], etc, todas pertenecen al producto en productos[3]).
+
+Tu reto es el siguiente:
+
+1. Convierte las listas es Series de pandas.
+2. Concatena horizontalmente las Series de ventas de manera que cada fila del DataFrame resultante corresponda al mismo producto.
+3. En alguno de los pasos anteriores, agrega los nombres de los productos como índice.
+4. Crea una nueva columna llamada total_por_producto que contenga la suma horizontal de las ventas mensuales de cada producto (es decir, un resumen de las ventas del año por producto).
+5. (Opcional) Agrega también una fila hasta el final que tenga como índice total_por_mes que contenga la suma vertical de las ventas de cada mes (la última celda va a ser la suma total de las ventas de todos los productos en todo el año).
+> Tip: Si quieres hacer el paso número 5, busca en Google el método pandas.DataFrame.append.
+
+```{python}
+import pandas as pd
+import numpy as np
+```
+
+```{python}
+import pandas as pd
+
+productos = ["Pokemaster", "Cegatron", "Pikame Mucho", "Lazarillo de Tormes", "Stevie Wonder", "Needle", "El AyMeDuele", "El Desretinador", "Sacamel Ojocles", "Desojado", "Maribel Buenas Noches", "Cíclope", "El Cuatro Ojos"]
+
+vene = [3, 5, 4, 45, 2, 32, 7, 89, 7, 6, 24, 51, 12]
+vfeb = [7, 9, 0, 76, 4, 34, 1, 2, 34, 67, 8, 9, 0]
+vmar = [1, 1, 3, 56, 7, 98, 2, 34, 1, 0, 23, 1, 12]
+vabr = [2, 34, 2, 1, 56, 78, 23, 3, 4, 23, 1, 78, 9]
+vmay = [1, 2, 32, 4, 32, 1, 45, 67, 87, 8, 9, 45, 2]
+vjun = [1, 2, 32, 1, 45, 78, 8, 90, 0, 98, 7, 46, 15]
+vjul = [15, 62, 37, 85, 5, 8, 9, 0, 75, 36, 52, 15, 12]
+vago = [1, 2, 32, 4, 35, 6, 78, 43, 45, 12, 34, 67, 89]
+vsep = [9, 87, 7, 6, 56, 7, 0, 34, 23, 1, 2, 51, 35]
+voct = [16, 62, 75, 58, 97, 6, 9, 0, 98, 78, 2, 3, 4]
+vnov = [1, 3, 2, 1, 4, 5, 2, 4, 7, 8, 4, 3, 5]
+vdic = [7, 9, 0, 6, 3, 7, 3, 85, 9, 7, 8, 0, 9]
+
+```
+
+RESOLVIENDO RETO COMPLETO
+
+```{python}
+def concatenar_listas_horizontalmente(lista_de_listas,indice):
+    meses=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
+    lista_de_series=[]
+    for i in range(len(lista_de_listas)):
+        lista_de_series.append(pd.Series(lista_de_listas[i],index=indice,name=meses[i]))
+        
+    dataframe=pd.concat(lista_de_series,axis=1)
+    return dataframe
+    
+  #PUNTO 1. UNIR LOS DATAFRAMES  
+ventas_dataframe=concatenar_listas_horizontalmente([vene,vfeb,vmar,vabr,vmay,vjun,vjul,vago,vsep,voct,vnov,vdic], productos)
+
+ventas_dataframe
+```
+
+Agregando columna de total de ventaas porproducto durante el año y fila de total de ventas por mes tenemos el siguiente código:
+
+```{python}
+ventas_dataframe['Total ventas por producto'] = ventas_dataframe.sum(axis=1)
+total_por_mes = ventas_dataframe.sum(axis=0)
+total_por_mes.name = 'Total por mes'
+ventas_dataframe = ventas_dataframe.append(total_por_mes)
+ventas_dataframe
+```
+
+# UNIENDO TODO EJEMPLO 6 Y RETO FINAL 5
+
+# ACTUALIZANDO PETICIONES
+
+## OBJETIVOS
+
+- Usar todo lo que aprendimos para automatizar peticiones al API
+-* Guardar nuestros resultados en un archivo CSV
+
+## DESARROLLO
+
+Veamos cómo usar todo lo que aprendimos para automatizar el proceso de realizar múltiples peticiones a la API, reunirlas en un DataFrame y guardarlo en un .csv:
+
+```{python}
+import pandas as pd
+import requests
+import time
+```
+
+```{python}
+endpoint = 'https://api.nasa.gov/neo/rest/v1/neo/browse/'
+payload = {'api_key': 'awVSXRU0UbA4arWSHOwbedKpqut6ZdR2pEzkb21u'}
+```
+
+```{python}
+dict_datos = {}
+
+for i in range(0, 10):
+    
+    try:
+        time.sleep(5)
+        r = requests.get(endpoint, params=payload, timeout=5)
+
+        if r.status_code == 200:
+            json = r.json()
+
+            data = json['near_earth_objects']
+            dict_datos[i] = data
+
+            new_link = json['links']['next']
+            endpoint = new_link
+    except:
+        continue
+```
+
+```{python}
+for key in dict_datos:
+    normalized = pd.json_normalize(dict_datos[key])
+    df = pd.DataFrame.from_dict(normalized)
+    dict_datos[key] = df
+```
+
+```{python}
+lista_de_dataframes = []
+
+for key in dict_datos:
+    lista_de_dataframes.append(dict_datos[key])
+```
+
+```{python}
+df_completo = pd.concat(lista_de_dataframes, axis=0).reset_index(drop=True)
+df_completo
+df_completo.to_csv('C:/Users/Victor Miguel Terron/Documents/PHASE2/DATA-SCIENCE-2PHASE/DATA PROCESSING AND ANALYSIS PYTHON/SESION 6/near_earth_objects-raw.csv')
+```
+
+¡Listo! Ya tenemos nuestro dataset para procesar en la siguiente sesión. En este último reto vas a implementar tú mismo este proceso, con la única diferencia de que vas a pedir de la página 10 a la 110. ¡Mucha suerte!
+
+# RETO FINAL.
+
+## OBJETIVO
+
+- Unir todos los conocimientos adquiridos durante la sesión.
+
